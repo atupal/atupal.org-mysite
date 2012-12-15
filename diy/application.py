@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 import platform
 application = Flask(__name__)
+application.debug = True
  
 @application.route("/")
 def index():
