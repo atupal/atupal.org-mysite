@@ -53,7 +53,7 @@ import json
 from bson import json_util
 from bson import objectid
 import re
-@app.route("/ws/parks")
+@application.route("/ws/parks")
 def parks():
 	#setup the connection
 	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -67,7 +67,7 @@ def parks():
 
 
 #return a specific park given it's mongo _id
-@app.route("/ws/parks/park/<parkId>")
+@application.route("/ws/parks/park/<parkId>")
 def onePark(parkId):
 	#setup the connection
 	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -81,7 +81,7 @@ def onePark(parkId):
 
 
 #find parks near a lat and long passed in as query parameters (near?lat=45.5&lon=-82)
-@app.route("/ws/parks/near")
+@application.route("/ws/parks/near")
 def near():
 	#setup the connection
 	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -99,7 +99,7 @@ def near():
 
 
 #find parks with a certain name (use regex) near a lat long pair such as above
-@app.route("/ws/parks/name/near/<name>")
+@application.route("/ws/parks/name/near/<name>")
 def nameNear(name):
 	#setup the connection
 	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -119,6 +119,6 @@ def nameNear(name):
 	return str(json.dumps({'results' : list(result)},default=json_util.default))
 
 
-@app.route("/test")
+@application.route("/test")
 def test():
 	return "<strong>It actually worked</strong>"
