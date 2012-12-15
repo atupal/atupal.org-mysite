@@ -1,0 +1,350 @@
+<html lang="en">
+	<title>ACE in Action</title>
+	<head>
+		<style type="text/css" media="screen">
+			#editor { 
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			}
+		</style>
+	</head>
+	<body style="background:#000000">
+		<div id="optionsPanel" style="position:absolute;height:80%;color:#00ffff;">
+			<div style="position: absulute; overflow:hidden; top:80px; bottom:0">
+				<div style="width: 80%; height:100%; overflow-y: scroll" style="background:#000000">
+
+					<table id="controls" style="background:#000000">
+						<tr style="color:#ffff00">
+							<td>
+								<label for="doc">Document</label>
+								</td><td>
+								<select id="doc" onchange="doc_select(this.options[this.options.selectedIndex].value)" size="1">
+									<optgroup label="Huge documents">
+										<option value="src/ace.js">src/ace.js</option>
+										<option value="src-min/ace.js">src-min/ace.js</option>
+									</optgroup>
+									<optgroup label="own source">
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								<label for="mode">Mode</label>
+								</td><td>
+								<select id="mode" onchange="mode_select(this.options[this.options.selectedIndex].value)" size="1">
+									<option value="asciidoc">AsciiDoc</option>
+									<option value="c9search">C9Search</option>
+									<option value="coffee">CoffeeScript</option>
+									<option value="coldfusion">ColdFusion</option>
+									<option value="csharp">C#</option>
+									<option value="css">CSS</option>
+									<option value="diff">Diff</option>
+									<option value="glsl">Glsl</option>
+									<option value="golang">Go</option>
+									<option value="groovy">Groovy</option>
+									<option value="haxe">haXe</option>
+									<option value="html">HTML</option>
+									<option value="c_cpp">C/C++</option>
+									<option value="clojure">Clojure</option>
+									<option value="jade">Jade</option>
+									<option value="java">Java</option>
+									<option value="jsp">JSP</option>
+									<option value="javascript">JavaScript</option>
+									<option value="json">JSON</option>
+									<option value="jsx">JSX</option>
+									<option value="latex">LaTeX</option>
+									<option value="less">LESS</option>
+									<option value="liquid">Liquid</option>
+									<option value="lua">Lua</option>
+									<option value="luapage">LuaPage</option>
+									<option value="markdown">Markdown</option>
+									<option value="ocaml">OCaml</option>
+									<option value="perl">Perl</option>
+									<option value="pgsql">pgSQL</option>
+									<option value="php">PHP</option>
+									<option value="powershell">Powershell</option>
+									<option value="python">Python</option>
+									<option value="ruby">Ruby</option>
+									<option value="scad">OpenSCAD</option>
+									<option value="scala">Scala</option>
+									<option value="scss">SCSS</option>
+									<option value="sh">SH</option>
+									<option value="sql">SQL</option>
+									<option value="svg">SVG</option>
+									<option value="tcl">Tcl</option>
+									<option value="text">Text</option>
+									<option value="textile">Textile</option>
+									<option value="typescript">Typescript</option>
+									<option value="xml">XML</option>
+									<option value="xquery">XQuery</option>
+									<option value="yaml">YAML</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="split">Split</label>
+								</td><td>
+								<select id="split" size="1" onchange="split_select(this.options[this,options.selectedIndex].value)">
+									<option value="none">None</option>
+									<option value="below">Below</option>
+									<option value="beside">Beside</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								<label for="theme">Theme</label>
+								</td><td>
+								<select id="theme" size="1" onchange="theme_select(this.options[this.options.selectedIndex].value)">
+									<optgroup label="Bright">
+										<option value="ace/theme/chrome">Chrome</option>
+										<option value="ace/theme/clouds">Clouds</option>
+										<option value="ace/theme/crimson_editor">Crimson Editor</option>
+										<option value="ace/theme/dawn">Dawn</option>
+										<option value="ace/theme/dreamweaver">Dreamweaver</option>
+										<option value="ace/theme/eclipse">Eclipse</option>
+										<option value="ace/theme/github">GitHub</option>
+										<option value="ace/theme/solarized_light">Solarized Light</option>
+										<option value="ace/theme/textmate" selected="selected">TextMate</option>
+										<option value="ace/theme/tomorrow">Tomorrow</option>
+										<option value="ace/theme/xcode">XCode</option>
+									</optgroup>
+									<optgroup label="Dark">
+										<option value="ace/theme/ambiance">Ambiance</option>
+										<option value="ace/theme/clouds_midnight">Clouds Midnight</option>
+										<option value="ace/theme/cobalt">Cobalt</option>
+										<option value="ace/theme/idle_fingers">idleFingers</option>
+										<option value="ace/theme/kr_theme">krTheme</option>
+										<option value="ace/theme/merbivore">Merbivore</option>
+										<option value="ace/theme/merbivore_soft">Merbivore Soft</option>
+										<option value="ace/theme/mono_industrial">Mono Industrial</option>
+										<option value="ace/theme/monokai">Monokai</option>
+										<option value="ace/theme/pastel_on_dark">Pastel on dark</option>
+										<option value="ace/theme/solarized_dark">Solarized Dark</option>
+										<option value="ace/theme/twilight">Twilight</option>
+										<option value="ace/theme/tomorrow_night">Tomorrow Night</option>
+										<option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
+										<option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
+										<option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
+										<option value="ace/theme/vibrant_ink">Vibrant Ink</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="fontsize">Font Size</label>
+								</td><td>
+								<select id="fontsize" size="1" onchange="fontsize_select(this.options[this.options.selectedIndex].value)">
+									<option value="10px">10px</option>
+									<option value="11px">11px</option>
+									<option value="12px" selected="selected">12px</option>
+									<option value="14px">14px</option>
+									<option value="16px">16px</option>
+									<option value="20px">20px</option>
+									<option value="24px">24px</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="folding">Code Folding</label>
+								</td><td>
+								<select id="folding" size="1">
+									<option value="manual">manual</option>
+									<option value="markbegin" selected="selected">mark begin</option>
+									<option value="markbeginend">mark begin and end</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								<label for="keybinding">Key Binding</label>
+								</td><td>
+								<select id="keybinding" size="1" onchange="keybinding_select(this.options[this.options.selectedIndex].value)">
+									<option value="ace">Ace</option>
+									<option value="vim">Vim</option>
+									<option value="emacs">Emacs</option>
+									<option value="custom">Custom</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >
+								<label for="soft_wrap">Soft Wrap</label>
+								</td><td>
+								<select id="soft_wrap" size="1">
+									<option value="off">Off</option>
+									<option value="40">40 Chars</option>
+									<option value="80">80 Chars</option>
+									<option value="free">Free</option>
+								</select>
+							</td>
+						</tr>
+
+						<tr>
+							<!--
+							<td colspan="2">
+								<table id="more-controls">
+									<tr>
+										<td>
+											<label for="select_style">Full Line Selection</label>
+											</td><td>
+											<input type="checkbox" name="select_style" id="select_style" checked>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="highlight_active">Highlight Active Line</label>
+											</td><td>
+											<input type="checkbox" name="highlight_active" id="highlight_active" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="show_hidden">Show Invisibles</label>
+											</td><td>
+											<input type="checkbox" name="show_hidden" id="show_hidden" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="display_indent_guides">Show Indent Guides</label>
+											</td><td>
+											<input type="checkbox" name="display_indent_guides" id="display_indent_guides" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="show_hscroll">Persistent HScroll</label>
+											</td><td>
+											<input type="checkbox" name="show_hscroll" id="show_hscroll">
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="animate_scroll">Animate scrolling</label>
+											</td><td>
+											<input type="checkbox" name="animate_scroll" id="animate_scroll">
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="show_gutter">Show Gutter</label>
+											</td><td>
+											<input type="checkbox" id="show_gutter" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="show_print_margin">Show Print Margin</label>
+											</td><td>
+											<input type="checkbox" id="show_print_margin" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="soft_tab">Use Soft Tab</label>
+											</td><td>
+											<input type="checkbox" id="soft_tab" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="highlight_selected_word">Highlight selected word</label>
+										</td>
+										<td>
+											<input type="checkbox" id="highlight_selected_word" checked>
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="enable_behaviours">Enable Behaviours</label>
+										</td>
+										<td>
+											<input type="checkbox" id="enable_behaviours">
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="fade_fold_widgets">Fade Fold Widgets</label>
+										</td>
+										<td>
+											<input type="checkbox" id="fade_fold_widgets">
+										</td>
+									</tr>
+									<tr>
+										<td >
+											<label for="highlight_token">Show token info</label>
+										</td>
+										<td>
+											<input type="checkbox" id="highlight_token">
+										</td>
+									</tr>
+								</table>
+						</td>--></tr>
+						<tr>
+							<td>
+								<button onclick="getDocumentString()">编译</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button>保存</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div id="editor" style="height:100%;left:20%">#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+
+	return 0;
+}</div>
+
+		<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var editor = ace.edit("editor");
+			editor.setTheme("ace/theme/monokai");
+			editor.getSession().setMode("ace/mode/c_cpp");
+		</script>
+		<script type="text/javascript">
+		function getDocumentString() {
+			alert(editor.getSession().getValue());
+		}
+		function doc_select(select_value) {
+			alert(select_value);
+		}
+		function mode_select(select_value) {
+			var editor = ace.edit("editor");
+			editor.getSession().setMode("ace/mode/" + select_value);
+		}
+		function split_select(select_value) {
+			alert(select_value);
+		}
+		function theme_select(select_value) {
+			var editor = ace.edit("editor");
+			editor.setTheme(select_value);
+		}
+		function fontsize_select(select_value) {
+			var editor = ace.edit("editor");
+			editor.setFontSize(select_value);
+		}
+		function keybinding_select(select_value) {
+			var editor = ace.edit("editor");
+			editor.setKeyboardHandler(select_value);
+		}
+	</script>
+</body>
+</html>

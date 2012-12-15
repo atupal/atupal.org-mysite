@@ -48,8 +48,9 @@ def log_the_user_in(username):
 	pass
 
 @application.route('/editCode')
-def editCode():
-	return render_template('editCode.html')
+@application.route('/editCode/<name>')
+def editCode(name = None):
+	return render_template('editCode.html', name = name)
 
 import os
 import pymongo
