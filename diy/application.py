@@ -12,4 +12,4 @@ def info():
 
 @application.route('/ts')
 def ts():
-	return 'just for s test'
+	return 'just for s testi nimei'
