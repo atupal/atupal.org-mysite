@@ -5,7 +5,7 @@ application = Flask(__name__)
  
 @application.route("/")
 def index():
-	    return 'Hello from Flask'
+	    return 'Hello from Flask !'
  
 @application.route("/info")
 def info():
