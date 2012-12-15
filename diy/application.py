@@ -11,9 +11,10 @@ def index():
 def info():
 	    return platform.python_version()
 
+import random
 @application.route('/ts')
 def ts():
-	return 'just for s test!'
+	return 'just for s test!' + str(random.random())
 
 @application.route('/hello')
 @application.route('/hello/<name>')
