@@ -11,6 +11,10 @@ def index():
 def info():
 	    return platform.python_version()
 
+@app.route('ts')
+def ts():
+	return 'just for s test'
+
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name = None):
