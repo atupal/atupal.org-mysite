@@ -20,6 +20,10 @@ def ts():
 def hello(name = None):
 	return render_template('hello.html', name = name)
 
+@application.route('/login')
+def lo():
+	return render_template('login.html')
+
 @application.route('/login', methods=['POST', 'GET'])
 def login():
 	error = None
