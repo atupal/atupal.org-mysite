@@ -62,7 +62,7 @@ def game(name = None):
 def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
-@application.route('/editCode', methods=['POST', 'GET'])
+@application.route('/action', methods=['POST', 'GET'])
 def nimei():
 	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	db = conn[os.environ['OPENSHIFT_APP_NAME']]

@@ -327,7 +327,7 @@ int main()
 			var codestr = editor.getSession().getValue();
 			alert(codestr);
 			var id = Math.random();
-			action = 'editCode';
+			action = 'action';
 			document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
 			document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			document.write('</form>'); 
@@ -356,6 +356,6 @@ int main()
 			editor.setKeyboardHandler(select_value);
 		}
 	</script>
-	<iframe id = 'codestr' name='codestr'></iframe>
+	<iframe id = 'codestr' name='codestr' style="left:0px;top:500px;position:absolute;"></iframe>
 </body>
 </html>
