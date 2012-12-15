@@ -28,9 +28,9 @@ def lo(name = None):
 
 @application.route('/login', methods=['POST', 'GET'])
 def login():
-	return 'niimei'
 	error = None
 	if request.method == 'POST':
+		return 'niimei'
 		if valid_login(request.form['username'], request.form['password']):
 			return log_the_user_in(request.form['username'])
 		else :
