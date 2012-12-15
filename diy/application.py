@@ -46,7 +46,7 @@ def valid_login(username, password):
 		return 1
 
 def log_the_user_in(username):
-	pass
+	return 'welcome' + username
 
 @application.route('/editCode')
 @application.route('/editCode/<name>')
