@@ -64,8 +64,9 @@ def chidouren():
 
 @application.route('/editCode', methods=['POST', 'GET'])
 def nimei():
-	os.popen('touch nimei.cpp')
-	os.popen("tee tmp.cpp <<< " + request.form['codestr'])
+	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
+	db = conn[os.environ['OPENSHIFT_APP_NAME']]
+	db.editCode.insert({"tmp": request.form['codestr']})
 	return request.form['codestr']
 
 import os
