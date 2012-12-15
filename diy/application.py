@@ -20,7 +20,7 @@ def ts():
 def hello(name = None):
 	return render_template('hello.html', name = name)
 
-@application.route('/login')
+@application.route('/lo')
 def lo():
 	return render_template('login.html')
 
