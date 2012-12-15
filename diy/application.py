@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+#from flask import render_template
 import platform
 application = Flask(__name__)
  
@@ -15,7 +15,7 @@ def info():
 def ts():
 	return 'just for s testi nimei'
 
-@application.route('/hello')
-@applicatoin.route('/hello/<name>')
-def hello(name = None):
-	return render_template('hello.html', name = name)
+#@application.route('/hello')
+#@applicatoin.route('/hello/<name>')
+#def hello(name = None):
+#	return render_template('hello.html', name = name)
