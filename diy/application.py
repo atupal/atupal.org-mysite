@@ -64,7 +64,7 @@ def chidouren():
 
 @application.route('/nimei', methods=['POST', 'GET'])
 def nimei():
-	return render_template('nimei.html')
+	return rrequest.form['codestr']
 
 import os
 import pymongo
