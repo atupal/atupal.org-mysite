@@ -21,8 +21,9 @@ def hello(name = None):
 	return render_template('hello.html', name = name)
 
 @application.route('/lo')
-def lo():
-	return render_template('login.html')
+@application.route('/lo/<name>')
+def lo(name = None):
+	return render_template('login.html', name = name)
 
 @application.route('/login', methods=['POST', 'GET'])
 def login():
