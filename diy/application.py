@@ -47,6 +47,10 @@ def valid_login(username, password):
 def log_the_user_in(username):
 	pass
 
+@application.route('/editCode')
+def editCode():
+	return render_template('editCode.html')
+
 import os
 import pymongo
 import json
