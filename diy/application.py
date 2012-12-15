@@ -11,7 +11,7 @@ def index():
 def info():
 	    return platform.python_version()
 
-@application.route('ts')
+@application.route('/ts')
 def ts():
 	return 'just for s test'
 
