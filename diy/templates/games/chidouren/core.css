@@ -1,0 +1,71 @@
+html,body {
+     overflow:hidden;}
+body {
+	background:#000;
+	margin:auto;
+	width:894px;
+	height:550px;
+	font-family:"Arial";
+	font-weight:bold;
+    color:#fff;}
+#maze {
+	position:relative;
+	width:486px;
+	height:540px;
+	margin:0;
+	float:left;
+	border: #03f solid 4px;}
+#leftpanel,#rightpanel {
+	width:200px;
+	height:100px;
+	float:left; }
+.lives {
+	width:30px;
+	height:30px;
+	float:left;
+	margin: 8px 2px;
+	background: url(img/pm.gif) -120px 0;}	
+ul {list-style-type:none;
+	padding:0;
+	margin:0;}
+li { margin: 2px 0 5px 50px;
+     font-size:1em;}
+#rightpanel { float:right;}	
+.w {position:absolute;
+	background: #03f; }
+#pacman,#clyde,#blinky,#inky,#pinky {
+	position:absolute;
+	top:399px;
+	left:228px;
+	width:30px;
+	height:30px;
+	background: url(img/pm.gif) -90px 0;
+	z-index:1;}
+#clyde { background: url(img/clyde.gif) -90px 0;}	
+#blinky { background: url(img/blinky.gif) -90px 0;}	
+#inky { background: url(img/inky.gif) -90px 0;}	
+#pinky { background: url(img/pinky.gif) -90px 0;}	
+.small-dot {
+	position:absolute;
+	width:4px;
+	height:4px;
+	background: white;
+	z-index:0;
+	display:block;}
+.big-dot {
+	position:absolute;
+	width:16px;
+	height:16px;
+	background: url(img/bdot.gif);
+	display:block;
+	z-index:0;}
+#infobox {
+	position:absolute;
+    width:198px;	
+	height:90px;
+	left:144px;
+	top:198px;
+    text-align:center;
+	font-size:4em;
+	z-index:2;
+}	

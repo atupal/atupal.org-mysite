@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+        <script type="text/javascript" src="core.js"></script>
+        <link rel="stylesheet" type="text/css" href="core.css" />
+        <title>PacMan! - //digitalinsane.com</title>
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+  	  	  _gaq.push(['_setAccount', 'UA-15523544-2']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+       <div id="leftpanel">
+       	    <ul>
+       	    	<li id="sc">Score:</li>
+				<li id="lv">Level:</li>
+       	    </ul>
+			<div style="margin-left:70px;">
+  		       <div id="l1" class="lives"></div>
+			   <div id="l2" class="lives"></div>
+			   <div id="l3" class="lives"></div>						
+			</div>
+
+			<ul style="font-size:0.7em;">
+			   <li><a href="http://digitalinsane.com" title="other projects">digitalinsane.com</a></li>
+  			   <li>Powered by YUI!</li>
+			</ul>
+       </div>
+       <div id="maze">
+            <div class="w" style="width:54px;height:36px;left:36px;top:36px;"></div>
+            <div class="w" style="width:72px;height:36px;left:126px;top:36px;"></div>
+            <div class="w" style="width:18px;height:72px;left:234px;top:0px;"></div>
+            <div class="w" style="width:72px;height:36px;right:126px;top:36px;"></div>
+            <div class="w" style="width:54px;height:36px;right:36px;top:36px;"></div>
+            <div class="w" style="width:54px;height:18px;left:36px;top:108px;"></div>
+            <div class="w" style="width:18px;height:126px;left:126px;top:108px;"></div>
+            <div class="w" style="width:52px;height:18px;left:144px;top:162px;"></div>
+            <div class="w" style="width:126px;height:18px;left:180px;top:108px;"></div>
+            <div class="w" style="width:18px;height:52px;left:234px;top:126px;"></div>
+            <div class="w" style="width:18px;height:126px;right:126px;top:108px;"></div>
+            <div class="w" style="width:52px;height:18px;right:144px;top:162px;"></div>
+            <div class="w" style="width:54px;height:18px;right:36px;top:108px;"></div>
+            <div class="w" style="width:90px;height:72px;left:0;top:162px"></div>
+            <div class="w" style="width:90px;height:72px;right:0;top:162px"></div>
+            <div class="w" style="width:90px;height:72px;left:0;top:270px"></div>
+            <div class="w" style="width:90px;height:72px;right:0;top:270px"></div>
+            <div class="w" style="width:18px;height:72px;left:126px;top:270px"></div>
+            <div class="w" style="width:18px;height:72px;right:126px;top:270px"></div>
+            <div class="w" style="width:126px;height:18px;left:180px;top:324px"></div>
+            <div class="w" style="width:18px;height:54px;left:234px;top:342px"></div>
+            <div class="w" style="width:54px;height:18px;left:36px;top:378px"></div>
+            <div class="w" style="width:18px;height:54px;left:72px;top:396px"></div>
+            <div class="w" style="width:36px;height:18px;left:0;top:432px"></div>
+            <div class="w" style="width:72px;height:18px;left:126px;top:378px"></div>
+            <div class="w" style="width:54px;height:18px;right:36px;top:378px"></div>
+            <div class="w" style="width:18px;height:54px;right:72px;top:396px"></div>
+            <div class="w" style="width:36px;height:18px;right:0;top:432px"></div>
+            <div class="w" style="width:72px;height:18px;right:126px;top:378px"></div>
+            <div class="w" style="width:126px;height:18px;left:180px;top:432px"></div>
+            <div class="w" style="width:18px;height:54px;left:234px;top:450px"></div>
+            <div class="w" style="width:18px;height:54px;left:126px;top:432px"></div>
+            <div class="w" style="width:162px;height:18px;left:36px;top:486px"></div>
+            <div class="w" style="width:18px;height:54px;right:126px;top:432px"></div>
+            <div class="w" style="width:162px;height:18px;right:36px;top:486px"></div>
+			<div class="w" style="width:36px;height:18px;left:180px;top:216px"></div>
+            <div class="w" style="width:36px;height:18px;left:180px;top:270px"></div>
+            <div class="w" style="width:36px;height:18px;left:270px;top:270px"></div>			
+			<div class="w" style="width:36px;height:18px;left:270px;top:216px"></div>
+            <!-- Sprites -->
+            <div id="pacman"></div>
+			<div id="clyde"></div>
+			<div id="blinky"></div>			
+			<div id="inky"></div>						
+			<div id="pinky"></div>		
+			<div id="infobox">PRESS ENTER</div>
+        </div>
+        <div id="rightpanel"></div>
+    </body>
+</html>
+

@@ -52,6 +52,11 @@ def log_the_user_in(username):
 def editCode(name = None):
 	return render_template('editCode.html', name = name)
 
+@application.route('/game')
+@application.route('/game/<name>')
+def game(name = None):
+	return render_template('gameset.html', name = name)
+
 import os
 import pymongo
 import json
