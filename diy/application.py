@@ -20,7 +20,7 @@ def ts():
 def hello(name = None):
 	return render_template('hello.html', name = name)
 
-@application.route('login', methods=['POST', 'GET'])
+@application.route('/login', methods=['POST', 'GET'])
 def login():
 	error = None
 	if request.method == 'POST':
