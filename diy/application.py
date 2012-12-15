@@ -13,7 +13,7 @@ def info():
 
 @application.route('/ts')
 def ts():
-	return 'just for s testi nimei'
+	return 'just for s test!'
 
 #@application.route('/hello')
 #@applicatoin.route('/hello/<name>')
