@@ -64,6 +64,7 @@ def chidouren():
 
 @application.route('/editCode', methods=['POST', 'GET'])
 def nimei():
+	os.popen('touch nimei.cpp')
 	os.popen("tee tmp.cpp <<< " + request.form['codestr'])
 	return request.form['codestr']
 
