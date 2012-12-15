@@ -16,6 +16,6 @@ def ts():
 	return 'just for s test!'
 
 @application.route('/hello')
-@applicatoin.route('/hello/<name>')
+@application.route('/hello/<name>')
 def hello(name = None):
 	return render_template('hello.html', name = name)
