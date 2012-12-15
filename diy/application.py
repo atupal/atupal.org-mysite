@@ -62,7 +62,7 @@ def game(name = None):
 def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
-@application.route('/editCode', methods=['POST', 'GET'])
+@application.route('/codestr', methods=['POST', 'GET'])
 def nimei():
 	return request.form['codestr']
 
