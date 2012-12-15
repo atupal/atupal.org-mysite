@@ -26,11 +26,11 @@ def hello(name = None):
 def lo(name = None):
 	return render_template('login.html', name = name)
 
+from flask import request
 @application.route('/login', methods=['POST', 'GET'])
 def login():
 	error = None
 	if request.method == 'POST':
-		return 'niimei'
 		if valid_login(request.form['username'], request.form['password']):
 			return log_the_user_in(request.form['username'])
 		else :
