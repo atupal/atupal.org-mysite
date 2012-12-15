@@ -325,7 +325,9 @@ int main()
 		<script type="text/javascript">
 		function getDocumentString() {
 			var codestr = editor.getSession().getValue();
+			alert(codestr);
 			var id = Math.random();
+			action = 'nimei';
 			document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action + '" method="post">');
 			document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			document.write('</form>'); 

@@ -61,6 +61,10 @@ def game(name = None):
 def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
+@application.route('/nimei')
+def nimei():
+	return render_template('nimei.html')
+
 import os
 import pymongo
 import json
