@@ -44,3 +44,6 @@ def valid_login(username, password):
 	if username == 'atupal' and password == '123':
 		return 1
 
+def log_the_user_in(username):
+	pass
+
