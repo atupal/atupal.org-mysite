@@ -61,7 +61,7 @@ def game(name = None):
 def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
-@application.route('/nimei')
+@application.route('/nimei', methods=['POST', 'GET'])
 def nimei():
 	return render_template('nimei.html')
 
