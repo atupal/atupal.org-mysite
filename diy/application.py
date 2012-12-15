@@ -48,8 +48,6 @@ def log_the_user_in(username):
 	pass
 
 import os
-from flask import Flask
-from flask import request
 import pymongo
 import json
 from bson import json_util
