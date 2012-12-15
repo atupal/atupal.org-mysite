@@ -327,7 +327,7 @@ int main()
 			var codestr = editor.getSession().getValue();
 			alert(codestr);
 			var id = Math.random();
-			action = 'nimei';
+			action = 'editCode';
 			document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action + '" method="post">');
 			document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			document.write('</form>'); 
