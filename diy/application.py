@@ -57,6 +57,10 @@ def editCode(name = None):
 def game(name = None):
 	return render_template('gameset.html', name = name)
 
+@application.route('/games/chidouren/chidouren.html')
+def chidouren():
+	return render_template('games/chidouren/chidouren.html')
+
 import os
 import pymongo
 import json
