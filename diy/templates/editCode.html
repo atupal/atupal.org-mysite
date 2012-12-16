@@ -298,7 +298,7 @@
 						</tr>
 						<tr>
 							<td>
-								<button>保存</button>
+								<button onclick="saveCode()">保存</button>
 							</td>
 						</tr>
 					</table>
@@ -332,9 +332,15 @@ int main()
 			//document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			//document.write('</form>'); 
 			//document.getElementById('post' + id).submit();
-			document.getElementById('input').value = document.getElementById("inputtext").innerHTML.toString()
+			var input = document.getElementById('inputtext').value;
+			alert(input)
+			document.getElementById('input').value ='nmei';
 			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
+			return;
+		}
+		function saveCode() {
+			document.getElementById('inputtext').innerHTML = document.getElementById('bianyi').value;
 		}
 		function doc_select(select_value) {
 			alert(select_value);
@@ -359,13 +365,9 @@ int main()
 			editor.setKeyboardHandler(select_value);
 		}
 	</script>
-	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:3;backgound:#ffffff;">
-		<body>
-			<div>
-				<textarea rows="10" cols="30" id='inputtext'>please input the data</textarea>
-			</div>
-		</body>
+	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:5;"width='0%' height='0%' scrolling='auto'>
 	</iframe>
+	<textarea id='inputtext' style="left:0px;top:82%;position:absolute;z-index:3;width:20%;height:18%;resize:no;" scrolling='auto'></textarea>
 	<form action='action' target='bianyi' id='form' name='form' method='post'>
 		<input type='hidden' id='codestr' name='codestr' value=""/>
 		<input type='hidden' id='input' name='input' value=""/>
