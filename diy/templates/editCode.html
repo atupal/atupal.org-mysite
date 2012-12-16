@@ -334,13 +334,15 @@ int main()
 			//document.getElementById('post' + id).submit();
 			var input = document.getElementById('inputtext').value;
 			alert(input)
-			document.getElementById('input').value ='nmei';
+			document.getElementById('input').value = document.getElementById('inputtext').innerHTML;
 			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
 			return;
 		}
 		function saveCode() {
-			document.getElementById('inputtext').innerHTML = document.getElementById('bianyi').value;
+			var h = document.getElementById('bianyi').toString();
+			alert(h);
+			document.getElementById('inputtext').innerHTML = h.toString();
 		}
 		function doc_select(select_value) {
 			alert(select_value);
