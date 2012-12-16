@@ -70,7 +70,6 @@ def nimei():
 	#db.editCode.insert({"tmp": request.form['codestr']})
 	cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>>ni.cpp'
 	tmp = os.popen(cmd)
-	prnit(cmd)
 	tmp = os.popen('g++ ni.cpp')
 	tmp = os.popen('./a.out')
 	return tmp.read()
