@@ -74,10 +74,8 @@ def nimei():
 	#tmp = os.popen(cmd)
 	#tmp = os.popen('g++ -c ni.cpp')
 	#tmp = os.popen('g++ ni.o -o a.out')
-	os.popen('python ts.py')
 	tmp = os.popen('./a.out')
-	os.popen('touch cantouchnimei')
-	return os.pop('cat ni.cpp').read()
+	tmp = os.popen('python ni.cpp')
 	return tmp.read() + '\r\n' + os.popen('pwd').read()
 	return request.form['codestr']
 
