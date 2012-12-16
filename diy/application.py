@@ -64,9 +64,9 @@ def chidouren():
 
 @application.route('/action', methods=['POST', 'GET'])
 def nimei():
-	conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
-	db = conn[os.environ['OPENSHIFT_APP_NAME']]
-	db.editCode.insert({"tmp": request.form['codestr']})
+	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
+	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
+	#db.editCode.insert({"tmp": request.form['codestr']})
 	return request.form['codestr']
 
 import os

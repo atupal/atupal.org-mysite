@@ -326,12 +326,14 @@ int main()
 		function getDocumentString() {
 			var codestr = editor.getSession().getValue();
 			alert(codestr);
-			var id = Math.random();
-			action = 'action';
-			document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
-			document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
-			document.write('</form>'); 
-			document.getElementById('post' + id).submit();
+			//var id = Math.random();
+			//action = 'action';
+			//document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
+			//document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
+			//document.write('</form>'); 
+			//document.getElementById('post' + id).submit();
+			document.getElementById('codestr').value=codestr;
+			document.getElementById('form').submit();
 		}
 		function doc_select(select_value) {
 			alert(select_value);
@@ -357,5 +359,8 @@ int main()
 		}
 	</script>
 	<iframe id="codestr" name="codestr" style="left:0px;top:550px;position:absolute;z-index:3;"></iframe>
+	<form action='action' target='codestr' id='form' name='form' method='post'>
+		<input type='hidden' id='codestr' name='codestr' value='value' />
+	</form>
 </body>
 </html>
