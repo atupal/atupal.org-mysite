@@ -74,9 +74,9 @@ def nimei():
 	#tmp = os.popen(cmd)
 	#tmp = os.popen('g++ -c ni.cpp')
 	#tmp = os.popen('g++ ni.o -o a.out')
-	tmp = os.popen('./a.out')
+	#tmp = os.popen('./a.out')
 	tmp = os.popen('python ni.cpp').read()
-	return tmp + '\r\n\n\n' + os.popen('pwd').read()
+	return tmp
 	return request.form['codestr']
 
 import pymongo
