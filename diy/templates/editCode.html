@@ -332,7 +332,7 @@ int main()
 			//document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			//document.write('</form>'); 
 			//document.getElementById('post' + id).submit();
-			document.froms[0].elements[0].value = codestr;
+			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
 		}
 		function doc_select(select_value) {
@@ -358,8 +358,8 @@ int main()
 			editor.setKeyboardHandler(select_value);
 		}
 	</script>
-	<iframe id="codestr" name="codestr" style="left:0px;top:550px;position:absolute;z-index:3;"></iframe>
-	<form action='action' target='codestr' id='form' name='form' method='post'>
+	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:3;"></iframe>
+	<form action='action' target='bianyi' id='form' name='form' method='post'>
 		<input type='hidden' id='codestr' name='codestr' value=""/>
 	</form>
 </body>
