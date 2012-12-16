@@ -68,11 +68,11 @@ def nimei():
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
-	cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>>ni.cpp'
+	cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ os.environ['OPENSHIFT_TMP_DIR'] + '/ni.cpp'
 	tmp = os.popen(cmd)
 	tmp = os.popen('g++ ni.cpp')
 	tmp = os.popen('./a.out')
-	return tmp.read()
+	return tmp.read() + os.popen('pwd').read()
 	return request.form['codestr']
 
 import pymongo
