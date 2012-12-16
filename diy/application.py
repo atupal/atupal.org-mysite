@@ -72,9 +72,11 @@ def nimei():
 	#cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
 	fi.write(request.form['codestr'])
 	#tmp = os.popen(cmd)
-	tmp = os.popen('g++ -c ni.cpp')
-	tmp = os.popen('g++ ni.o -o a.out')
-	return tmp.read() + os.popen('pwd').read()
+	#tmp = os.popen('g++ -c ni.cpp')
+	#tmp = os.popen('g++ ni.o -o a.out')
+	os.popen('python ts.py')
+	tmp = os.popen('./a.out')
+	return tmp.read() + '\n' + os.popen('pwd').read()
 	return request.form['codestr']
 
 import pymongo
