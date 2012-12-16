@@ -75,6 +75,9 @@ def nimei():
 	#cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
 	fi.write(request.form['codestr'])
 	fi.close() #此处必须要close，不然会造成ast（抽象语法分析树，即源代码）仍停留在缓存当中，找成编译的时候找不到main函数入口等奇葩的错误
+	fi = open('in.dat', 'w')
+	fi.write(request.form['input'])
+	fi.close()
 	del fi
 	#tmp = os.popen(cmd)
 	#tmp = os.popen('g++ -c ni.cpp')

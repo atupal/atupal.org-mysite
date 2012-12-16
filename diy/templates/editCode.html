@@ -332,6 +332,7 @@ int main()
 			//document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
 			//document.write('</form>'); 
 			//document.getElementById('post' + id).submit();
+			document.getElementById('input').value = document.getElementById("inputtext").innerHTML.toString()
 			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
 		}
@@ -358,9 +359,16 @@ int main()
 			editor.setKeyboardHandler(select_value);
 		}
 	</script>
-	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:3;"></iframe>
+	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:3;backgound:#ffffff;">
+		<body>
+			<div>
+				<textarea rows="10" cols="30" id='inputtext'>please input the data</textarea>
+			</div>
+		</body>
+	</iframe>
 	<form action='action' target='bianyi' id='form' name='form' method='post'>
 		<input type='hidden' id='codestr' name='codestr' value=""/>
+		<input type='hidden' id='input' name='input' value=""/>
 	</form>
 </body>
 </html>
