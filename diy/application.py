@@ -63,13 +63,15 @@ def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
 @application.route('/action', methods=['POST', 'GET'])
+import os
 def nimei():
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
+	tmp = os.popen('touch $OPENSHIFT_TMP_DIR/nimei.cpp')
+	return tmp.read()
 	return request.form['codestr']
 
-import os
 import pymongo
 import json
 from bson import json_util
