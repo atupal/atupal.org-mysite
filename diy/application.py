@@ -72,7 +72,7 @@ def nimei():
 	#cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
 	fi.write(request.form['codestr'])
 	#tmp = os.popen(cmd)
-	tmp = os.popen('cd /tmp/ && g++ ' + os.environ['OPENSHIFT_TMP_DIR'] + '/ni.cpp')
+	tmp = os.popen('g++ ' + os.environ['OPENSHIFT_TMP_DIR'] + '/ni.cpp ' + '-o ' + os.environ['OPENSHIFT_TMP_DIR'] + '/a.out')
 	tmp = os.popen(os.environ['OPENSHIFT_TMP_DIR'] + '/a.out')
 	return tmp.read() + os.popen('pwd').read()
 	return request.form['codestr']
