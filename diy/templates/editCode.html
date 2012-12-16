@@ -334,7 +334,7 @@ int main()
 			//document.getElementById('post' + id).submit();
 			var input = document.getElementById('inputtext').value;
 			alert(input)
-			document.getElementById('input').value = document.getElementById('inputtext').innerHTML;
+			document.getElementById('input').value = input;
 			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
 			return;
@@ -342,7 +342,7 @@ int main()
 		function saveCode() {
 			var h = document.getElementById('bianyi').toString();
 			alert(h);
-			document.getElementById('inputtext').innerHTML = h.toString();
+			document.getElementById('inputtext').innerHTML = 'im';
 		}
 		function doc_select(select_value) {
 			alert(select_value);
