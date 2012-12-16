@@ -76,9 +76,8 @@ def nimei():
 	#tmp = os.popen('g++ ni.o -o a.out')
 	os.popen('python ts.py')
 	tmp = os.popen('./a.out')
-	import socket
-	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	s.connect(('127.0.0.1', 1025))
+	os.popen('touch cantouchnimei')
+	return os.pop('cat ni.cpp').read()
 	return tmp.read() + '\r\n' + os.popen('pwd').read()
 	return request.form['codestr']
 
