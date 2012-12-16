@@ -84,8 +84,8 @@ def nimei():
 	if p.returncode != 0 :
 		return stderrdata
 
-	p = subprocess.Popen(['./a.out'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-	p.want()
+	p = subprocess.Popen(['./a.out','<in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+	p.wait()
 	stdoutdata, stderrdata = p.communicate()
 	if p.returncode != 0 :
 		return stderrdata
