@@ -340,9 +340,8 @@ int main()
 			return;
 		}
 		function saveCode() {
-			var h = document.getElementById('bianyi').toString();
-			alert(h);
-			document.getElementById('inputtext').innerHTML = 'im';
+			var h = document.getElementById('bianyi').contentDocument.body.innerHTML;
+			document.getElementById('inputtext').innerHTML = h;
 		}
 		function doc_select(select_value) {
 			alert(select_value);
