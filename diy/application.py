@@ -1,3 +1,5 @@
+#coding=utf-8
+
 from flask import Flask
 from flask import render_template
 import platform
@@ -63,6 +65,7 @@ def chidouren():
 	return render_template('games/chidouren/chidouren.html')
 
 import os
+import subprocess
 @application.route('/action', methods=['POST', 'GET'])
 def nimei():
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -71,13 +74,23 @@ def nimei():
 	fi = open('ni.cpp', 'w')
 	#cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
 	fi.write(request.form['codestr'])
-	fi.close()
+	fi.close() #此处必须要close，不然会造成ast（抽象语法分析树，即源代码）仍停留在缓存当中，找成编译的时候找不到main函数入口等奇葩的错误
+	del fi
 	#tmp = os.popen(cmd)
 	#tmp = os.popen('g++ -c ni.cpp')
-	tmp = os.popen('g++ ni.cpp')
-	tmp = os.popen('./a.out')
-	return tmp.read()
-	return request.form['codestr']
+	p = subprocess.Popen(['g++', 'ni.cpp'])
+	p.wait()
+	stdoutdata, stderrdata = p.communicate()
+	if p.returncode != 0 :
+		return stderrdata
+
+	p = subprocess.Popen(['./a.out'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+	p.want()
+	stdoutdata, stderrdata = p.communicate()
+	if p.returncode != 0 :
+		return stderrdata
+
+	return stdoutdata
 
 import pymongo
 import json
