@@ -102,6 +102,9 @@ def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
 	return fi.read()
 
+@application.route("/ts")
+def ts():
+	return 'sdf'
 import pymongo
 import json
 from bson import json_util
