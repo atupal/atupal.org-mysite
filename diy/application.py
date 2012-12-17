@@ -97,6 +97,10 @@ def nimei():
 
 	return stdoutdata
 
+@application.route('/applogs')
+def applogs():
+	return $OPENSHIFT_DIY_LOG_DIR/app.log 
+
 import pymongo
 import json
 from bson import json_util
