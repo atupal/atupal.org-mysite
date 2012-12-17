@@ -99,7 +99,8 @@ def nimei():
 
 @application.route('/applogs')
 def applogs():
-	return $OPENSHIFT_DIY_LOG_DIR/app.log 
+	fi = open(os.environ['$OPENSHIFT_DIY_LOG_DIR'] + '/app.log', 'r')
+	return fi.read()
 
 import pymongo
 import json
