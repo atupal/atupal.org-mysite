@@ -99,7 +99,7 @@ def nimei():
 
 @application.route('/applogs')
 def applogs():
-	fi = open(os.environ['$OPENSHIFT_DIY_LOG_DIR'] + '/app.log', 'r')
+	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
 	return fi.read()
 
 import pymongo
