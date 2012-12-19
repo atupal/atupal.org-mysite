@@ -85,7 +85,7 @@ def nimei():
 	p.wait()
 	stdoutdata, stderrdata = p.communicate()
 	if p.returncode != 0 :
-		return stdoutdata
+		return stderrdata
 
 	p = subprocess.Popen(['./a.out<in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 	#这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
