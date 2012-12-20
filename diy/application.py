@@ -102,6 +102,10 @@ def nimei():
 
 	return stdoutdata
 
+@application.route('/manage')
+def manage():
+	return render_template('manage.html')
+
 @application.route('/applogs')
 def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
