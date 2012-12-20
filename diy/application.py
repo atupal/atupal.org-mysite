@@ -50,10 +50,15 @@ def valid_login(username, password):
 def log_the_user_in(username):
 	return 'welcome' + username
 
+application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+from flask import session,redirect,url_for,escape,request
 @application.route('/editCode')
 @application.route('/editCode/<name>')
 def editCode(name = None):
-	return render_template('editCode.html', name = name)
+	if usernmae in session:
+		return render_template('editCode.html', name = name)
+	else :
+		return render_template('login.html', name = name)
 
 @application.route('/game')
 @application.route('/game/<name>')
