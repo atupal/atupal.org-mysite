@@ -110,8 +110,8 @@ import re
 @application.route('/applogs', methods = ['POST', 'GET'])
 def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
-	patter = re.compile(r'[***]')
-	logs = fi.read().replace('***', '\n')
+	logs = fi.read()
+	logs = logs.split('*** Starting uWSGI')
 	return logs
 
 @application.route("/ts")
