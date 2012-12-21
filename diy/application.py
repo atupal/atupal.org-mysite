@@ -114,7 +114,7 @@ def applogs():
 	logs = fi.read()
 	logs = logs.replace('<', '&lt;')
 	logs = logs.replace('>', '&gt;')
-	logs = logs.replace('\n', r'&lt;br/&gt;')
+	logs = logs.replace('\n', r'<br/>')
 	logs = logs.split('*** Starting uWSGI')
 	for log in logs:
 		re += log + r'<hr/>'
