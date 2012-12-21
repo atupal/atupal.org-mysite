@@ -107,7 +107,7 @@ def manage(name = None):
 	return render_template('manage.html', name = name)
 
 import re
-@application.route('/applogs')
+@application.route('/applogs', methods = ['POST', 'GET'])
 def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
 	patter = re.compile(r'[***]')
