@@ -115,7 +115,7 @@ def applogs():
 	logs = logs.replace('<', '&lt;')
 	logs = logs.replace('>', '&gt;')
 	logs = logs.replace('\n', r'<br/>')
-	logs = logs.split('*** Starting uWSGI')
+	logs = logs.split('*** Starting uWSGI1.2.3 (64bit) on ')
 	logs = logs[::-1]
 	#reduce(lambda x,y:y+x,logs)
 	for log in logs:
