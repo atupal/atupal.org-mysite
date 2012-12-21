@@ -53,10 +53,7 @@ def log_the_user_in(username):
 @application.route('/editCode')
 @application.route('/editCode/<name>')
 def editCode(name = None):
-	if usernmae in session:
-		return render_template('editCode.html', name = name)
-	else :
-		return render_template('login.html', name = name)
+	return render_template('editCode.html', name = name)
 
 @application.route('/game')
 @application.route('/game/<name>')
