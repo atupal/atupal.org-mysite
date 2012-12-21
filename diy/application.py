@@ -111,8 +111,8 @@ import re
 def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
 	patter = re.compile(r'[***]')
-	logs = fi.read().split('***')
-	return logs.join('\n')
+	logs = fi.read().replace('***', '\n')
+	return logs
 
 @application.route("/ts")
 def ts():
