@@ -112,8 +112,8 @@ def applogs():
 	fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
 	re = r'logs + <hr/>'
 	logs = fi.read()
-	logs.replace('<', '&lt;')
-	logs.replace('>', '&gt;')
+	logs = logs.replace('<', '&lt;')
+	logs = logs.replace('>', '&gt;')
 	logs = logs.split('*** Starting uWSGI')
 	for log in logs:
 		re += log + r'<hr/>'
