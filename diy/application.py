@@ -103,8 +103,8 @@ def nimei():
 	return stdoutdata
 
 @application.route('/manage')
-def manage():
-	return render_template('manage.html')
+def manage(name = None):
+	return render_template('manage.html', name = name)
 
 @application.route('/applogs')
 def applogs():
