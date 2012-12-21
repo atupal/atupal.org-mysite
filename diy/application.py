@@ -50,8 +50,6 @@ def valid_login(username, password):
 def log_the_user_in(username):
 	return 'welcome' + username
 
-application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-from flask import session,redirect,url_for,escape,request
 @application.route('/editCode')
 @application.route('/editCode/<name>')
 def editCode(name = None):
@@ -71,8 +69,14 @@ def chidouren():
 
 import os
 import subprocess
+application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+from flask import session,redirect,url_for,escape,request
 @application.route('/action', methods=['POST', 'GET'])
-def nimei():
+def action():
+	if 'username' in session:
+		pass
+	else :
+		return redirect(url_for('lo'))
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
