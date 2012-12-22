@@ -112,7 +112,7 @@ def action():
 		elif time.time() - start >= 5:
 			flag = 1;
 			#os.kill(p.pid + 1, signal.SIGKILL)
-			p = subprocess.Popen(['kill -9 `pgrep sh`'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+			p = subprocess.Popen(['kill -9 `pgrep a.out`'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 			p.wait()
 			break;
 	stdoutdata, stderrdata = p.communicate()
