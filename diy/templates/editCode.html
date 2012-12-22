@@ -334,13 +334,19 @@ int main()
 			//document.write('</form>'); 
 			//document.getElementById('post' + id).submit();
 			var input = document.getElementById('inputtext').value;
-			alert(input)
-			document.getElementById('input').value = input;
-			document.getElementById('codestr').value=codestr;
-			document.getElementById('form').submit();
+			alert(input);
+			var request = new XMLHTTPRequest();
+			request.oepn('POST', 'action', false);
+			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			request.send('input=' + input + 'codestr=' + codestr);
 			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
 			alert(h)
 			document.getElementById('inputtext').value = h;
+			return;
+
+			document.getElementById('input').value = input;
+			document.getElementById('codestr').value=codestr;
+			document.getElementById('form').submit();
 			return;
 		}
 		function saveCode() {
