@@ -73,7 +73,8 @@ def action():
 	if 'username' in session:
 		pass
 	else :
-		return redirect(url_for('lo'))
+		pass
+		#return redirect(url_for('lo'))
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
@@ -96,11 +97,24 @@ def action():
 	p = subprocess.Popen(['./a.out<in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
 	#这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
 	#同样，不能把参数和命令接在一起作为一个字符串，stdout和stderr是指定管道，不然在下面就无法获取程序执行结果的输出了
-	p.wait()
+	#p.wait()
+	import time
+	import signal
+	start = time.time()
+	flag = 0;
+	while 1:
+		if p.poll() == 0:
+			break
+		elif time.time() - start >= 5:
+			flag = 1;
+			os.kill(p.pid, signal,SIGKILL)
+			break;
 	stdoutdata, stderrdata = p.communicate()
 	if p.returncode != 0 :
 		return stderrdata
 
+	if flag == 1:
+		stdoutdata += '\ntime out!\n'
 	return stdoutdata
 
 @application.route('/manage')
@@ -123,9 +137,6 @@ def applogs():
 		re += log + r'<hr/>'
 	return re
 
-@application.route("/ts")
-def ts():
-	return 'sdf'
 import pymongo
 import json
 from bson import json_util
