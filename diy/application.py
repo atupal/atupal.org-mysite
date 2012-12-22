@@ -107,9 +107,10 @@ def action():
 	start = time.time()
 	flag = 0;
 	while 1:
+		runtime = time.time() - start
 		if p.poll() == 0:
 			break
-		elif time.time() - start >= 5:
+		elif runtime >= 5:
 			flag = 1;
 			#os.kill(p.pid + 1, signal.SIGKILL)
 			p = subprocess.Popen(['kill -9 `pgrep a.out`'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
@@ -121,6 +122,7 @@ def action():
 
 	if flag == 1:
 		stdoutdata += '\ntime out!\n'
+	stdoutdata = 'runtime:%fs\n'%runtime + stdoutdata
 	return stdoutdata
 
 @application.route('/manage')
