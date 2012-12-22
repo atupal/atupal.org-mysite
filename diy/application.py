@@ -111,7 +111,7 @@ def action():
 			break
 		elif time.time() - start >= 5:
 			flag = 1;
-			os.kill(p.pid + 1, signal,SIGKILL)
+			os.kill(p.pid + 1, signal.SIGKILL)
 			break;
 	stdoutdata, stderrdata = p.communicate()
 	if p.returncode != 0 :
