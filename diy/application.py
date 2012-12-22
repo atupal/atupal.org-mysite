@@ -78,6 +78,7 @@ def action():
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
+
 	import sys
 	reload(sys)
 	sys.setdefaultencoding('utf-8')
