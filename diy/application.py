@@ -122,7 +122,7 @@ def action():
 
 	if flag == 1:
 		stdoutdata += '\ntime out!\n'
-	stdoutdata = 'runtime:%fs\n'%runtime + stdoutdata
+	stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata
 	return stdoutdata
 
 @application.route('/manage')
