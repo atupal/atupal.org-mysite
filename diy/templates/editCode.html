@@ -342,11 +342,11 @@ int main()
 			codestr = codestr.replace(/\&/g, "%26");//"&"
 			codestr = codestr.replace(/\#/g, "%23");//"#"
 			*/
+			alert(codestr);
+			alert(input);
 
 			input = encodeURIComponent(input);
 			codestr = encodeURIComponent(codestr);
-			alert(codestr);
-			alert(input);
 
 			var request = new XMLHttpRequest();
 			request.open('POST', 'action', false);
