@@ -336,7 +336,7 @@ int main()
 			var input = document.getElementById('inputtext').value;
 			alert(input);
 			var request = new XMLHttpRequest();
-			request.oepn('POST', 'action', false);
+			request.open('POST', 'action', false);
 			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			request.send('input=' + input + 'codestr=' + codestr);
 			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
