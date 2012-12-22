@@ -335,7 +335,7 @@ int main()
 			//document.getElementById('post' + id).submit();
 			var input = document.getElementById('inputtext').value;
 			alert(input);
-			var request = new XMLHTTPRequest();
+			var request = new XMLHttpRequest();
 			request.oepn('POST', 'action', false);
 			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			request.send('input=' + input + 'codestr=' + codestr);
