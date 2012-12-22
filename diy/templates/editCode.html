@@ -18,7 +18,7 @@
 	<body style="background:#000000">
 		<div id="optionsPanel" style="position:absolute;height:80%;width:20%;color:#00ffff;">
 			<div style="position: absulute; overflow:hidden; top:80px; bottom:0">
-				<div style="width: 100%; height:100%; overfdlow-y: scroll" style="background:#000000">
+				<div style="width: 100%; height:100%; overflow-y: scroll" style="background:#000000">
 
 					<table id="controls" style="background:#000000">
 						<tr style="color:#ffff00">
@@ -338,6 +338,9 @@ int main()
 			document.getElementById('input').value = input;
 			document.getElementById('codestr').value=codestr;
 			document.getElementById('form').submit();
+			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
+			alert(h)
+			document.getElementById('inputtext').value = h;
 			return;
 		}
 		function saveCode() {
