@@ -371,12 +371,13 @@ int main()
 			codestr = encodeURIComponent(codestr);
 
 			var request = new XMLHttpRequest();
-			request.open('POST', 'action', false);
+			request.open('POST', '/action', false);
 			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			request.send('input=' + input + '&codestr=' + codestr);
             var h = request.responseText;
             if (h.indexOf("<html>") != -1) {
-                login();
+                //login();
+                alert("pleas login first");
                 return;
             }
 			alert(h);
