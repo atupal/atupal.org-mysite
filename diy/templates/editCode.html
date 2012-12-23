@@ -354,8 +354,13 @@ int main()
 			request.open('POST', 'action', false);
 			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			request.send('input=' + input + '&codestr=' + codestr);
-			var h = request.responseText
-			alert(h)
+            var h = request.responseText;
+            if (h.indexOf("<html>") != -1) {
+                login();
+                alert("please login first\n")
+                return;
+            }
+			alert(h);
 			document.getElementById('inputtext').value = h;
 			return;
 
