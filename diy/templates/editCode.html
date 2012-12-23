@@ -395,8 +395,8 @@ function login()
     loginBack.style.width = "100%";
     loginBack.style.height = "100%";
     loginWin.style.display = "inline";
-    loginWin.style.left = body.clientWidth / 2 - loginWin.style.width / 2;
-    loginWin.style.top = body.clientHeight / 2 - loginWin.style.height / 2;
+    loginWin.style.left = document.body.clientWidth / 2 - loginWin.style.width / 2;
+    loginWin.style.top = document.body.clientHeight / 2 - loginWin.style.height / 2;
 }
 		function saveCode() {
 			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
