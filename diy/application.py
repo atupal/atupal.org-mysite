@@ -5,11 +5,11 @@ from flask import render_template
 import platform
 application = Flask(__name__)
 application.debug = True
- 
+
 @application.route("/")
 def index():
 	    return 'Hello from Flask !'
- 
+
 @application.route("/info")
 def info():
 	    return platform.python_version()
@@ -73,8 +73,7 @@ def action():
 	if 'username' in session:
 		pass
 	else :
-		pass
-		#return redirect(url_for('lo'))
+		return redirect(url_for('lo'))
 	#conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
 	#db = conn[os.environ['OPENSHIFT_APP_NAME']]
 	#db.editCode.insert({"tmp": request.form['codestr']})
