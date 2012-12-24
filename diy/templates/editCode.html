@@ -396,8 +396,8 @@ int main()
 			request.send('input=' + input + '&codestr=' + codestr);
             var h = request.responseText;
             if (h.indexOf("<html>") != -1) {
-                //login();
-                alert("pleas login first");
+                login();
+                //alert("pleas login first");
                 return;
             }
 			alert(h);
