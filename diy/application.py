@@ -48,8 +48,8 @@ def valid_login(username, password):
 		return 1
 
 def log_the_user_in(username):
-    session['username'] = username;
-	return 'welcome' + username
+    session['username'] = username
+    return 'welcome' + username
 
 def logout():
     #如果会话中有用户名就删除他
