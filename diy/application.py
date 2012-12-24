@@ -144,6 +144,10 @@ def applogs():
 		re += log + r'<hr/>'
 	return re
 
+@application.route('/js/jquery.min.js')
+def jquery():
+    return url_for('static', filename='js/jquery.min.js')
+
 import pymongo
 import json
 from bson import json_util
