@@ -149,19 +149,20 @@ def applogs():
 		re += log + r'<hr/>'
 	return re
 
+server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/'
 @application.route('/js/<name>')
 def javascript(name):
-    fi = open("static/js/" + name)
+    fi = open("/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/static/js/" + name)
     return fi.read()
 
 @application.route('/js/ace-src/<name>')
 def acejs(name):
-    fi = open("static/js/ace-src/" + name)
+    fi = open("/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/static/js/ace-src/" + name)
     return fi.read()
 
 @application.route('/favicon.ico')
 def ico():
-    fi = open('./favicon.ico', "rb")
+    fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/favicon.ico', "rb")
     return fi.read()
 
 import pymongo
