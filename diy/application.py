@@ -157,7 +157,7 @@ def javascript(name):
 
 @application.route('/js/ace-src/<name>')
 def acejs(name):
-    fi = open(server_dir + "/ace-src/" + name)
+    fi = open(server_dir + "static/js/ace-src/" + name)
     return fi.read()
 
 @application.route('/favicon.ico')
