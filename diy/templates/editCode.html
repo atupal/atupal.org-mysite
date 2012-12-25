@@ -32,6 +32,7 @@
 			}
 		</style>
 		<script type='text/javascript' src='js/jquery.min.js'></script>
+        <script type='text/javascript' src="js/ace-src/ace.js"></script>
 	</head>
 	<body style="background:#000000">
         <div id="loginBack" class="loginBack" name="loginBack"></div>
@@ -356,9 +357,18 @@ int main()
 	return 0;
 }</div>
 
-		<div style='background:red;top:0%;left:80%;position:absolute;width:20%;height:100%;z-index:3;'></div>
-		<div></div>
-		<script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"></script>
+        <div style='background:red;top:0;left:80%;position:absolute;width:20%;height:100%;z-index:3;' id="rightPanel">
+            <input type="text" id="x_origin" />
+            <input type="text" id="y_origin" />
+            <script src="js/autocomplete.js"></script>
+        </div>
+        <div style='left:80%;position:absolute;top:0;z-index:4;opacity:0.1;' id="hideDiv"
+            onmouseover="document.getElementById('hideDiv').style.opacity=0.8"
+            onmouseout="document.getElementById('hideDiv').style.opacity=0.1"
+            >
+            <input type="button" onclick="hidePinel()" value="hide"/>
+        </div>
+		<!--script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"--><!--/script-->
 		<script>
 			var editor = ace.edit("editor");
 			editor.setTheme("ace/theme/monokai");
@@ -422,7 +432,18 @@ function cancel_login() {
 	loginBack.style.display = "none";
 	loginWin.style.display = "none";
 	document.getElementById("login").style.display = "";
-			}
+}
+function hidePinel() {
+    if (document.getElementById("rightPanel").style.display == "none") {
+        document.getElementById("rightPanel").style.display = "inline";
+        document.getElementById("editor").style.width = "60%";
+        document.getElementById("hideDiv").style.left = "80%";
+        return;
+    }
+    document.getElementById("rightPanel").style.display = "none";
+    document.getElementById("editor").style.width = "80%";
+    document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
+}
 		function saveCode() {
 			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
 			alert(h)

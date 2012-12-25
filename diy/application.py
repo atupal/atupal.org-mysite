@@ -149,9 +149,20 @@ def applogs():
 		re += log + r'<hr/>'
 	return re
 
-@application.route('/js/jquery.min.js')
-def jquery():
-    return url_for('static', filename='js/jquery.min.js')
+@application.route('/js/<name>')
+def javascript(name):
+    fi = open("static/js/" + name)
+    return fi.read()
+
+@application.route('/js/ace-src/<name>')
+def acejs(name):
+    fi = open("static/js/ace-src/" + name)
+    return fi.read()
+
+@application.route('/favicon.ico')
+def ico():
+    fi = open('./favicon.ico', "rb")
+    return fi.read()
 
 import pymongo
 import json
@@ -227,3 +238,6 @@ def nameNear(name):
 @application.route("/test")
 def test():
 	return "<strong>It actually worked</strong>"
+
+if __name__ == '__main__':
+    application.run()
