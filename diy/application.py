@@ -104,13 +104,13 @@ def action():
     fi.close()
     #tmp = os.popen(cmd)
     #tmp = os.popen('g++ -c ni.cpp')
-    p = subprocess.Popen(['g++', prefix + '/tmp.cpp'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen(['g++', prefix + '/tmp.cpp', '-o', prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
         return stderrdata
 
-    p = subprocess.Popen(['./a.out<' + prefix + 'in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen([prefix + './a.out<' + prefix + 'in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     #这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
     #同样，不能把参数和命令接在一起作为一个字符串，stdout和stderr是指定管道，不然在下面就无法获取程序执行结果的输出了
     #p.wait()
