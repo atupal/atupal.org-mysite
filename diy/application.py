@@ -159,7 +159,7 @@ def getCode():
         prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
     else:
         return redirect(url_for('lo'))
-    p = subprocess.Popen(['ls'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen(['ls', prefix], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdout, stderr = p.communicate()
     return stdout
