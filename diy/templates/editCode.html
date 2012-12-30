@@ -230,108 +230,6 @@
 								</select>
 							</td>
 						</tr>
-
-						<tr>
-							<!--
-							<td colspan="2">
-								<table id="more-controls">
-									<tr>
-										<td>
-											<label for="select_style">Full Line Selection</label>
-											</td><td>
-											<input type="checkbox" name="select_style" id="select_style" checked>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label for="highlight_active">Highlight Active Line</label>
-											</td><td>
-											<input type="checkbox" name="highlight_active" id="highlight_active" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="show_hidden">Show Invisibles</label>
-											</td><td>
-											<input type="checkbox" name="show_hidden" id="show_hidden" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="display_indent_guides">Show Indent Guides</label>
-											</td><td>
-											<input type="checkbox" name="display_indent_guides" id="display_indent_guides" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="show_hscroll">Persistent HScroll</label>
-											</td><td>
-											<input type="checkbox" name="show_hscroll" id="show_hscroll">
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="animate_scroll">Animate scrolling</label>
-											</td><td>
-											<input type="checkbox" name="animate_scroll" id="animate_scroll">
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="show_gutter">Show Gutter</label>
-											</td><td>
-											<input type="checkbox" id="show_gutter" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="show_print_margin">Show Print Margin</label>
-											</td><td>
-											<input type="checkbox" id="show_print_margin" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="soft_tab">Use Soft Tab</label>
-											</td><td>
-											<input type="checkbox" id="soft_tab" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="highlight_selected_word">Highlight selected word</label>
-										</td>
-										<td>
-											<input type="checkbox" id="highlight_selected_word" checked>
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="enable_behaviours">Enable Behaviours</label>
-										</td>
-										<td>
-											<input type="checkbox" id="enable_behaviours">
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="fade_fold_widgets">Fade Fold Widgets</label>
-										</td>
-										<td>
-											<input type="checkbox" id="fade_fold_widgets">
-										</td>
-									</tr>
-									<tr>
-										<td >
-											<label for="highlight_token">Show token info</label>
-										</td>
-										<td>
-											<input type="checkbox" id="highlight_token">
-										</td>
-									</tr>
-								</table>
-						</td>--></tr>
 						<tr>
 							<td>
 								<button onclick="getDocumentString()">编译</button>
@@ -491,7 +389,15 @@ function getCode() {
     request.open('GET', '/getCode', false);
     request.send(null);
     if (request.status === 200) {
-        alert(request.responseText);
+        files = request.responseText.split(/[\s]/);
+        var rightPanel = document.getElementById('rightPanel');
+        for (var i = 0; i < files.length; ++ i) {
+            var file = document.createElement('a');
+            var fileName = document.createTextNode(files[i]);
+            file.appendChild(fileName);
+            rightPanel.appendChild(file);
+            rightPanel.appendChild('br');
+        }
     }
 }
 function test() {
