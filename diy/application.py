@@ -108,6 +108,7 @@ def action():
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
+        stderrdata.replace(prefix, '...')
         return stderrdata
 
     p = subprocess.Popen([prefix + './a.out<' + prefix + 'in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
@@ -140,10 +141,28 @@ def action():
 @application.route('/saveCode', methods = ['GET', 'POST'])
 def saveCode():
     if 'username' in session:
-        pass
+        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
     else :
         return redirect(url_for('lo'))
+    filename = request.form['filename']
+    codestr = request.form['codestr']
+    fi = open(prefix + filename, 'w')
+    if not fi:
+        return 'no'
+    fi.write(codestr)
+    fi.close()
+    return 'yes'
 
+@application.route('/getCode', methods = ['GET', 'POST'])
+def getCode():
+    if 'username' in session:
+        prefix = OPENSHIFT_MONGODB_DB_URL + '/code/' + session['username'] + '/'
+    else:
+        return redirect(url_for('lo'))
+    p = subprocess.Popen(['ls'], strout = subprocess.PIPE, strerr = subprocess.PIPE)
+    p.wait()
+    stdout, stderr = p.communicate()
+    return stdout
 
 @application.route('/manage')
 def manage(name = None):

@@ -361,6 +361,8 @@ int main()
         <div style='background:red;top:0;left:80%;position:absolute;width:20%;height:100%;z-index:3;' id="rightPanel">
             <input type="text" id="x_origin" />
             <input type="text" id="y_origin" />
+            <br>
+            <input type='button' onclick="getCode()" value="查看代码"/>
         </div>
         <div style='left:80%;position:absolute;top:0;z-index:4;opacity:0.1;' id="hideDiv"
             onmouseover="document.getElementById('hideDiv').style.opacity=0.8"
@@ -447,10 +449,39 @@ function hidePinel() {
     document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
 }
 		function saveCode() {
+			var codestr = editor.getSession().getValue();
+            var filename = prompt("保存代码","请输入文件名");
+            if (filename == null || filename == '') {
+                alert('无效的文件名');
+                return;
+            }
+			codestr = encodeURIComponent(codestr);
+			filename = encodeURIComponent(filename);
+
+			var request = new XMLHttpRequest();
+			request.open('POST', '/saveCode', false);
+			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			request.send('codestr=' + codestr + '&filename=' + filename);
+            var h = request.responseText;
+            if (h == 'yes') {
+                alert('文件保存成功, 文件名为：' + filename);
+            }
+            else {
+                alert(filenem + '保存失败');
+            }
+            return;
 			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
 			alert(h)
 			document.getElementById('inputtext').value = h;
 		}
+function getCode() {
+    var request = new XMLHttpRequest();
+    request.open('GET', '/getCode', false);
+    request.send(null);
+    if (request.status === 200) {
+        alert(request.responseText);
+    }
+}
 		function doc_select(select_value) {
 			alert(select_value);
 		}
