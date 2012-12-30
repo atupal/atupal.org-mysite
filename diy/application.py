@@ -104,7 +104,7 @@ def action():
     fi.close()
     #tmp = os.popen(cmd)
     #tmp = os.popen('g++ -c ni.cpp')
-    p = subprocess.Popen(['g++ ' + prefix +  '/tmp.cpp ' + '-o ' + prefix + 'a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen(['g++ ' + prefix + '/tmp.cpp ' + '-o ' + prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
