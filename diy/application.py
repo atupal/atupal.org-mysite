@@ -156,7 +156,7 @@ def saveCode():
 @application.route('/getCode', methods = ['GET', 'POST'])
 def getCode():
     if 'username' in session:
-        prefix = OPENSHIFT_MONGODB_DB_URL + '/code/' + session['username'] + '/'
+        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
     else:
         return redirect(url_for('lo'))
     p = subprocess.Popen(['ls'], strout = subprocess.PIPE, strerr = subprocess.PIPE)
