@@ -39,12 +39,52 @@ function keydown(ev) {
     //var jiaodian = getElementByClass('ace_text-input');
     //document.getElementById('autoList').style.left = jiaodian.style.left;
     //document.getElementById('autoList').style.top = jiaodian.style.top;
-    $("#autoList").css({"top":$("#input").offset().top+$(".ace_text-input").offset().top + $(".ace_text-input").height(),position:"absolute"});
-    $("#autoList").css({"left":$("#input").offset().left+$(".ace_text-input").offset().left,position:"absolute"});
+    $("#autoList").css({"top":$(".ace_text-input").offset().top + $(".ace_text-input").height(),position:"absolute"});
+    $("#autoList").css({"left":$(".ace_text-input").offset().left,position:"absolute"});
+    var line = editor.getCursorPosition();
+    var text = editor.getSelection().doc.$lines[line.row].substring(0,line.column);
+    text = text.split(' ');
+    text = text[text.length - 1];
+    query(text);
+}
+
+function query(str) {
+    parentNode = document.getElementById('autoList');
+    while (parentNode.firstChild) {
+        var oldNode = parentNode.removeChild(parentNode.firstChild);
+        oldNode = null;
+    }
+    document.getElementById('autoList').style.height = '0px';
+    if (str == "" || str == null)
+        return;
+    var result = [];
+    //doc = editor.getValue();
+    //doc = doc.split('');
+    doc = [];
+    keyword = ['int', 'for', 'while', 'double', 'float', 'short', 'string', 'char', 'return', 'void', 'do', 'if', 'else', 'goto','continue', 'case', 'switch', 'break', 'hehe'];
+
+    for (var i = 0; i < doc.length; ++ i) {
+        if (doc[i].indexOf(str) != -1) {
+            result.push(doc[i]);
+        }
+    }
+
+    var flag = 0;
+    for (var i = 0; i < keyword.length; ++ i) {
+        if (keyword[i].indexOf(str) != -1) {
+            ++ flag;
+            document.getElementById('autoList').style.height = (flag * 4).toString() + '0px';
+            var pelement = document.createElement("p");
+            var messagenode = document.createTextNode(keyword[i]);
+            pelement.appendChild(messagenode);
+            document.getElementById('autoList').appendChild(pelement);
+        }
+    }
+
 }
 
 document.getElementById('autoList').style.width = '100px';
-document.getElementById('autoList').style.height = '300px';
+document.getElementById('autoList').style.height = '0px';
 document.getElementById('autoList').style.background = 'red';
 document.getElementById('autoList').style.position = 'absolute';
 document.getElementById('autoList').style.opacity = '0.6';

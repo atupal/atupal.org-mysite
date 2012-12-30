@@ -344,7 +344,12 @@
 						</tr>
 						<tr>
 							<td>
-								<button onclick="getHideIframe()">查看iframe</button>
+                                <button onclick="getHideIframe()">iframe</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+                                <button onclick="test()">test</button>
 							</td>
 						</tr>
 					</table>
@@ -489,6 +494,13 @@ function getCode() {
         alert(request.responseText);
     }
 }
+function test() {
+    var line = editor.getCursorPosition();
+    var text = editor.getSelection().doc.$lines[line.row].substring(0,line.column);
+    text = text.split(' ');
+    text = text[text.length - 1];
+    alert(text); 
+}
 		function doc_select(select_value) {
 			alert(select_value);
 		}
@@ -504,8 +516,7 @@ function getCode() {
 			editor.setTheme(select_value);
 		}
 		function fontsize_select(select_value) {
-			var editor = ace.edit("editor");
-			editor.setFontSize(select_value);
+            document.getElementById('editor').style.fontSize=select_value;
 		}
 		function keybinding_select(select_value) {
 			var editor = ace.edit("editor");
