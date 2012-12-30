@@ -342,6 +342,11 @@
 								<button onclick="saveCode()">保存</button>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<button onclick="getHideIframe()">查看iframe</button>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>
@@ -470,10 +475,12 @@ function hidePinel() {
                 alert(filenem + '保存失败');
             }
             return;
-			var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
-			alert(h)
-			document.getElementById('inputtext').value = h;
 		}
+function getHideIframe() {
+	var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
+	alert(h)
+	document.getElementById('inputtext').value = h;
+}
 function getCode() {
     var request = new XMLHttpRequest();
     request.open('GET', '/getCode', false);
