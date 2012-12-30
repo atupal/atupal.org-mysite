@@ -77,8 +77,9 @@ application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 from flask import session,redirect,url_for,escape,request
 @application.route('/action', methods=['POST', 'GET'])
 def action():
+    prefix = None
     if 'username' in session:
-        pass
+        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
     else :
         return redirect(url_for('lo'))
     #conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -89,13 +90,13 @@ def action():
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
-    fi = open(OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/tmp.cpp', 'w')
+    fi = open(prefix + '/tmp.cpp', 'w')
     if not fi:
         return 'error'
     #cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
     fi.write(request.form['codestr'])
     fi.close() #此处必须要close，不然会造成ast（抽象语法分析树，即源代码）仍停留在缓存当中，找成编译的时候找不到main函数入口等奇葩的错误
-    fi = open(OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/in.dat', 'w')
+    fi = open(prefix + '/in.dat', 'w')
     if not fi:
         return 'error'
     fi.write(request.form['input'])
@@ -103,17 +104,13 @@ def action():
     fi.close()
     #tmp = os.popen(cmd)
     #tmp = os.popen('g++ -c ni.cpp')
-    p = subprocess.Popen(['cd', OPENSHITF_DATA_DIR + '/code/' + session['username']], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
-    p.wait()
-    stdoutdata, stderrdata = p.communicate()
-
-    p = subprocess.Popen(['g++', 'tmp.cpp'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen(['g++', prefix +  '/tmp.cpp', '-o ' + prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
         return stderrdata
 
-    p = subprocess.Popen(['./a.out<in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen([prefix + '/a.out<' + prefix + 'in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     #这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
     #同样，不能把参数和命令接在一起作为一个字符串，stdout和stderr是指定管道，不然在下面就无法获取程序执行结果的输出了
     #p.wait()
