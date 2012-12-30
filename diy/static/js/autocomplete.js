@@ -43,7 +43,7 @@ function keydown(ev) {
     $("#autoList").css({"left":$(".ace_text-input").offset().left,position:"absolute"});
     var line = editor.getCursorPosition();
     var text = editor.getSelection().doc.$lines[line.row].substring(0,line.column);
-    text = text.split(' ');
+    text = text.split(/[\s\(\)\[\]<>{}]/);
     text = text[text.length - 1];
     query(text);
 }
@@ -61,7 +61,7 @@ function query(str) {
     //doc = editor.getValue();
     //doc = doc.split('');
     doc = [];
-    keyword = ['int', 'for', 'while', 'double', 'float', 'short', 'string', 'char', 'return', 'void', 'do', 'if', 'else', 'goto','continue', 'case', 'switch', 'break', 'hehe'];
+    keyword = ['int', 'for', 'while', 'double', 'float', 'short', 'string', 'char', 'return', 'void', 'do', 'if', 'else', 'goto','continue', 'case', 'switch', 'break', 'hehe', 'and', 'or', 'not'];
 
     for (var i = 0; i < doc.length; ++ i) {
         if (doc[i].indexOf(str) != -1) {
@@ -73,11 +73,13 @@ function query(str) {
     for (var i = 0; i < keyword.length; ++ i) {
         if (keyword[i].indexOf(str) != -1) {
             ++ flag;
-            document.getElementById('autoList').style.height = (flag * 4).toString() + '0px';
-            var pelement = document.createElement("p");
+            document.getElementById('autoList').style.height = (flag * 20).toString() + 'px';
+            var pelement = document.createElement("span");
             var messagenode = document.createTextNode(keyword[i]);
+            var hanghang = document.createElement('br');
             pelement.appendChild(messagenode);
             document.getElementById('autoList').appendChild(pelement);
+            document.getElementById('autoList').appendChild(hanghang);
         }
     }
 
