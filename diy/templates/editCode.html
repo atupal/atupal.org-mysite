@@ -1,65 +1,36 @@
-<html lang="en">
-    <title>ACE in Action</title>
+<html>
+    <title>Online Compiler</title>
     <head>
-        <style type="text/css" media="screen">
-            #editor { 
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-            }
-            tr {
-                color:#ffff00;
-            }
-            .loginBack {
-                background:#000000;
-                position:absolute;
-                top:0;
-                left:0;
-                z-index:100;
-                display:none;
-                opacity:0.85;
-            }
-            .loginWin {
-                width:250px;
-                height:170px;
-                position:absolute;
-                z-index:101;
-                display:none;
-                border:1px inset green;
-                background:#ffffff;
-            }
-        </style>
+        <!--style type="text/css" media="screen">//</style-->
         <script type='text/javascript' src='js/jquery.min.js'></script>
         <script type='text/javascript' src="js/ace-src/ace.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/editCode.css" />
     </head>
     <body style="background:#000000">
         <div id="loginBack" class="loginBack" name="loginBack"></div>
         <div id="loginWin" class="loginWin" name="loginWin">
             <form id="pass_login" action="login" target="bianyi" method="post" style="">
-                <p class="pass_login_p pass_login_p_username" id="pass_login_p_username_0">
                 <label id="" for="">　帐号</label>
                 <input class="" type="text" id="" name="username" value="">
-                </p>
-                <p class="" id="">
+                <hr>
+
                 <label class="" id="" for="">　密码</label>
-                <input class="" type="password" id="" name="password"></p>
-                <p class="" id=""></p>
-                <p class="" id="">
+                <input class="" type="password" id="" name="password">
+                <hr>
+
                 <input class="" id="" name="" type="checkbox" checked="checked">
                 <label class="" id="" for="">记住我的登录状态</label>
-                </p>
-                <p class="" id="">
+                <hr>
+
                 <input class="" id="" type="submit" value="登录" onclick="cancel_login()">
                 <input class="" id="" type="button" value="取消" onclick="cancel_login()">
-                </p>
+                <input class="" id="" type="button" value="注册" onclick="register()">
             </form>
         </div>
+
         <div id="optionsPanel" style="position:absolute;height:80%;width:20%;color:#00ffff;">
             <div style="position: absulute; overflow:hidden; top:80px; bottom:0">
                 <div style="width: 100%; height:100%; overflow-y: scroll" style="background:#000000">
-
                     <table id="controls" style="background:#000000">
                         <tr style="color:#ffff00">
                             <td>
@@ -204,19 +175,21 @@
                                 <button onclick="test()">test</button>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <button onclick='deleteuser()'>deleteuser</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick='login()'>登录</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
         </div>
-
-        <div id="editor" style="height:100%;left:20%;width:60%;">#include &lt;stdlib.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-
-int main()
-{
-    return 0;
-}</div>
+        <div id="editor" style="height:100%;left:20%;width:60%;"></div>
 
         <div style='background:red;top:0;left:80%;position:absolute;width:20%;height:100%;z-index:3;' id="rightPanel">
             <input type="text" id="x_origin" />
@@ -225,177 +198,34 @@ int main()
             <input type='button' onclick="getCode()" value="查看代码"/>
             <div id='codes'></div>
         </div>
+
         <div style='left:80%;position:absolute;top:0;z-index:4;opacity:0.1;' id="hideDiv"
             onmouseover="document.getElementById('hideDiv').style.opacity=0.8"
-            onmouseout="document.getElementById('hideDiv').style.opacity=0.1"
-            >
+            onmouseout="document.getElementById('hideDiv').style.opacity=0.1">
             <input type="button" onclick="hidePinel()" value="hide"/>
         </div>
+
         <div id="autoList" style="width:100px;height:300px;position:absolute;left:0;top:0;opacity:0;bachground:red;z-index:5;"></div>
+
         <script src="js/autocomplete.js"></script>
         <!--script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"--><!--/script-->
         <script>
             var editor = ace.edit("editor");
             editor.setTheme("ace/theme/monokai");
             editor.getSession().setMode("ace/mode/c_cpp");
+            editor.setValue("#include<stdio.h>\n#include<stdlib.h>\n#include<string.h>\n\nint main()\n{\n\t\n\treturn 0;\n}");
         </script>
-        <script type="text/javascript">
-            function ts(){
-            }
-function getDocumentString() {
-    var codestr = editor.getSession().getValue();
-    //var id = Math.random();
-    //action = 'action';
-    //document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
-    //document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
-    //document.write('</form>'); 
-    //document.getElementById('post' + id).submit();
-    var input = document.getElementById('inputtext').value;
-    /*
-       input = input.replace(/\+/g, "%2B");//"+"转义  
-       input = input.replace(/\&/g, "%26");//"&"
-       input = input.replace(/\#/g, "%23");//"#"
 
-       codestr = codestr.replace(/\+/g, "%2B");//"+"转义  
-       codestr = codestr.replace(/\&/g, "%26");//"&"
-       codestr = codestr.replace(/\#/g, "%23");//"#"
-     */
-    alert(codestr);
-    alert(input);
+        <script type="text/javascript" src='js/editCode.js'></script>
 
-    input = encodeURIComponent(input);
-    codestr = encodeURIComponent(codestr);
+        <iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:9;"width='0%' height='0%' scrolling='auto'></iframe>
 
-    var request = new XMLHttpRequest();
-    request.open('POST', '/action', false);
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send('input=' + input + '&codestr=' + codestr);
-    var h = request.responseText;
-    if (h.indexOf("<html>") != -1) {
-        login();
-        //alert("pleas login first");
-        return;
-    }
-    alert(h);
-    document.getElementById('inputtext').value = h;
-    return;
+        <textarea id='inputtext' style="left:0px;top:82%;position:absolute;z-index:3;width:20%;height:18%;resize:no;" scrolling='auto'></textarea>
 
-    document.getElementById('input').value = input;
-    document.getElementById('codestr').value=codestr;
-    document.getElementById('form').submit();
-    return;
-}
+        <form action='action' target='bianyi' id='form' name='form' method='post'>
+            <input type='hidden' id='codestr' name='codestr' value=""/>
+            <input type='hidden' id='input' name='input' value=""/>
+        </form>
 
-function login()
-{
-    loginBack.style.display = "inline";
-    loginBack.style.width = "100%";
-    loginBack.style.height = "100%";
-    loginWin.style.display = "inline";
-    loginWin.style.left = document.body.clientWidth / 2 - loginWin.clientWidth / 2;
-    loginWin.style.top = document.body.clientHeight / 2 - loginWin.clientHeight / 2;
-}
-function cancel_login() {
-    loginBack.style.display = "none";
-    loginWin.style.display = "none";
-    document.getElementById("login").style.display = "";
-}
-function hidePinel() {
-    if (document.getElementById("rightPanel").style.display == "none") {
-        document.getElementById("rightPanel").style.display = "inline";
-        document.getElementById("editor").style.width = "60%";
-        document.getElementById("hideDiv").style.left = "80%";
-        return;
-    }
-    document.getElementById("rightPanel").style.display = "none";
-    document.getElementById("editor").style.width = "80%";
-    document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
-}
-function saveCode() {
-    var codestr = editor.getSession().getValue();
-    var filename = prompt("保存代码","请输入文件名");
-    if (filename == null || filename == '') {
-        alert('无效的文件名');
-        return;
-    }
-    codestr = encodeURIComponent(codestr);
-    filename = encodeURIComponent(filename);
-
-    var request = new XMLHttpRequest();
-    request.open('POST', '/saveCode', false);
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send('codestr=' + codestr + '&filename=' + filename);
-    var h = request.responseText;
-    if (h == 'yes') {
-        alert('文件保存成功, 文件名为：' + filename);
-    }
-    else {
-        alert(filenem + '保存失败');
-    }
-    return;
-}
-function getHideIframe() {
-    var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
-    alert(h)
-        document.getElementById('inputtext').value = h;
-}
-function getCode() {
-    var request = new XMLHttpRequest();
-    request.open('GET', '/getCode', false);
-    request.send(null);
-    if (request.status === 200) {
-        files = request.responseText.split(/[\s]/);
-        var rightPanel = document.getElementById('codes');
-        var childs = rightPanel.childNodes;  
-        for(var i = childs.length - 1; i >= 0; i--) {
-            rightPanel.removeChild(childs[i]);
-        }
-        for (var i = 0; i < files.length; ++ i) {
-            var file = document.createElement('a');
-            var fileName = document.createTextNode(files[i]);
-            var hanghang = document.createElement('br');
-            file.appendChild(fileName);
-            file.setAttribute('href', 'getFile');
-            rightPanel.appendChild(hanghang);
-            rightPanel.appendChild(file);
-        }
-    }
-}
-function test() {
-    var line = editor.getCursorPosition();
-    var text = editor.getSelection().doc.$lines[line.row].substring(0,line.column);
-    text = text.split(' ');
-    text = text[text.length - 1];
-    alert(text); 
-}
-function doc_select(select_value) {
-    alert(select_value);
-}
-function mode_select(select_value) {
-    var editor = ace.edit("editor");
-    editor.getSession().setMode("ace/mode/" + select_value);
-}
-function split_select(select_value) {
-    alert(select_value);
-}
-function theme_select(select_value) {
-    var editor = ace.edit("editor");
-    editor.setTheme(select_value);
-}
-function fontsize_select(select_value) {
-    document.getElementById('editor').style.fontSize=select_value;
-}
-function keybinding_select(select_value) {
-    var editor = ace.edit("editor");
-    editor.setKeyboardHandler(select_value);
-}
-</script>
-<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:9;"width='0%' height='0%' scrolling='auto'>
-</iframe>
-<textarea id='inputtext' style="left:0px;top:82%;position:absolute;z-index:3;width:20%;height:18%;resize:no;" scrolling='auto'></textarea>
-<form action='action' target='bianyi' id='form' name='form' method='post'>
-    <input type='hidden' id='codestr' name='codestr' value=""/>
-    <input type='hidden' id='input' name='input' value=""/>
-</form>
-</body>
+    </body>
 </html>

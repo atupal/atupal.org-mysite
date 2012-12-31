@@ -14,7 +14,7 @@ do
         echo $sum
         kill `pgrep uwsgi`
         sleep 0.3
-        ./gi &
+        ./gi.sh &
     fi
     sleep 0.3
 done
