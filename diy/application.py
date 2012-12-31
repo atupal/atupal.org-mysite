@@ -6,8 +6,8 @@ import platform
 application = Flask(__name__)
 application.debug = True
 #全局变量
-#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
-OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
+OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+#OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
 MONDO_ADR = '127.0.0.1'
 CONN_MONGO = None
 
