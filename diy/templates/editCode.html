@@ -1,276 +1,229 @@
 <html lang="en">
-	<title>ACE in Action</title>
-	<head>
-		<style type="text/css" media="screen">
-			#editor { 
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			}
-			tr {
-				color:#ffff00;
-			}
-			.loginBack {
-				background:#000000;
-				position:absolute;
-				top:0;
-				left:0;
-				z-index:100;
-				display:none;
-				opacity:0.85;
-			}
-			.loginWin {
-				width:250px;
-				height:170px;
-				position:absolute;
-				z-index:101;
-				display:none;
-				border:1px inset green;
-				background:#ffffff;
-			}
-		</style>
-		<script type='text/javascript' src='js/jquery.min.js'></script>
+    <title>ACE in Action</title>
+    <head>
+        <style type="text/css" media="screen">
+            #editor { 
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            tr {
+                color:#ffff00;
+            }
+            .loginBack {
+                background:#000000;
+                position:absolute;
+                top:0;
+                left:0;
+                z-index:100;
+                display:none;
+                opacity:0.85;
+            }
+            .loginWin {
+                width:250px;
+                height:170px;
+                position:absolute;
+                z-index:101;
+                display:none;
+                border:1px inset green;
+                background:#ffffff;
+            }
+        </style>
+        <script type='text/javascript' src='js/jquery.min.js'></script>
         <script type='text/javascript' src="js/ace-src/ace.js"></script>
-	</head>
-	<body style="background:#000000">
+    </head>
+    <body style="background:#000000">
         <div id="loginBack" class="loginBack" name="loginBack"></div>
         <div id="loginWin" class="loginWin" name="loginWin">
-			<form id="pass_login" action="login" target="bianyi" method="post" style="">
-				<p class="pass_login_p pass_login_p_username" id="pass_login_p_username_0">
-				<label id="" for="">　帐号</label>
-				<input class="" type="text" id="" name="username" value="">
-				</p>
-				<p class="" id="">
-				<label class="" id="" for="">　密码</label>
-				<input class="" type="password" id="" name="password"></p>
-				<p class="" id=""></p>
-				<p class="" id="">
-				<input class="" id="" name="" type="checkbox" checked="checked">
-				<label class="" id="" for="">记住我的登录状态</label>
-				</p>
-				<p class="" id="">
-				<input class="" id="" type="submit" value="登录" onclick="cancel_login()">
-				<input class="" id="" type="button" value="取消" onclick="cancel_login()">
-				</p>
-			</form>
+            <form id="pass_login" action="login" target="bianyi" method="post" style="">
+                <p class="pass_login_p pass_login_p_username" id="pass_login_p_username_0">
+                <label id="" for="">　帐号</label>
+                <input class="" type="text" id="" name="username" value="">
+                </p>
+                <p class="" id="">
+                <label class="" id="" for="">　密码</label>
+                <input class="" type="password" id="" name="password"></p>
+                <p class="" id=""></p>
+                <p class="" id="">
+                <input class="" id="" name="" type="checkbox" checked="checked">
+                <label class="" id="" for="">记住我的登录状态</label>
+                </p>
+                <p class="" id="">
+                <input class="" id="" type="submit" value="登录" onclick="cancel_login()">
+                <input class="" id="" type="button" value="取消" onclick="cancel_login()">
+                </p>
+            </form>
         </div>
-		<div id="optionsPanel" style="position:absolute;height:80%;width:20%;color:#00ffff;">
-			<div style="position: absulute; overflow:hidden; top:80px; bottom:0">
-				<div style="width: 100%; height:100%; overflow-y: scroll" style="background:#000000">
+        <div id="optionsPanel" style="position:absolute;height:80%;width:20%;color:#00ffff;">
+            <div style="position: absulute; overflow:hidden; top:80px; bottom:0">
+                <div style="width: 100%; height:100%; overflow-y: scroll" style="background:#000000">
 
-					<table id="controls" style="background:#000000">
-						<tr style="color:#ffff00">
-							<td>
-								<label for="doc">Document</label>
-								</td><td>
-								<select id="doc" onchange="doc_select(this.options[this.options.selectedIndex].value)" size="1">
-									<optgroup label="Huge documents">
-										<option value="src/ace.js">src/ace.js</option>
-										<option value="src-min/ace.js">src-min/ace.js</option>
-									</optgroup>
-									<optgroup label="own source">
-									</optgroup>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<label for="mode">Mode</label>
-								</td><td>
-								<select id="mode" onchange="mode_select(this.options[this.options.selectedIndex].value)" size="1">
-									<option value="asciidoc">AsciiDoc</option>
-									<option value="c9search">C9Search</option>
-									<option value="coffee">CoffeeScript</option>
-									<option value="coldfusion">ColdFusion</option>
-									<option value="csharp">C#</option>
-									<option value="css">CSS</option>
-									<option value="diff">Diff</option>
-									<option value="glsl">Glsl</option>
-									<option value="golang">Go</option>
-									<option value="groovy">Groovy</option>
-									<option value="haxe">haXe</option>
-									<option value="html">HTML</option>
-									<option value="c_cpp">C/C++</option>
-									<option value="clojure">Clojure</option>
-									<option value="jade">Jade</option>
-									<option value="java">Java</option>
-									<option value="jsp">JSP</option>
-									<option value="javascript">JavaScript</option>
-									<option value="json">JSON</option>
-									<option value="jsx">JSX</option>
-									<option value="latex">LaTeX</option>
-									<option value="less">LESS</option>
-									<option value="liquid">Liquid</option>
-									<option value="lua">Lua</option>
-									<option value="luapage">LuaPage</option>
-									<option value="markdown">Markdown</option>
-									<option value="ocaml">OCaml</option>
-									<option value="perl">Perl</option>
-									<option value="pgsql">pgSQL</option>
-									<option value="php">PHP</option>
-									<option value="powershell">Powershell</option>
-									<option value="python">Python</option>
-									<option value="ruby">Ruby</option>
-									<option value="scad">OpenSCAD</option>
-									<option value="scala">Scala</option>
-									<option value="scss">SCSS</option>
-									<option value="sh">SH</option>
-									<option value="sql">SQL</option>
-									<option value="svg">SVG</option>
-									<option value="tcl">Tcl</option>
-									<option value="text">Text</option>
-									<option value="textile">Textile</option>
-									<option value="typescript">Typescript</option>
-									<option value="xml">XML</option>
-									<option value="xquery">XQuery</option>
-									<option value="yaml">YAML</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="split">Split</label>
-								</td><td>
-								<select id="split" size="1" onchange="split_select(this.options[this,options.selectedIndex].value)">
-									<option value="none">None</option>
-									<option value="below">Below</option>
-									<option value="beside">Beside</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<label for="theme">Theme</label>
-								</td><td>
-								<select id="theme" size="1" onchange="theme_select(this.options[this.options.selectedIndex].value)">
-									<optgroup label="Bright">
-										<option value="ace/theme/chrome">Chrome</option>
-										<option value="ace/theme/clouds">Clouds</option>
-										<option value="ace/theme/crimson_editor">Crimson Editor</option>
-										<option value="ace/theme/dawn">Dawn</option>
-										<option value="ace/theme/dreamweaver">Dreamweaver</option>
-										<option value="ace/theme/eclipse">Eclipse</option>
-										<option value="ace/theme/github">GitHub</option>
-										<option value="ace/theme/solarized_light">Solarized Light</option>
-										<option value="ace/theme/textmate" selected="selected">TextMate</option>
-										<option value="ace/theme/tomorrow">Tomorrow</option>
-										<option value="ace/theme/xcode">XCode</option>
-									</optgroup>
-									<optgroup label="Dark">
-										<option value="ace/theme/ambiance">Ambiance</option>
-										<option value="ace/theme/clouds_midnight">Clouds Midnight</option>
-										<option value="ace/theme/cobalt">Cobalt</option>
-										<option value="ace/theme/idle_fingers">idleFingers</option>
-										<option value="ace/theme/kr_theme">krTheme</option>
-										<option value="ace/theme/merbivore">Merbivore</option>
-										<option value="ace/theme/merbivore_soft">Merbivore Soft</option>
-										<option value="ace/theme/mono_industrial">Mono Industrial</option>
-										<option value="ace/theme/monokai">Monokai</option>
-										<option value="ace/theme/pastel_on_dark">Pastel on dark</option>
-										<option value="ace/theme/solarized_dark">Solarized Dark</option>
-										<option value="ace/theme/twilight">Twilight</option>
-										<option value="ace/theme/tomorrow_night">Tomorrow Night</option>
-										<option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
-										<option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
-										<option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
-										<option value="ace/theme/vibrant_ink">Vibrant Ink</option>
-									</optgroup>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="fontsize">Font Size</label>
-								</td><td>
-								<select id="fontsize" size="1" onchange="fontsize_select(this.options[this.options.selectedIndex].value)">
-									<option value="10px">10px</option>
-									<option value="11px">11px</option>
-									<option value="12px" selected="selected">12px</option>
-									<option value="14px">14px</option>
-									<option value="16px">16px</option>
-									<option value="20px">20px</option>
-									<option value="24px">24px</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="folding">Code Folding</label>
-								</td><td>
-								<select id="folding" size="1">
-									<option value="manual">manual</option>
-									<option value="markbegin" selected="selected">mark begin</option>
-									<option value="markbeginend">mark begin and end</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<label for="keybinding">Key Binding</label>
-								</td><td>
-								<select id="keybinding" size="1" onchange="keybinding_select(this.options[this.options.selectedIndex].value)">
-									<option value="ace">Ace</option>
-									<option value="vim">Vim</option>
-									<option value="emacs">Emacs</option>
-									<option value="custom">Custom</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td >
-								<label for="soft_wrap">Soft Wrap</label>
-								</td><td>
-								<select id="soft_wrap" size="1">
-									<option value="off">Off</option>
-									<option value="40">40 Chars</option>
-									<option value="80">80 Chars</option>
-									<option value="free">Free</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button onclick="getDocumentString()">编译</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button onclick="saveCode()">保存</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
+                    <table id="controls" style="background:#000000">
+                        <tr style="color:#ffff00">
+                            <td>
+                                <label for="doc">Document</label>
+                                </td><td>
+                                <select id="doc" onchange="doc_select(this.options[this.options.selectedIndex].value)" size="1">
+                                    <optgroup label="Huge documents">
+                                        <option value="src/ace.js">src/ace.js</option>
+                                        <option value="src-min/ace.js">src-min/ace.js</option>
+                                    </optgroup>
+                                    <optgroup label="own source">
+                                    </optgroup>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <label for="mode">Mode</label>
+                                </td><td>
+                                <select id="mode" onchange="mode_select(this.options[this.options.selectedIndex].value)" size="1">
+                                    <option value="html">HTML</option>
+                                    <option value="c_cpp">C/C++</option>
+                                    <option value="java">Java</option>
+                                    <option value="jsp">JSP</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="json">JSON</option>
+                                    <option value="perl">Perl</option>
+                                    <option value="php">PHP</option>
+                                    <option value="python">Python</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="text">Text</option>
+                                    <option value="xml">XML</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="split">Split</label>
+                                </td><td>
+                                <select id="split" size="1" onchange="split_select(this.options[this,options.selectedIndex].value)">
+                                    <option value="none">None</option>
+                                    <option value="below">Below</option>
+                                    <option value="beside">Beside</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <label for="theme">Theme</label>
+                                </td><td>
+                                <select id="theme" size="1" onchange="theme_select(this.options[this.options.selectedIndex].value)">
+                                    <optgroup label="Bright">
+                                        <option value="ace/theme/chrome">Chrome</option>
+                                        <option value="ace/theme/clouds">Clouds</option>
+                                        <option value="ace/theme/crimson_editor">Crimson Editor</option>
+                                        <option value="ace/theme/dawn">Dawn</option>
+                                        <option value="ace/theme/dreamweaver">Dreamweaver</option>
+                                        <option value="ace/theme/eclipse">Eclipse</option>
+                                        <option value="ace/theme/github">GitHub</option>
+                                        <option value="ace/theme/solarized_light">Solarized Light</option>
+                                        <option value="ace/theme/textmate" selected="selected">TextMate</option>
+                                        <option value="ace/theme/tomorrow">Tomorrow</option>
+                                        <option value="ace/theme/xcode">XCode</option>
+                                    </optgroup>
+                                    <optgroup label="Dark">
+                                        <option value="ace/theme/ambiance">Ambiance</option>
+                                        <option value="ace/theme/clouds_midnight">Clouds Midnight</option>
+                                        <option value="ace/theme/cobalt">Cobalt</option>
+                                        <option value="ace/theme/idle_fingers">idleFingers</option>
+                                        <option value="ace/theme/kr_theme">krTheme</option>
+                                        <option value="ace/theme/merbivore">Merbivore</option>
+                                        <option value="ace/theme/merbivore_soft">Merbivore Soft</option>
+                                        <option value="ace/theme/mono_industrial">Mono Industrial</option>
+                                        <option value="ace/theme/monokai">Monokai</option>
+                                        <option value="ace/theme/pastel_on_dark">Pastel on dark</option>
+                                        <option value="ace/theme/solarized_dark">Solarized Dark</option>
+                                        <option value="ace/theme/twilight">Twilight</option>
+                                        <option value="ace/theme/tomorrow_night">Tomorrow Night</option>
+                                        <option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
+                                        <option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
+                                        <option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
+                                        <option value="ace/theme/vibrant_ink">Vibrant Ink</option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="fontsize">Font Size</label>
+                                </td><td>
+                                <select id="fontsize" size="1" onchange="fontsize_select(this.options[this.options.selectedIndex].value)">
+                                    <option value="10px">10px</option>
+                                    <option value="11px">11px</option>
+                                    <option value="12px" selected="selected">12px</option>
+                                    <option value="14px">14px</option>
+                                    <option value="16px">16px</option>
+                                    <option value="20px">20px</option>
+                                    <option value="24px">24px</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="folding">Code Folding</label>
+                                </td><td>
+                                <select id="folding" size="1">
+                                    <option value="manual">manual</option>
+                                    <option value="markbegin" selected="selected">mark begin</option>
+                                    <option value="markbeginend">mark begin and end</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <label for="keybinding">Key Binding</label>
+                                </td><td>
+                                <select id="keybinding" size="1" onchange="keybinding_select(this.options[this.options.selectedIndex].value)">
+                                    <option value="ace">Ace</option>
+                                    <option value="vim">Vim</option>
+                                    <option value="emacs">Emacs</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick="getDocumentString()">编译</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onclick="saveCode()">保存</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <button onclick="getHideIframe()">iframe</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <button onclick="test()">test</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-		<div id="editor" style="height:100%;left:20%;width:60%;">#include &lt;stdlib.h&gt;
+        <div id="editor" style="height:100%;left:20%;width:60%;">#include &lt;stdlib.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 
 int main()
 {
-
-	return 0;
-}
-</div>
+    return 0;
+}</div>
 
         <div style='background:red;top:0;left:80%;position:absolute;width:20%;height:100%;z-index:3;' id="rightPanel">
             <input type="text" id="x_origin" />
             <input type="text" id="y_origin" />
             <br>
             <input type='button' onclick="getCode()" value="查看代码"/>
+            <div id='codes'></div>
         </div>
         <div style='left:80%;position:absolute;top:0;z-index:4;opacity:0.1;' id="hideDiv"
             onmouseover="document.getElementById('hideDiv').style.opacity=0.8"
@@ -280,56 +233,58 @@ int main()
         </div>
         <div id="autoList" style="width:100px;height:300px;position:absolute;left:0;top:0;opacity:0;bachground:red;z-index:5;"></div>
         <script src="js/autocomplete.js"></script>
-		<!--script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"--><!--/script-->
-		<script>
-			var editor = ace.edit("editor");
-			editor.setTheme("ace/theme/monokai");
-			editor.getSession().setMode("ace/mode/c_cpp");
-		</script>
-		<script type="text/javascript">
-		function getDocumentString() {
-			var codestr = editor.getSession().getValue();
-			//var id = Math.random();
-			//action = 'action';
-			//document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
-			//document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
-			//document.write('</form>'); 
-			//document.getElementById('post' + id).submit();
-			var input = document.getElementById('inputtext').value;
-			/*
-			input = input.replace(/\+/g, "%2B");//"+"转义  
-			input = input.replace(/\&/g, "%26");//"&"
-			input = input.replace(/\#/g, "%23");//"#"
-
-			codestr = codestr.replace(/\+/g, "%2B");//"+"转义  
-			codestr = codestr.replace(/\&/g, "%26");//"&"
-			codestr = codestr.replace(/\#/g, "%23");//"#"
-			*/
-			alert(codestr);
-			alert(input);
-
-			input = encodeURIComponent(input);
-			codestr = encodeURIComponent(codestr);
-
-			var request = new XMLHttpRequest();
-			request.open('POST', '/action', false);
-			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			request.send('input=' + input + '&codestr=' + codestr);
-            var h = request.responseText;
-            if (h.indexOf("<html>") != -1) {
-                login();
-                //alert("pleas login first");
-                return;
+        <!--script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"--><!--/script-->
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/c_cpp");
+        </script>
+        <script type="text/javascript">
+            function ts(){
             }
-			alert(h);
-			document.getElementById('inputtext').value = h;
-			return;
+function getDocumentString() {
+    var codestr = editor.getSession().getValue();
+    //var id = Math.random();
+    //action = 'action';
+    //document.write('<form id="post' + id + '" name="post'+ id +'" action="' + action +  '" target="codestr' + '" method="post">');
+    //document.write('<input type="hidden" name="' + "codestr" + '" value="' + codestr + '" />');
+    //document.write('</form>'); 
+    //document.getElementById('post' + id).submit();
+    var input = document.getElementById('inputtext').value;
+    /*
+       input = input.replace(/\+/g, "%2B");//"+"转义  
+       input = input.replace(/\&/g, "%26");//"&"
+       input = input.replace(/\#/g, "%23");//"#"
 
-			document.getElementById('input').value = input;
-			document.getElementById('codestr').value=codestr;
-			document.getElementById('form').submit();
-			return;
-		}
+       codestr = codestr.replace(/\+/g, "%2B");//"+"转义  
+       codestr = codestr.replace(/\&/g, "%26");//"&"
+       codestr = codestr.replace(/\#/g, "%23");//"#"
+     */
+    alert(codestr);
+    alert(input);
+
+    input = encodeURIComponent(input);
+    codestr = encodeURIComponent(codestr);
+
+    var request = new XMLHttpRequest();
+    request.open('POST', '/action', false);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.send('input=' + input + '&codestr=' + codestr);
+    var h = request.responseText;
+    if (h.indexOf("<html>") != -1) {
+        login();
+        //alert("pleas login first");
+        return;
+    }
+    alert(h);
+    document.getElementById('inputtext').value = h;
+    return;
+
+    document.getElementById('input').value = input;
+    document.getElementById('codestr').value=codestr;
+    document.getElementById('form').submit();
+    return;
+}
 
 function login()
 {
@@ -341,9 +296,9 @@ function login()
     loginWin.style.top = document.body.clientHeight / 2 - loginWin.clientHeight / 2;
 }
 function cancel_login() {
-	loginBack.style.display = "none";
-	loginWin.style.display = "none";
-	document.getElementById("login").style.display = "";
+    loginBack.style.display = "none";
+    loginWin.style.display = "none";
+    document.getElementById("login").style.display = "";
 }
 function hidePinel() {
     if (document.getElementById("rightPanel").style.display == "none") {
@@ -356,33 +311,33 @@ function hidePinel() {
     document.getElementById("editor").style.width = "80%";
     document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
 }
-		function saveCode() {
-			var codestr = editor.getSession().getValue();
-            var filename = prompt("保存代码","请输入文件名");
-            if (filename == null || filename == '') {
-                alert('无效的文件名');
-                return;
-            }
-			codestr = encodeURIComponent(codestr);
-			filename = encodeURIComponent(filename);
+function saveCode() {
+    var codestr = editor.getSession().getValue();
+    var filename = prompt("保存代码","请输入文件名");
+    if (filename == null || filename == '') {
+        alert('无效的文件名');
+        return;
+    }
+    codestr = encodeURIComponent(codestr);
+    filename = encodeURIComponent(filename);
 
-			var request = new XMLHttpRequest();
-			request.open('POST', '/saveCode', false);
-			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-			request.send('codestr=' + codestr + '&filename=' + filename);
-            var h = request.responseText;
-            if (h == 'yes') {
-                alert('文件保存成功, 文件名为：' + filename);
-            }
-            else {
-                alert(filenem + '保存失败');
-            }
-            return;
-		}
+    var request = new XMLHttpRequest();
+    request.open('POST', '/saveCode', false);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.send('codestr=' + codestr + '&filename=' + filename);
+    var h = request.responseText;
+    if (h == 'yes') {
+        alert('文件保存成功, 文件名为：' + filename);
+    }
+    else {
+        alert(filenem + '保存失败');
+    }
+    return;
+}
 function getHideIframe() {
-	var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
-	alert(h)
-	document.getElementById('inputtext').value = h;
+    var h = document.getElementById('bianyi').contentDocument.body.innerHTML.toString();
+    alert(h)
+        document.getElementById('inputtext').value = h;
 }
 function getCode() {
     var request = new XMLHttpRequest();
@@ -390,13 +345,19 @@ function getCode() {
     request.send(null);
     if (request.status === 200) {
         files = request.responseText.split(/[\s]/);
-        var rightPanel = document.getElementById('rightPanel');
+        var rightPanel = document.getElementById('codes');
+        var childs = rightPanel.childNodes;  
+        for(var i = childs.length - 1; i >= 0; i--) {
+            rightPanel.removeChild(childs[i]);
+        }
         for (var i = 0; i < files.length; ++ i) {
             var file = document.createElement('a');
             var fileName = document.createTextNode(files[i]);
+            var hanghang = document.createElement('br');
             file.appendChild(fileName);
+            file.setAttribute('href', 'getFile');
+            rightPanel.appendChild(hanghang);
             rightPanel.appendChild(file);
-            rightPanel.appendChild('br');
         }
     }
 }
@@ -407,34 +368,34 @@ function test() {
     text = text[text.length - 1];
     alert(text); 
 }
-		function doc_select(select_value) {
-			alert(select_value);
-		}
-		function mode_select(select_value) {
-			var editor = ace.edit("editor");
-			editor.getSession().setMode("ace/mode/" + select_value);
-		}
-		function split_select(select_value) {
-			alert(select_value);
-		}
-		function theme_select(select_value) {
-			var editor = ace.edit("editor");
-			editor.setTheme(select_value);
-		}
-		function fontsize_select(select_value) {
-            document.getElementById('editor').style.fontSize=select_value;
-		}
-		function keybinding_select(select_value) {
-			var editor = ace.edit("editor");
-			editor.setKeyboardHandler(select_value);
-		}
-	</script>
-	<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:9;"width='0%' height='0%' scrolling='auto'>
-	</iframe>
-	<textarea id='inputtext' style="left:0px;top:82%;position:absolute;z-index:3;width:20%;height:18%;resize:no;" scrolling='auto'></textarea>
-	<form action='action' target='bianyi' id='form' name='form' method='post'>
-		<input type='hidden' id='codestr' name='codestr' value=""/>
-		<input type='hidden' id='input' name='input' value=""/>
-	</form>
+function doc_select(select_value) {
+    alert(select_value);
+}
+function mode_select(select_value) {
+    var editor = ace.edit("editor");
+    editor.getSession().setMode("ace/mode/" + select_value);
+}
+function split_select(select_value) {
+    alert(select_value);
+}
+function theme_select(select_value) {
+    var editor = ace.edit("editor");
+    editor.setTheme(select_value);
+}
+function fontsize_select(select_value) {
+    document.getElementById('editor').style.fontSize=select_value;
+}
+function keybinding_select(select_value) {
+    var editor = ace.edit("editor");
+    editor.setKeyboardHandler(select_value);
+}
+</script>
+<iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:9;"width='0%' height='0%' scrolling='auto'>
+</iframe>
+<textarea id='inputtext' style="left:0px;top:82%;position:absolute;z-index:3;width:20%;height:18%;resize:no;" scrolling='auto'></textarea>
+<form action='action' target='bianyi' id='form' name='form' method='post'>
+    <input type='hidden' id='codestr' name='codestr' value=""/>
+    <input type='hidden' id='input' name='input' value=""/>
+</form>
 </body>
 </html>

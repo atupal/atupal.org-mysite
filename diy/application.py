@@ -6,7 +6,8 @@ import platform
 application = Flask(__name__)
 application.debug = True
 #全局变量
-OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
 
 @application.route("/")
 def index():
@@ -108,8 +109,7 @@ def action():
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
-        stderrdata.replace(prefix, '...')
-        return stderrdata
+        return stderrdata.replace(prefix, '...')
 
     p = subprocess.Popen([prefix + './a.out<' + prefix + 'in.dat'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     #这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
@@ -163,6 +163,15 @@ def getCode():
     p.wait()
     stdout, stderr = p.communicate()
     return stdout
+
+@application.route('/getFile', methods = ['GET', 'POST'])
+def getFile():
+    if 'username' in session:
+        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+    else:
+        return redirect(url_for('lo'))
+
+
 
 @application.route('/manage')
 def manage(name = None):
