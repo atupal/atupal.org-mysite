@@ -256,11 +256,6 @@ def style(name):
     fi = open(server_dir + "static/css/" + name)
     return fi.read()
 
-#@application.route('/js/ace-src/<name>')
-#def acejs(name):
-#    fi = open(server_dir + "static/js/ace-src/" + name)
-#    return fi.read()
-
 @application.route('/favicon.ico')
 def ico():
     fi = open(server_dir + 'favicon.ico', "rb")
