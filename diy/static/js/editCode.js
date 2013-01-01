@@ -59,12 +59,12 @@ function cancel_login() {
     document.getElementById("login").style.display = "";
 }
 function register() {
-    var iWidth = 500; //¿?¿?¿?¿?¿?¿?¿?;
-    var iHeight = 300; //¿?¿?¿?¿?¿?¿?¿?
+    var iWidth = 500; 
+    var iHeight = 300;
 
-    var iTop = (window.screen.availHeight - 30 - iHeight) / 2; //¿?¿?¿?¿?¿?¿?¿?¿?¿?;
+    var iTop = (window.screen.availHeight - 30 - iHeight) / 2; 
 
-    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; //¿?¿?¿?¿?¿?¿?¿?¿?¿?;
+    var iLeft = (window.screen.availWidth - 10 - iWidth) / 2; 
 
     window.open('register', 'newwindow', 'height=' + iHeight + ',width=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no,menubar=no,scrollbars=no, resizable=yes,location=no, status=no');
 }
@@ -81,9 +81,9 @@ function hidePinel() {
 }
 function saveCode() {
     var codestr = editor.getSession().getValue();
-    var filename = prompt("¿?¿?¿?¿?","¿?¿?¿?¿?¿?¿?");
+    var filename = prompt("输入一个文件名");
     if (filename == null || filename == '') {
-        alert('¿?¿?¿?¿?¿?¿?');
+        alert('文件名错误');
         return;
     }
     codestr = encodeURIComponent(codestr);
@@ -95,10 +95,10 @@ function saveCode() {
     request.send('codestr=' + codestr + '&filename=' + filename);
     var h = request.responseText;
     if (h == 'yes') {
-        alert('¿?¿?¿?¿?¿?¿?, ¿?¿?¿?¿?¿?' + filename);
+        alert('文件保存成功，' + filename);
     }
     else {
-        alert(filenem + '¿?¿?¿?¿?');
+        alert(filenem + '保存失败');
     }
     return;
 }
@@ -123,10 +123,21 @@ function getCode() {
             var fileName = document.createTextNode(files[i]);
             var hanghang = document.createElement('br');
             file.appendChild(fileName);
-            file.setAttribute('href', 'getFile');
+            //file.setAttribute('href', 'getFile/' + '?' + 'fileName=' + files[i]);
+            file.setAttribute('onclick', 'get_file(' + '"' + files[i] + '"' + ')');
             rightPanel.appendChild(hanghang);
             rightPanel.appendChild(file);
         }
+    }
+}
+function get_file(file_name) {
+    var request = new XMLHttpRequest();
+    request.open('POST', '/getFile', false);
+    file_name = encodeURIComponent(file_name);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.send('file_name=' + file_name);
+    if (request.status === 200) {
+        editor.setValue(request.responseText);
     }
 }
 function deleteuser() {

@@ -218,6 +218,8 @@ def getCode():
 def getFile():
     if 'username' in session:
         prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+        fi = open(prefix + request.form['file_name'], 'r')
+        return fi.read()
     else:
         return redirect(url_for('lo'))
 
