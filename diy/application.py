@@ -6,14 +6,18 @@ import platform
 application = Flask(__name__)
 application.debug = True
 #全局变量
-#OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
-OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
-#MONDO_ADR = '127.0.0.1'
-MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
+MONDO_ADR = '127.0.0.1'
+
+#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+#MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 CONN_MONGO = None
+i = 0
 
 @application.route("/")
 def index():
+    global i
+    return str(++ i)
     return 'Hello from Flask !'
 
 @application.route("/info")
@@ -187,6 +191,10 @@ def action():
         stdoutdata += '\ntime out!\n'
     stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata
     return stdoutdata
+
+@application.route('/gdbcmd', methods = ['GET', 'POST'])
+def gdbcmd():
+    return ''
 
 @application.route('/saveCode', methods = ['GET', 'POST'])
 def saveCode():

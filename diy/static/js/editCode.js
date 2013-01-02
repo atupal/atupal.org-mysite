@@ -18,8 +18,8 @@ function getDocumentString() {
        codestr = codestr.replace(/\&/g, "%26");//"&"
        codestr = codestr.replace(/\#/g, "%23");//"#"
        */
-    alert(codestr);
-    alert(input);
+    //alert(codestr);
+    //alert(input);
 
     input = encodeURIComponent(input);
     codestr = encodeURIComponent(codestr);
