@@ -2,5 +2,7 @@
 # The logic to stop your application should be put in this script.
 #kill `ps -ef | grep testrubyserver.rb | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
 #exit 0
-kill `cat $OPENSHIFT_TMP_DIR/uwsgi.pid`
+#kill `cat $OPENSHIFT_TMP_DIR/uwsgi.pid`
+#exit 0
+kill `pgrep python`
 exit 0
