@@ -14,16 +14,6 @@ MONDO_ADR = '127.0.0.1'
 CONN_MONGO = None
 i = 0
 
-#记录pid到文件:profile.pid
-##如果存在就kill掉当前进程
-#import os
-#import sys
-#
-#pid = str(os.getpid())
-#pidfile = '/tmp/geventPythonServer.pid'
-
-
-
 @application.route("/")
 def index():
     global i
@@ -136,6 +126,7 @@ def game(name = None):
 def chidouren():
     return render_template('games/chidouren/chidouren.html')
 
+import os
 import subprocess
 application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 from flask import session,redirect,url_for,escape,request
@@ -150,6 +141,7 @@ def action():
     #db = conn[os.environ['OPENSHIFT_APP_NAME']]
     #db.editCode.insert({"tmp": request.form['codestr']})
 
+    import sys
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
@@ -200,13 +192,9 @@ def action():
     stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata
     return stdoutdata
 
-@application.route('gdbapi', methods = ['GET', 'POST'])
-def gdbapi():
-    if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
-    else:
-        return redirect(url_for('lo'))
-    filename = request.form
+@application.route('/gdbcmd', methods = ['GET', 'POST'])
+def gdbcmd():
+    return ''
 
 @application.route('/saveCode', methods = ['GET', 'POST'])
 def saveCode():
@@ -354,29 +342,9 @@ def nameNear(name):
     return str(json.dumps({'results' : list(result)},default=json_util.default))
 
 
-#if __name__ == '__main__':
-#    application.run()
-
-
-from geventwebsocket.handler import WebSocketHandler
-from gevent.pywsgi import WSGIServer
-from flask import Flask, request, render_template
-
-@application.route('/wstest')
-def wstest():
-    return render_template('wstest.html')
-
-@application.route('/api')
-def api():
-    if request.environ.get('wsgi.websocket'):
-        ws = request.environ['wsgi.websocket']
-        i = 0
-        while True:
-            i = i + 1
-            message = ws.receive()
-            ws.send(str(i))
-    return
+@application.route("/test")
+def test():
+    return "<strong>It actually worked</strong>"
 
 if __name__ == '__main__':
-    http_server = WSGIServer(('',8080), application, handler_class=WebSocketHandler)
-    http_server.serve_forever()
+    application.run()

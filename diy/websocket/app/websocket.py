@@ -1,10 +1,10 @@
-
 # coding: utf-8
 import json
 import time
 import subprocess
 
 def handle_websocket(ws):
+    print('yes')
     while True:
         message = ws.receive()
         if message is None:
@@ -12,9 +12,9 @@ def handle_websocket(ws):
             #break
         else:
             message = json.loads(message)
-            #p = subprocess.Popen([message['output']], stdout = subprocess.PIPE, stderr=subprocess.PIPE)
-            #p.wait()
+            p = subprocess.Popen([message['output']], stdout = subprocess.PIPE, stderr=subprocess.PIPE)
+            p.wait()
 
 
 
-            ws.send(json.dumps({'output': message['output']}))
+            ws.send(json.dumps({'output': p.communicate()[0]}))
