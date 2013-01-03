@@ -200,13 +200,13 @@ def action():
     stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata
     return stdoutdata
 
-@application.route('gdbapi', methods = ['GET', 'POST'])
-def gdbapi():
-    if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
-    else:
-        return redirect(url_for('lo'))
-    filename = request.form
+#@application.route('gdbapi', methods = ['GET', 'POST'])
+#def gdbapi():
+#    if 'username' in session:
+#        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+#    else:
+#        return redirect(url_for('lo'))
+#    filename = request.form
 
 @application.route('/saveCode', methods = ['GET', 'POST'])
 def saveCode():
