@@ -16,8 +16,8 @@ i = 0
 
 #记录pid到文件:profile.pid
 ##如果存在就kill掉当前进程
-#import os
-#import sys
+import os
+import sys
 #
 #pid = str(os.getpid())
 #pidfile = '/tmp/geventPythonServer.pid'
