@@ -56,60 +56,86 @@
                 -o-transform: rotate(2deg) translate(20px,25px) skew(20deg);
                 transform: rotate(2deg) translate(20px,25px) skew(20deg);
             }
+
+            img{
+                max-width:780px;
+                //width:expression("auto" );
+                width:auto;
+                height:auto;
+                border:1px dashed #000;
+            }
         </style>
     </head>
     <body>
         <ul id="wrap">
             <li>
             <div class="boxCont" style="height:255px;">
-                <img src="images/psb_1.jpg" width="250px" height="255px">
+                <img src="images/psb_1.jpg">
                 1
                 </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:306px;">
+                <img src="images/psb_2.jpg">
                 2
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:317px;">
+                <img src="images/psb_3.jpg">
                 3
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:388px;">
+                <img src="images/psb_4.jpg">
                 4
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:346px;">
+                <img src="images/psb_5.jpg">
                 5
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:272px;">
+                <img src="images/psb_6.jpg">
                 6
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:337px;">
+                <img src="images/psb_7.jpg">
                 7
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:257px;">
+                <img src="images/psb_8.jpg">
                 8
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:339px;">
+                <img src="images/psb_9.jpg">
                 9
+                </img>
             </div>
             </li>
             <li>
             <div class="boxCont" style="height:306px;">
+                <img src="images/psb_10.jpg">
                 10
+                </img>
             </div>
             </li>
             <li>
@@ -173,8 +199,7 @@
             </div>
             </li>
             <li>
-            <div class="boxCont" style="height:255px;">
-                23
+            <div class="boxCont" style="height:255px;"> 23
             </div>
             </li>
             <li>
@@ -222,6 +247,18 @@ $id("more_btn").onclick=function(){
         $id("wrap").innerHTML += '<li><div class="boxCont" style="height:' + height + 'px;">'+i+'</div></li>';
     };
 }
+
+divs = document.getElementsByClassName("boxCont");
+for (var i = 10; i < divs.length; ++ i) {
+    var img = document.createElement('img');
+    img.setAttribute('src', '/images/' + 'psb_' + i.toString() + '.jpg');
+    divs[i].appendChild(img);
+}
+imgs = document.getElementsByTagName("img");
+for (var i = 0; i < imgs.length; ++ i) {
+    imgs[i].style.height = imgs[i].parentNode.style.height;
+}
+
 </script>
-</body>
+    </body>
 </html>
