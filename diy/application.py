@@ -270,7 +270,8 @@ def psb():
     if "username" in session:
         pass
     else:
-        return redirect(url_for('lo'))
+        pass
+        #return redirect(url_for('lo'))
     return render_template('pintrest/test.html')
 
 server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/'

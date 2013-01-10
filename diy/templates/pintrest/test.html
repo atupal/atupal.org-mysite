@@ -1,262 +1,42 @@
-<!Doctype html>
 <html>
     <head>
-        <meta charset="UTF-8"/>
-        <title>html5,css3,column效果</title>
         <style>
-            *{padding:0;margin:0;}
-            #wrap{
-                position:relative;
-                margin:0px auto;
-                -webkit-column-width:250px;
-                -moz-cloumn-width:250px;
-            }
-            #wrap li{width:250px;display:inline-block;list-style:none;}
-            .boxCont{position:relative;margin:15px;border:1px solid #ccc;background:#eee;
-                background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
-                background: -webkit-linear-gradient(0 0 270deg, #f3f3f3, #f3f3f3 10%, #fff);
-                background: -moz-linear-gradient(0 0 270deg, #f3f3f3, #f3f3f3 10%, #fff);
-                background: -o-linear-gradient(0 0 270deg, #f3f3f3, #f3f3f3 10%, #fff);
-                -webkit-border-radius: 60px / 5px;
-                -moz-border-radius: 60px / 5px;
-                border-radius:60px / 5px;
-                -webkit-box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.1) inset;
-                -moz-box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.1) inset;
-                box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.1) inset;
-            }
-            .boxCont:before{
-                content:'';
-                width: 50px;
-                height: 50px;
-                top:0; right:0;
-                position:absolute;
-                display: inline-block;
-                z-index:-1;
-                -webkit-box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
-                box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
-                -webkit-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
-                -moz-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
-                -o-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
-                transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
-            }
-            .boxCont:after{
-                content: '';
-                width: 100px;
-                height: 100px;
-                top:0; left:0;
-                position:absolute;
-                z-index:-1;
-                display: inline-block;
-                -webkit-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.2);
-                box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.2);
-                -webkit-transform: rotate(2deg) translate(20px,25px) skew(20deg);
-                -moz-transform: rotate(2deg) translate(20px,25px) skew(20deg);
-                -o-transform: rotate(2deg) translate(20px,25px) skew(20deg);
-                transform: rotate(2deg) translate(20px,25px) skew(20deg);
-            }
-
-            img{
-                max-width:780px;
-                //width:expression("auto" );
-                width:auto;
-                height:auto;
+            img {
                 border:1px dashed #000;
+                height:240px;
             }
         </style>
     </head>
-    <body>
-        <ul id="wrap">
-            <li>
-            <div class="boxCont" style="height:255px;">
-                <img src="images/psb_1.jpg">
-                1
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:306px;">
-                <img src="images/psb_2.jpg">
-                2
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:317px;">
-                <img src="images/psb_3.jpg">
-                3
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:388px;">
-                <img src="images/psb_4.jpg">
-                4
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:346px;">
-                <img src="images/psb_5.jpg">
-                5
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:272px;">
-                <img src="images/psb_6.jpg">
-                6
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:337px;">
-                <img src="images/psb_7.jpg">
-                7
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:257px;">
-                <img src="images/psb_8.jpg">
-                8
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:339px;">
-                <img src="images/psb_9.jpg">
-                9
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:306px;">
-                <img src="images/psb_10.jpg">
-                10
-                </img>
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:350px;">
-                11
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:239px;">
-                12
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:246px;">
-                13
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:270px;">
-                14
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:331px;">
-                15
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:270px;">
-                16
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:232px;">
-                17
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:284px;">
-                18
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:335px;">
-                19
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:245px;">
-                20
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:265px;">
-                21
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:354px;">
-                22
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:255px;"> 23
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:362px;">
-                24
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:310px;">
-                25
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:272px;">
-                26
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:378px;">
-                27
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:221px;">
-                28
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:236px;">
-                29
-            </div>
-            </li>
-            <li>
-            <div class="boxCont" style="height:373px;">
-                30
-            </div>
-            </li>
-        </ul>
-        <input type="button" id="more_btn" value="加载更多..."/>
+    <body onload="display()">
         <script type="text/javascript">
-            var $id = function(o){ return document.getElementById(o) || o};
-$id("more_btn").onclick=function(){
-    for(i = 31; i < 60; i++) {
-        height = Math.floor(Math.random()*200 + 200);
-        $id("wrap").innerHTML += '<li><div class="boxCont" style="height:' + height + 'px;">'+i+'</div></li>';
-    };
+            window.onload=display;
+var col = 0;
+var row = 0;
+
+for (var i = 0; i < 34; ++ i) {
+    var div = document.createElement('div');
+    div.setAttribute("id", "div_" + i.toString());
+    div.setAttribute("style", "position:absolute");
+    document.body.appendChild(div);
 }
 
-divs = document.getElementsByClassName("boxCont");
-for (var i = 10; i < divs.length; ++ i) {
+for (var i = 0; i < 34; ++ i) {
     var img = document.createElement('img');
-    img.setAttribute('src', '/images/' + 'psb_' + i.toString() + '.jpg');
-    divs[i].appendChild(img);
+    img.setAttribute('src', '/images/' + 'psb_' + (i + 1).toString() + '.jpg');
+    document.getElementById("div_" + i.toString()).appendChild(img);
 }
-imgs = document.getElementsByTagName("img");
-for (var i = 0; i < imgs.length; ++ i) {
-    imgs[i].style.height = imgs[i].parentNode.style.height;
+
+function display() {
+    var imgs = document.getElementsByTagName("img");
+    for (var i = 0; i < imgs.length; ++ i) {
+            if (row + imgs[i].width > document.body.clientWidth + 100) {
+                ++ col;
+                row = 0;
+            }
+        imgs[i].parentNode.style.top = (col * 250).toString() + "px";
+        imgs[i].parentNode.style.left = row.toString() + "px";
+        row += imgs[i].width + 10;
+    }
 }
 
 </script>
