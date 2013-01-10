@@ -283,7 +283,7 @@ def javascript(name):
     return fi.read()
 
 @application.route('/images/<path:name>')
-def javascript(name):
+def images(name):
     fi = open(server_dir + "static/images/" + name)
     return fi.read()
 
