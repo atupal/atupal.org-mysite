@@ -3,15 +3,13 @@
         <style>
             img {
                 border:1px dashed #000;
-                height:240px;
             }
         </style>
     </head>
     <body onload="display()">
+        <!--div id="title" style="position:absolute;width:300px;height:200px;background:red;"></div-->
         <script type="text/javascript">
             window.onload=display;
-var col = 0;
-var row = 0;
 
 for (var i = 0; i < 34; ++ i) {
     var div = document.createElement('div');
@@ -26,17 +24,41 @@ for (var i = 0; i < 34; ++ i) {
     document.getElementById("div_" + i.toString()).appendChild(img);
 }
 
+var col = 0;
+var row = document.body.clientWidth - 50;
+var H = 250;
+var h = 0;
+var w = 300;
 function display() {
     var imgs = document.getElementsByTagName("img");
     for (var i = 0; i < imgs.length; ++ i) {
-            if (row + imgs[i].width > document.body.clientWidth + 100) {
-                ++ col;
-                row = 0;
-            }
-        imgs[i].parentNode.style.top = (col * 250).toString() + "px";
-        imgs[i].parentNode.style.left = row.toString() + "px";
-        row += imgs[i].width + 10;
+        var flag = i;
+        h = row / imgs[i].width * imgs[i].height;
+        while (h > H && i < imgs.length - 1) {
+            ++ i;
+            h = row / (row / h + (imgs[i].width + 10) / imgs[i].height);
+        }
+        w = 0;
+        for (var j = flag; j <= i; ++ j) {
+            imgs[j].parentNode.style.top = (col + 10).toString() + "px";
+            imgs[j].parentNode.style.left = (w + 10).toString() + "px";
+            imgs[j].style.height = h.toString() + "px";
+            w = w + h / imgs[j].height * imgs[j].width + 10;
+        }
+        col += h + 10;
     }
+    /*
+       var imgs = document.getElementsByTagName("img");
+       for (var i = 0; i < imgs.length; ++ i) {
+       if (row + imgs[i].width > document.body.clientWidth + 100) {
+       ++ col;
+       row = 0;
+       }
+       imgs[i].parentNode.style.top = (col * 250).toString() + "px";
+       imgs[i].parentNode.style.left = row.toString() + "px";
+       row += imgs[i].width + 10;
+       }
+     */
 }
 
 </script>
