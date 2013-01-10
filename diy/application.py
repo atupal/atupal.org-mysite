@@ -6,11 +6,11 @@ import platform
 application = Flask(__name__)
 application.debug = True
 #全局变量
-OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
-MONDO_ADR = '127.0.0.1'
+#OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
+#MONDO_ADR = '127.0.0.1'
 
-#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
-#MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 CONN_MONGO = None
 i = 0
 
@@ -378,5 +378,5 @@ def api():
     return
 
 if __name__ == '__main__':
-    http_server = WSGIServer(('127.9.114.1',8080), application, handler_class=WebSocketHandler)
+    http_server = WSGIServer(('127.0.0.1',8080), application, handler_class=WebSocketHandler)
     http_server.serve_forever()

@@ -1,3 +1,13 @@
+//全局变量
+var editor_2 = null;
+var editor_3 = null;
+var editAreaLeft;
+var editAreaTop;
+var editAreaWidth;
+var editAreaHeight;
+
+
+
 function ts(){
 }
 function getDocumentString() {
@@ -71,13 +81,44 @@ function register() {
 function hidePinel() {
     if (document.getElementById("rightPanel").style.display == "none") {
         document.getElementById("rightPanel").style.display = "inline";
-        document.getElementById("editor").style.width = "60%";
+        switch(document.getElementById("split").value) {
+            case "none": {
+                document.getElementById("editor").style.width = "60%";
+                break;
+            }
+            case "below": {
+                $("#editor").css({"width":"60%"});
+                $("#editor_2").css({"width":"60%"});
+                break;
+            }
+            case "beside":{
+                $("#editor").css({"width":"30%"});
+                $("#editor_2").css({"width":"30%", "left":"50%", "height":"100%"});
+                break;
+            }
+        }
         document.getElementById("hideDiv").style.left = "80%";
-        return;
     }
-    document.getElementById("rightPanel").style.display = "none";
-    document.getElementById("editor").style.width = "80%";
-    document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
+    else {
+        document.getElementById("rightPanel").style.display = "none";
+        switch(document.getElementById("split").value) {
+            case "none": {
+                document.getElementById("editor").style.width = "80%";
+                break;
+            }
+            case "below": {
+                $("#editor").css({"width":"80%"});
+                $("#editor_2").css({"width":"80%"});
+                break;
+            }
+            case "beside":{
+                $("#editor").css({"width":"40%"});
+                $("#editor_2").css({"width":"40%", "left":"60%", "height":"100%"});
+                break;
+            }
+        }
+        document.getElementById("hideDiv").style.left = document.body.clientWidth - document.getElementById('hideDiv').clientWidth;
+    }
 }
 function saveCode() {
     var codestr = editor.getSession().getValue();
@@ -153,6 +194,8 @@ function deleteuser() {
     }
 }
 function test() {
+    alert(__i);
+    return;
     var line = editor.getCursorPosition();
     var text = editor.getSelection().doc.$lines[line.row].substring(0,line.column);
     text = text.split(' ');
@@ -164,15 +207,94 @@ function doc_select(select_value) {
     alert(select_value);
 }
 function mode_select(select_value) {
-    var editor = ace.edit("editor");
-    editor.getSession().setMode("ace/mode/" + select_value);
+    if(select_value == "Front_end"){
+        setFront_end();
+    }
+    else if(select_value == "back_end") {
+        setBack_end();
+    }
+    else {
+        var editor = ace.edit("editor");
+        editor.getSession().setMode("ace/mode/" + select_value);
+    }
 }
 function split_select(select_value) {
-    alert(select_value);
+    if (editor_2 == null) {
+        editor_2 = ace.edit("editor_2");
+        EditSession = require("ace/edit_session").EditSession
+        var js = new EditSession("some js code")
+        var css = new EditSession(["some", "css", "code here"])
+        //and then to load document into editor, just call
+        editor_2.setSession(js)
+        editor_2.setTheme("ace/theme/twilight");
+    }
+    switch(select_value) {
+        case "none": {
+            try {
+                document.getElementById('editor_2').style.height = "0%";
+            }
+            catch(e) {
+            }
+            document.getElementById('editor').style.height = '100%';
+            document.getElementById('editor').style.width = '60%';
+            break;
+        }
+        case "below": {
+            document.getElementById('editor').style.height = '50%';
+            document.getElementById('editor').style.width = '60%';
+            document.getElementById('editor_2').style.height = "50%";
+            document.getElementById('editor_2').style.width = "60%";
+            document.getElementById('editor_2').style.top = "50%";
+            document.getElementById('editor_2').style.left = "20%";
+            break;
+        }
+        case "beside": {
+            document.getElementById('editor').style.height = "100%";
+            document.getElementById('editor').style.width = '30%';
+            document.getElementById("editor_2").style.height = "100%";
+            document.getElementById("editor_2").style.width = "30%";
+            document.getElementById("editor_2").style.top = "0%";
+            document.getElementById("editor_2").style.left = "50%";
+            break;
+        }
+    }
+    hidePinel(1);
+    hidePinel(2);
+
+    return;
 }
 function theme_select(select_value) {
     var editor = ace.edit("editor");
     editor.setTheme(select_value);
+}
+function setFront_end() {
+    hidePinel();
+    if (editor_2 == null) {
+        editor_2 = ace.edit("editor_2");
+        EditSession = require("ace/edit_session").EditSession
+        var js = new EditSession("some css code")
+        var css = new EditSession(["some", "css", "code here"])
+        //and then to load document into editor, just call
+        editor_2.setSession(js)
+        editor_2.setTheme("ace/theme/twilight");
+    }
+    if (editor_3 == null) {
+        editor_3 = ace.edit("editor_3");
+        EditSession = require("ace/edit_session").EditSession
+        var js = new EditSession("some js code")
+        var css = new EditSession(["some", "css", "code here"])
+        //and then to load document into editor, just call
+        editor_3.setSession(js)
+        editor_3.setTheme("ace/theme/twilight");
+    }
+    editor.getSession().setMode("ace/mode/html");
+    editor.getSession().setValue('some html code');
+    editor_2.getSession().setMode("ace/mode/css");
+    editor_3.getSession().setMode("ace/mode/javascript");
+    $("#editor").css({"width":"40%", "height":"50%","left":"20%","top":"0%"});
+    $("#editor_2").css({"width":"40%", "height":"50%","left":"60%","top":"0%"});
+    $("#editor_3").css({"width":"40%", "height":"50%","left":"20%","top":"50%"});
+    $("#runResult").css({"width":"40%", "height":"50%", "left":"60%", "top":"50%", "position":"absolute"});
 }
 function fontsize_select(select_value) {
     document.getElementById('editor').style.fontSize=select_value;

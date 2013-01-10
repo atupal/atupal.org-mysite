@@ -175,6 +175,7 @@ require("./lib/fixoldbrowsers");
 var dom = require("./lib/dom");
 var event = require("./lib/event");
 
+var __i = 3;
 var Editor = require("./editor").Editor;
 var EditSession = require("./edit_session").EditSession;
 var UndoManager = require("./undomanager").UndoManager;

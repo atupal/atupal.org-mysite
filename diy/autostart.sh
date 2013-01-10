@@ -12,7 +12,8 @@ do
         clear
         echo "restart wscgi" 
         echo $sum
-        kill `pgrep uwsgi`
+        #kill `pgrep uwsgi`
+        kill -9 `pgrep gi.sh`
         sleep 0.3
         ./gi.sh &
     fi
