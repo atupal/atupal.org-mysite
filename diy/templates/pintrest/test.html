@@ -20,15 +20,16 @@
         <!--div id="title" style="position:absolute;width:300px;height:200px;background:red;"></div-->
         <script type="text/javascript">
             window.onload=display;
+var sum = 42;
 
-for (var i = 0; i < 34; ++ i) {
+for (var i = 0; i < sum; ++ i) {
     var div = document.createElement('div');
     div.setAttribute("id", "div_" + i.toString());
     div.setAttribute("style", "position:absolute");
     document.body.appendChild(div);
 }
 
-for (var i = 0; i < 34; ++ i) {
+for (var i = 0; i < sum; ++ i) {
     var img = document.createElement('img');
     img.setAttribute('src', '/images/' + 'psb_' + (i + 1).toString() + '.jpg');
     document.getElementById("div_" + i.toString()).appendChild(img);
@@ -40,23 +41,23 @@ function display() {
     var H = 250;
     var h = 0;
     var w = 300;
-    var jg = 20;
+    var jiange = 20;
     var imgs = document.getElementsByTagName("img");
     for (var i = 0; i < imgs.length; ++ i) {
         var flag = i;
         h = row / imgs[i].width * imgs[i].height;
         while (h > H && i < imgs.length - 1) {
             ++ i;
-            h = row / (row / h + (imgs[i].width + jg) / imgs[i].height);
+            h = row / (row / h + (imgs[i].width + jiange) / imgs[i].height);
         }
         w = 0;
         for (var j = flag; j <= i; ++ j) {
-            imgs[j].parentNode.style.top = (col + jg).toString() + "px";
-            imgs[j].parentNode.style.left = (w + jg).toString() + "px";
+            imgs[j].parentNode.style.top = (col + jiange).toString() + "px";
+            imgs[j].parentNode.style.left = (w + jiange).toString() + "px";
             imgs[j].style.height = h.toString() + "px";
-            w = w + h / imgs[j].height * imgs[j].width + jg;
+            w = w + h / imgs[j].height * imgs[j].width + jiange;
         }
-        col += h + jg;
+        col += h + jiange;
     }
     /*
        var imgs = document.getElementsByTagName("img");
