@@ -3,8 +3,18 @@
         <style>
             img {
                 border:1px dashed #000;
+                display: inline-block;
+                z-index:-1;
+                -webkit-box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
+                -moz-box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
+                box-shadow: 10px -10px 8px rgba(0, 0, 0, 0.2);
+                //-webkit-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
+                //-moz-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
+                //-o-transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
+                //transform: rotate(2deg) translate(-14px,20px) skew(-20deg);
             }
         </style>
+        <script src="js/jquery.min.js"></script>
     </head>
     <body onload="display()">
         <!--div id="title" style="position:absolute;width:300px;height:200px;background:red;"></div-->
@@ -24,28 +34,29 @@ for (var i = 0; i < 34; ++ i) {
     document.getElementById("div_" + i.toString()).appendChild(img);
 }
 
-var col = 0;
-var row = document.body.clientWidth - 50;
-var H = 250;
-var h = 0;
-var w = 300;
 function display() {
+    var col = 0;
+    var row = document.body.clientWidth - 50;
+    var H = 250;
+    var h = 0;
+    var w = 300;
+    var jg = 20;
     var imgs = document.getElementsByTagName("img");
     for (var i = 0; i < imgs.length; ++ i) {
         var flag = i;
         h = row / imgs[i].width * imgs[i].height;
         while (h > H && i < imgs.length - 1) {
             ++ i;
-            h = row / (row / h + (imgs[i].width + 10) / imgs[i].height);
+            h = row / (row / h + (imgs[i].width + jg) / imgs[i].height);
         }
         w = 0;
         for (var j = flag; j <= i; ++ j) {
-            imgs[j].parentNode.style.top = (col + 10).toString() + "px";
-            imgs[j].parentNode.style.left = (w + 10).toString() + "px";
+            imgs[j].parentNode.style.top = (col + jg).toString() + "px";
+            imgs[j].parentNode.style.left = (w + jg).toString() + "px";
             imgs[j].style.height = h.toString() + "px";
-            w = w + h / imgs[j].height * imgs[j].width + 10;
+            w = w + h / imgs[j].height * imgs[j].width + jg;
         }
-        col += h + 10;
+        col += h + jg;
     }
     /*
        var imgs = document.getElementsByTagName("img");
@@ -61,6 +72,8 @@ function display() {
      */
 }
 
+window.onresize=display;
+//$(window).resize(display);
 </script>
-    </body>
+</body>
 </html>
