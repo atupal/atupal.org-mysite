@@ -376,7 +376,7 @@ from geventwebsocket.handler import WebSocketHandler
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, render_template
 
-@application.route('/wstest')
+@application.route('/wstest', methods=['GET', 'POST'])
 def wstest():
     return render_template('wstest.html')
 
