@@ -167,7 +167,7 @@ def action():
     fi.close()
     #tmp = os.popen(cmd)
     #tmp = os.popen('g++ -c ni.cpp')
-    p = subprocess.Popen(['g++', prefix + '/tmp.cpp', '-o', prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+    p = subprocess.Popen(['g++', '-g', prefix + '/tmp.cpp', '-o', prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdoutdata, stderrdata = p.communicate()
     if p.returncode != 0 :
@@ -385,11 +385,65 @@ def api():
     if request.environ.get('wsgi.websocket'):
         ws = request.environ['wsgi.websocket']
         i = 0
-        while True:
-            i = i + 1
-            message = ws.receive()
-            ws.send(str(i))
-    return
+#        while True:
+#            i = i + 1
+#            message = ws.receive()
+#            try:
+#                p = subprocess.Popen([message], stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+#                p.wait()
+#                ws.send(p.communicate()[0])
+#            except:
+#                ws.send('exception:', message)
+#            ws.send(str(i) + "nimei")
+#    return "error"
+        import select
+        from subprocess import *
+        proc = Popen(['gdb'], stdin = PIPE, stderr = PIPE, stdout = PIPE)
+        while proc.poll() == None:
+            import fcntl
+            import os
+            import urllib
+            fcntl.fcntl(
+                    proc.stdout.fileno(),
+                    fcntl.F_SETFL,
+                    fcntl.fcntl(proc.stdout.fileno(), fcntl.F_GETFL) | os.O_NONBLOCK,
+                    )
+
+            fcntl.fcntl(
+                    proc.stderr.fileno(),
+                    fcntl.F_SETFL,
+                    fcntl.fcntl(proc.stderr.fileno(), fcntl.F_GETFL) | os.O_NONBLOCK,
+                    )
+
+            while proc.poll() == None:
+                readx = select.select([proc.stdout.fileno()], [], [], 0.1)[0]
+                readx_err = select.select([proc.stderr.fileno()], [], [], 0.1)[0]
+                if readx:
+                    chunk = proc.stdout.read()
+                    print chunk
+                    #chunk = urllib.quote(chunk.encode('utf-8'))
+                    chunk = chunk.replace('<', '&lt;')
+                    chunk = chunk.replace('>', '&gt;')
+                    chunk = chunk.replace('\n', r'<br/>')
+                    ws.send(chunk)
+                elif readx_err:
+                    chunk = proc.stderr.read()
+                    print chunk
+                    #chunk = urllib.quote_plus(chunk.encode('utf-8'))
+                    chunk = chunk.replace('<', '&lt;')
+                    chunk = chunk.replace('>', '&gt;')
+                    chunk = chunk.replace('\n', r'<br/>')
+                    ws.send(chunk)
+                else:
+                    break
+           # cmd = raw_input("cmd:")
+           # proc.stdin.write(cmd + '\n')
+           # proc.stdin.flush()
+            cmd = ws.receive()
+            proc.stdin.write(cmd + '\n')
+            proc.stdin.flush()
+        proc.wait()
+
 
 if __name__ == '__main__':
     http_server = WSGIServer(('127.9.114.1',8080), application, handler_class=WebSocketHandler)
