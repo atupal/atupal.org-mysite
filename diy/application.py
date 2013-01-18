@@ -12,7 +12,7 @@ MONDO_ADR = '127.0.0.1'
 #OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
 #MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 CONN_MONGO = None
-i = 0
+i = 1
 
 #记录pid到文件:profile.pid
 ##如果存在就kill掉当前进程
