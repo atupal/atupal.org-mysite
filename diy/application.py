@@ -371,6 +371,11 @@ def nameNear(name):
 #if __name__ == '__main__':
 #    application.run()
 
+@application.route('/getPic', methods = ['GET', 'POST'])
+def getPic():
+    return 'nimei'
+
+
 
 from geventwebsocket.handler import WebSocketHandler
 from gevent.pywsgi import WSGIServer

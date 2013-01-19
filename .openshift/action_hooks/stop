@@ -7,7 +7,7 @@
 #exit 0
 
 #kill uwsgi
-#kill `pgrep python`
+kill `pgrep python`
 #exit 0
 
 #kill nginx
