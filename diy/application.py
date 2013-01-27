@@ -3,14 +3,16 @@
 from flask import Flask
 from flask import render_template
 import platform
+import time
+import signal
 application = Flask(__name__)
 application.debug = True
 #全局变量
-#OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
-#MONDO_ADR = '127.0.0.1'
+OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
+MONDO_ADR = '127.0.0.1'
 
-OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
-MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+#MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 CONN_MONGO = None
 i = 1
 
@@ -167,6 +169,27 @@ def action():
     fi.close()
     #tmp = os.popen(cmd)
     #tmp = os.popen('g++ -c ni.cpp')
+    if request.form['codeType'] == 'python':
+        p = subprocess.Popen(['python', prefix + '/tmp.cpp' + '<' + prefix + '/in.dat'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+        start = time.time()
+        flag = 0
+        while 1:
+            runtime = time.time() - start
+            if p.poll() == 0:
+                break
+            elif runtime >= 25:
+                flag = 1
+                p = subprocess.Popen(['pkill tmp.cpp'], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
+                p.wait()
+                break
+        stdoutdata, stderrdata = p.communicate()
+        if p.returncode != 0 :
+            return stderrdata
+
+        if flag == 1:
+            stdoutdata += '\ntime out!\n'
+        stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata + stderrdata
+        return stdoutdata
     p = subprocess.Popen(['g++', '-g', prefix + '/tmp.cpp', '-o', prefix + '/a.out'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdoutdata, stderrdata = p.communicate()
@@ -177,8 +200,6 @@ def action():
     #这里原先是把a.out和<in.dat分开的，找成无法读取，这是因为subprocess会把<in.dat当成参数而不是命令的一部分，
     #同样，不能把参数和命令接在一起作为一个字符串，stdout和stderr是指定管道，不然在下面就无法获取程序执行结果的输出了
     #p.wait()
-    import time
-    import signal
     start = time.time()
     flag = 0;
     while 1:
@@ -373,9 +394,15 @@ def nameNear(name):
 
 @application.route('/getPic', methods = ['GET', 'POST'])
 def getPic():
-    return 'nimei'
-
-
+    startIndex = request.args.get('startIndex', '')
+    count = request.args.get('count', '')
+    print '**********************'
+    print startIndex, count
+    startIndex = int(startIndex)
+    count = int(count)
+    result = ["psb_%d" % i for i in range(startIndex, startIndex + count)]
+    result = ";".join(result)
+    return result
 
 from geventwebsocket.handler import WebSocketHandler
 from gevent.pywsgi import WSGIServer
@@ -448,6 +475,11 @@ def api():
             proc.stdin.write(cmd + '\n')
             proc.stdin.flush()
         proc.wait()
+
+@application.route('/pythonshell', methods = ['POST', 'GET'])
+def pythonshell():
+    pass
+
 
 
 if __name__ == '__main__':

@@ -31,13 +31,16 @@ function getDocumentString() {
     //alert(codestr);
     //alert(input);
 
+    var codeType = document.getElementById('mode').value;
+
     input = encodeURIComponent(input);
     codestr = encodeURIComponent(codestr);
+    codeType = encodeURIComponent(codeType);
 
     var request = new XMLHttpRequest();
     request.open('POST', '/action', false);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send('input=' + input + '&codestr=' + codestr);
+    request.send('input=' + input + '&codestr=' + codestr + '&codeType=' + codeType);
     var h = request.responseText;
     if (h.indexOf("atupalykl67") != -1) {
         alert("pleas login first");

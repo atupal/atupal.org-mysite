@@ -1,5 +1,6 @@
 window.onload=display;
 var sum = 42;
+sum = -1;
 
 for (var i = 0; i < sum; ++ i) {
     var div = document.createElement('div');
@@ -38,7 +39,7 @@ function getCookie(name) {
     }
 }
 function display() {
-    alert(getPic());
+    alert(getPic(0, 5));
     return;
     var col = 0;
     var row = document.body.clientWidth - 50;
@@ -68,10 +69,8 @@ function display() {
 function getPic(startIndex, count) {
     var req = new XMLHttpRequest();
     var requrl = 'getPic';
-    if (startIndex && count) {
-        requrl = '/getPic' + "?startIndex=" + startIndex.toString() + "&count=" + count.toString(); 
-    }
-    requrl = encodeURIComponent(requrl);
+    requrl = 'getPic' + "?startIndex=" + startIndex.toString() + "&count=" + count.toString(); 
+    alert(requrl)
     req.open('GET', requrl, false);
     req.send(null);
     return req.responseText;
