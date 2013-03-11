@@ -351,6 +351,6 @@ class Line:
         return getline()
 
 
-
-line = Line()
-print line.main(0,0,0,0)
+if __name__ == '__main__':
+    line = Line()
+    print line.main(0,0,0,0)
