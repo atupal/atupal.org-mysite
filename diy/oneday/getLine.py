@@ -6,6 +6,7 @@ import pymongo
 import re
 import math
 import json
+from xml.etree import ElementTree as ET
 from random import randint
 import sys
 reload(sys)
@@ -136,13 +137,10 @@ class Line:
 
 
         def dist_latlng(a, b):
-            try:
-                R = 6371.004
-                C = math.sin(a['lat']) * math.sin(b['lat']) * math.cos(a['lng'] - b['lng']) + math.cos(a['lat']) * math.cos(b['lat'])
-                return R * math.acos(C) *math.pi / 180
-            except:
-                print 'erro'
-                return 10000
+            R = 6371.004
+            C = math.sin(a['lat']) * math.sin(b['lat']) * math.cos(a['lng'] - b['lng']) + math.cos(a['lat']) * math.cos(b['lat'])
+            C = 1.0 if C > 1.0 else C
+            return R * math.acos(C) *math.pi / 180
 
         def get_shortest_item(lat, lng):
             play = pymongo.Connection('localhost', 27017).oneday.play.find()
@@ -229,49 +227,57 @@ class Line:
                 if cnt > 10000: return res
             return res
 
-        def getline():
-            self.item_one_condition = item_one_condition
-            self.item_two_condition = item_two_condition
-            self.item_three_condition = item_three_condition
+        def get_time(start_lat, start_lng, end_lat, end_lng):
+            url = 'http://openapi.aibang.com/bus/transfer?app_key=f41c8afccc586de03a99c86097e98ccb&city=%E6%AD%A6%E6%B1%89&start_lat='+start_lat+'&start_lng='+start_lng+'&end_lat='+end_lat+'&end_lng='+end_lng
+            result = urllib2.urlopen(url)
+            xml_root = ET.fromstring(result.read())
+            buses = xml_root.find('buses')
+            if not buses:
+                L = math.sqrt(math.pow(float(start_lat) - float(end_lat), 2) + math.pow(float(start_lng) - float(end_lng), 2))
+                if L < 0.02:
+                    return {'dist':0, 'time':0, 'foot_dist':0, 'last_foot_dist':0, 'segs':""}
+                else :
+                    return {'dist':1000000, 'time':1000000, 'foot_dist':10000000, 'last_foot_dist':10000000, 'segs':""}
+            dist = buses[0][0].text
+            time = buses[0][1].text
+            foot_dist = buses[0][2].text
+            last_foot_dist = buses[0][3].text
+            segments = buses[0][4].findall('segment')
+            segs = []
+            for seg in segments:
+                segs.append({'start_stat':seg[0].text, 'end_stat':seg[1].text, 'line_name':seg[2].text, 'stats':seg[3].text})
+            res = {'dist':dist, 'time':time, 'foot_dist':foot_dist, 'last_foot_dist':last_foot_dist, 'segs':segs}
+            #print res
+            return res
 
+        def getline():
             play = pymongo.Connection('localhost', 27017).oneday.play.find()
             play = [_ for _ in play]
-
-            for i, item_one in enumerate(play):
-                if not self.item_one_condition(item_one):
-                    continue
-
-                for j, item_two in enumerate(play):
-                    if isSameFlag(item_one, item_two):
-                        continue
-
-                    if not self.item_two_condition(item_two):
-                        continue
-
-                    if item_one['time'] + item_two['time'] >= 130:
-                        print item_one['name'], '--', item_two['name']
-                        continue
-
-                    if dist_latlng(item_one, item_two) > 0.3:
-                        continue
-
-                    for k, item_three in enumerate(play):
-                        if not self.item_three_condition(item_three):
-                            continue
-                        if isSameFlag(item_one, item_three) or isSameFlag(item_two, item_three):
-                            continue
-                        flag = 1 if re.findall('咖啡厅|茶馆', item_one['flag'].encode('utf-8')) else 0
-                        flag += 1 if re.findall('咖啡厅|茶馆', item_two['flag'].encode('utf-8')) else 0
-                        flag += 1 if re.findall('咖啡厅|茶馆|酒吧', item_three['flag'].encode('utf-8')) else 0
-                        if (flag > 1):
-                            continue
-                        if item_one['time'] + item_two['time'] + item_three['time'] > 200:
-                            continue
-                        if dist_latlng(item_one, item_three) < dist_latlng(item_one, item_two) or dist_latlng(item_two, item_three) > 0.2:
-                            continue
-
-                        print item_one['name'], '--',item_two['name'], '--',\
-                                item_three['name']
+            for i, one in enumerate(play):
+                if not item_one_condition(one):continue
+                for j, two in enumerate(play):
+                    if isSameFlag(one, two):continue
+                    if not item_two_condition(two):continue
+                    if one['time'] + two['time'] >= 130:
+                        print one['name'], '--', two['name'];continue
+                    if dist_latlng(one, two) > 5: continue
+                    dist_one_two = get_time(str(one['lat']), str(one['lng']), str(two['lat']), str(two['lng']))
+                    if int(dist_one_two['time'] > 30): continue
+                    for k, three in enumerate(play):
+                        if not item_three_condition(three):continue
+                        if isSameFlag(one, three) or isSameFlag(two, three):continue
+                        flag = 1 if re.findall('咖啡厅|茶馆', one['flag'].encode('utf-8')) else 0
+                        flag += 1 if re.findall('咖啡厅|茶馆', two['flag'].encode('utf-8')) else 0
+                        flag += 1 if re.findall('咖啡厅|茶馆|酒吧', three['flag'].encode('utf-8')) else 0
+                        if (flag > 1):continue
+                        if one['time'] + two['time'] + three['time'] > 200:continue
+                        dist_one_three = get_time(str(one['lat']), str(one['lng']), str(three['lat']), str(three['lng']))
+                        dist_two_three = get_time(str(two['lat']), str(two['lng']), str(three['lat']), str(three['lng']))
+                        if dist_latlng(one, three) < dist_latlng(one, two) or dist_latlng(two, three) > 7:continue
+                        if int(dist_one_three['dist']) < int(dist_two_three['dist']) or int(dist_two_three['time']) > 50:continue
+                        print one['name'], '--',two['name'], '--',\
+                                three['name']
+            return []
 
         def getline_for_condition(lat, lng, flag, tag):
             self.item_one_condition = item_one_condition
@@ -340,7 +346,11 @@ class Line:
                                 )
             return json.dumps(lines)
 
-        return getline_for_condition(lat, lng, flag, tag)
+        #return getline_for_condition(lat, lng, flag, tag)
+        #return get_time('30.531186', '114.36503', '30.584494', '114.299835')
+        return getline()
 
-#line = Line()
-#line.main()
+
+
+line = Line()
+print line.main(0,0,0,0)
