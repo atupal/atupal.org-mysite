@@ -6,8 +6,8 @@ import platform
 import time
 import signal
 #application = Flask(__name__)
-from app import application
-#application.debug = True
+from application import app
+app.debug = True
 #全局变量
 #OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
 #MONDO_ADR = '127.0.0.1'
@@ -27,32 +27,32 @@ import sys
 
 
 
-@application.route("/")
+@app.route("/")
 def index():
     global i
     return str(++ i)
     return 'Hello from Flask !'
 
-@application.route("/info")
+@app.route("/info")
 def info():
     return platform.python_version()
 
 import random
-@application.route('/ts')
+@app.route('/ts')
 def ts():
     return 'just for s test!' + str(random.random())
 
-@application.route('/hello')
-@application.route('/hello/<name>')
+@app.route('/hello')
+@app.route('/hello/<name>')
 def hello(name = None):
     return render_template('hello.html', name = name)
 
-@application.route('/lo')
-@application.route('/lo/<name>')
+@app.route('/lo')
+@app.route('/lo/<name>')
 def lo(name = None):
     return render_template('login.html', name = name)
 
-@application.route('/register', methods=['POST', 'GET'])
+@app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'GET':
         return render_template('register.html')
@@ -71,7 +71,7 @@ def register():
         p.wait()
         return 'welcome' + user.find_one({'username':request.form['username']})['username']
 
-@application.route('/deleteuser', methods = ['GET', 'POST'])
+@app.route('/deleteuser', methods = ['GET', 'POST'])
 def deleteuser():
     if 'username' in session:
         pass
@@ -94,7 +94,7 @@ def deleteuser():
         return 'delete' + request.form['username']
 
 from flask import request
-@application.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     error = None
     if request.method == 'POST':
@@ -125,24 +125,24 @@ def logout():
     #如果会话中有用户名就删除他
     session.pop('username', None)
 
-@application.route('/editCode')
-@application.route('/editCode/<name>')
+@app.route('/editCode')
+@app.route('/editCode/<name>')
 def editCode(name = None):
     return render_template('editCode.html', name = name)
 
-@application.route('/game')
-@application.route('/game/<name>')
+@app.route('/game')
+@app.route('/game/<name>')
 def game(name = None):
     return render_template('gameset.html', name = name)
 
-@application.route('/games/chidouren/chidouren.html')
+@app.route('/games/chidouren/chidouren.html')
 def chidouren():
     return render_template('games/chidouren/chidouren.html')
 
 import subprocess
-application.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 from flask import session,redirect,url_for,escape,request
-@application.route('/action', methods=['POST', 'GET'])
+@app.route('/action', methods=['POST', 'GET'])
 def action():
     prefix = None
     if 'username' in session:
@@ -222,7 +222,7 @@ def action():
     stdoutdata = 'runtime:%fs\noutput:\n'%runtime + stdoutdata
     return stdoutdata
 
-#@application.route('gdbapi', methods = ['GET', 'POST'])
+#@app.route('gdbapi', methods = ['GET', 'POST'])
 #def gdbapi():
 #    if 'username' in session:
 #        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
@@ -230,7 +230,7 @@ def action():
 #        return redirect(url_for('lo'))
 #    filename = request.form
 
-@application.route('/saveCode', methods = ['GET', 'POST'])
+@app.route('/saveCode', methods = ['GET', 'POST'])
 def saveCode():
     if 'username' in session:
         prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
@@ -245,7 +245,7 @@ def saveCode():
     fi.close()
     return 'yes'
 
-@application.route('/getCode', methods = ['GET', 'POST'])
+@app.route('/getCode', methods = ['GET', 'POST'])
 def getCode():
     if 'username' in session:
         prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
@@ -256,7 +256,7 @@ def getCode():
     stdout, stderr = p.communicate()
     return stdout
 
-@application.route('/getFile', methods = ['GET', 'POST'])
+@app.route('/getFile', methods = ['GET', 'POST'])
 def getFile():
     if 'username' in session:
         prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
@@ -267,12 +267,12 @@ def getFile():
 
 
 
-@application.route('/manage')
+@app.route('/manage')
 def manage(name = None):
     return render_template('manage.html', name = name)
 
 import re
-@application.route('/applogs', methods = ['POST', 'GET'])
+@app.route('/applogs', methods = ['POST', 'GET'])
 def applogs():
     fi = open('/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/diy-0.1/logs/app.log', 'r')
     re = 'logs' + r'<hr/>'
@@ -287,7 +287,7 @@ def applogs():
         re += log + r'<hr/>'
     return re
 
-@application.route('/psb')
+@app.route('/psb')
 def psb():
     if "username" in session:
         pass
@@ -299,22 +299,22 @@ def psb():
 server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/app/'
 if (os.environ['HOME'] == '/home/atupal'):
     server_dir = './'
-@application.route('/js/<path:name>')
+@app.route('/js/<path:name>')
 def javascript(name):
     fi = open(server_dir + "static/js/" + name)
     return fi.read()
 
-@application.route('/images/<path:name>')
+@app.route('/images/<path:name>')
 def images(name):
     fi = open(server_dir + "static/images/" + name)
     return fi.read()
 
-@application.route('/css/<path:name>')
+@app.route('/css/<path:name>')
 def style(name):
     fi = open(server_dir + "static/css/" + name)
     return fi.read()
 
-@application.route('/favicon.ico')
+@app.route('/favicon.ico')
 def ico():
     fi = open(server_dir + 'favicon.ico', "rb")
     return fi.read()
@@ -324,7 +324,7 @@ import json
 from bson import json_util
 from bson import objectid
 import re
-@application.route("/ws/parks")
+@app.route("/ws/parks")
 def parks():
     #setup the connection
     conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -338,7 +338,7 @@ def parks():
 
 
 #return a specific park given it's mongo _id
-@application.route("/ws/parks/park/<parkId>")
+@app.route("/ws/parks/park/<parkId>")
 def onePark(parkId):
     #setup the connection
     conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -352,7 +352,7 @@ def onePark(parkId):
 
 
 #find parks near a lat and long passed in as query parameters (near?lat=45.5&lon=-82)
-@application.route("/ws/parks/near")
+@app.route("/ws/parks/near")
 def near():
     #setup the connection
     conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -370,7 +370,7 @@ def near():
 
 
 #find parks with a certain name (use regex) near a lat long pair such as above
-@application.route("/ws/parks/name/near/<name>")
+@app.route("/ws/parks/name/near/<name>")
 def nameNear(name):
     #setup the connection
     conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
@@ -393,7 +393,7 @@ def nameNear(name):
 #if __name__ == '__main__':
 #    application.run()
 
-@application.route('/getPic', methods = ['GET', 'POST'])
+@app.route('/getPic', methods = ['GET', 'POST'])
 def getPic():
     startIndex = request.args.get('startIndex', '')
     count = request.args.get('count', '')
@@ -409,11 +409,11 @@ from geventwebsocket.handler import WebSocketHandler
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, render_template
 
-@application.route('/wstest', methods=['GET', 'POST'])
+@app.route('/wstest', methods=['GET', 'POST'])
 def wstest():
     return render_template('wstest.html')
 
-@application.route('/api')
+@app.route('/api')
 def api():
     if request.environ.get('wsgi.websocket'):
         ws = request.environ['wsgi.websocket']
@@ -477,12 +477,12 @@ def api():
             proc.stdin.flush()
         proc.wait()
 
-@application.route('/pythonshell', methods = ['POST', 'GET'])
+@app.route('/pythonshell', methods = ['POST', 'GET'])
 def pythonshell():
     pass
 
 from oneday import getLine
-@application.route('/getLine', methods = ['POST', 'GET'])
+@app.route('/getLine', methods = ['POST', 'GET'])
 def getline():
     lat = float(request.args.get('lat'))
     lng = float(request.args.get('lng'))
