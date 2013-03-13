@@ -25,11 +25,12 @@ import sys
 #pid = str(os.getpid())
 #pidfile = '/tmp/geventPythonServer.pid'
 
-
+import random
 
 @app.route("/")
 def index():
     global i
+    return str(random())
     return str(++ i)
     return 'Hello from Flask !'
 
