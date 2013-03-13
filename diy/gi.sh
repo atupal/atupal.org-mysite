@@ -3,4 +3,4 @@
 
 #python application.py
 
-uwsgi -s /tmp/uwsgi.sock --pp ./ --module application --chmod-socket 666
+uwsgi -s /tmp/uwsgi.sock --pp ./ --module runserver --chmod-socket 666

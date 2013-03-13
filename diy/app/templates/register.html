@@ -1,0 +1,54 @@
+<html>
+    <head></head>
+    <title>register</title>
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <td>username</td>
+                    <td>
+                        <input type='text' id='username'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>
+                        <input type='password' id='password'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>comfirm</td>
+                    <td>
+                        <input type='password' id='comfirm'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='button' value='注册' onclick='check()'>
+                    </td>
+                </tr>
+            <table>
+            </div>
+    </body>
+    <script>
+        function check(){
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var comfirm = document.getElementById('comfirm').value;
+            if(password != comfirm){
+                alert('两次密码不一致');
+                return;
+            }
+            username = encodeURIComponent(username);
+            password = encodeURIComponent(password);
+
+            var request = new XMLHttpRequest();
+            request.open('POST', '/register', false);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.send('username=' + username + '&password=' + password);
+            var h = request.responseText;
+            alert(h);
+        }
+    </script>
+</html>
+
