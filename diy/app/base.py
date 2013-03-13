@@ -296,7 +296,7 @@ def psb():
         #return redirect(url_for('lo'))
     return render_template('pintrest/test.html')
 
-server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/'
+server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/app/'
 if (os.environ['HOME'] == '/home/atupal'):
     server_dir = './'
 @application.route('/js/<path:name>')
