@@ -490,6 +490,6 @@ def getline():
     tag = str(request.args.get('tag'))
     return getLine.Line().main(lat, lng, flag, tag)
 
-if __name__ == "__main__":
-    http_server = WSGIServer(('127.9.114.1',8080), application, handler_class=WebSocketHandler)
-    http_server.serve_forever()
+#if __name__ == "__main__":
+#    http_server = WSGIServer(('127.9.114.1',8080), application, handler_class=WebSocketHandler)
+#    http_server.serve_forever()
