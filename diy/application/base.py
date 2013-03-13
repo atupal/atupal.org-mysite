@@ -30,7 +30,7 @@ import random
 @app.route("/")
 def index():
     global i
-    return str(random())
+    return str(random.random())
     return str(++ i)
     return 'Hello from Flask !'
 
