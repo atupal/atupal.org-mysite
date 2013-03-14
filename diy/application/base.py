@@ -30,6 +30,7 @@ import random
 @app.route("/")
 def index():
     return"""
+    <div style=" float:right">
     <style>
     .bizmail_loginpanel{font-size:12px;width:300px;height:auto;border:1px solid #cccccc;background:#ffffff;}
     .bizmail_LoginBox{padding:10px 15px;}
@@ -48,6 +49,7 @@ def index():
     <script type="text/javascript">
     writeLoginPanel({domainlist:"atupal.org", mode:"horizontal"});
     </script>
+    </div>
     """
     global i
     return str(random.random())
