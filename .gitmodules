@@ -1,0 +1,3 @@
+[submodule "diy/application/static/Metro-UI-CSS"]
+	path = diy/application/static/Metro-UI-CSS
+	url = git://github.com/olton/Metro-UI-CSS.git
