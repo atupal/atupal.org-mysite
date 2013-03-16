@@ -13,9 +13,11 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+
 class Line:
     def __init__(self):
-        connection = pymongo.Connection('localhost', 27017)
+        connection = pymongo.Connection(OPENSHIFT_ADR, 27017)
         db = connection.oneday
         self.flagset = set([])
         self.items = []
