@@ -276,7 +276,7 @@ class Line:
         return []
 
     def getList(self, lat, lng, begin, end):
-        play = pymongo.Connection('localhost', 27017).oneday.play.find()
+        play = pymongo.Connection('mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/', 27017).oneday.play.find()
         play = [_ for _ in play]
         length = len(play)
         ret = []
