@@ -504,14 +504,14 @@ def api():
 def pythonshell():
     pass
 
-from oneday import getLine
-@app.route('/getLine', methods = ['POST', 'GET'])
-def getline():
-    lat = float(request.args.get('lat'))
-    lng = float(request.args.get('lng'))
-    flag = str(request.args.get('flag'))
-    tag = str(request.args.get('tag'))
-    return getLine.Line().main(lat, lng, flag, tag)
+#from oneday import getLine
+#@app.route('/getLine', methods = ['POST', 'GET'])
+#def getline():
+#    lat = float(request.args.get('lat'))
+#    lng = float(request.args.get('lng'))
+#    flag = str(request.args.get('flag'))
+#    tag = str(request.args.get('tag'))
+#    return getLine.Line().main(lat, lng, flag, tag)
 
 #if __name__ == "__main__":
 #    http_server = WSGIServer(('127.9.114.1',8080), application, handler_class=WebSocketHandler)
