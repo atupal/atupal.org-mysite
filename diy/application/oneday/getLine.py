@@ -1,4 +1,5 @@
 #coding=utf-8
+from random import randint
 import urllib
 import time
 import urllib2
@@ -62,7 +63,7 @@ class Line:
 
         return result
 
-    def main(self, lat, lng, flag, tag):
+    def main(self, lat, lng, begin, end):
         cnt = 0
        # for item in self.items[1]:
        #     cnt += 1
@@ -279,78 +280,56 @@ class Line:
                                 three['name']
             return []
 
-        def getline_for_condition(lat, lng, flag, tag):
-            self.item_one_condition = item_one_condition
-            self.item_two_condition = item_two_condition
-            self.item_three_condition = item_three_condition
-
+        def getList(lat, lng, begin, end):
             play = pymongo.Connection('localhost', 27017).oneday.play.find()
             play = [_ for _ in play]
-            res = get_shortest_item(lat, lng)
-            lines = []
-            for i, item_one in enumerate(res):
-                if not self.item_one_condition(item_one):
-                    continue
+            length = len(play)
+            ret = []
+            cnt = end - begin
+            for i in xrange(cnt):
+                one = play[randint(0, length - 1)]
+                two = play[randint(0, length - 1)]
+                three = play[randint(0, length - 1)]
+                centerLat = (one['lat'] + two['lat'] + three['lat']) / 3.0
+                centerLng = (one['lng'] + two['lng'] + three['lng']) / 3.0
+                url = "http://api.map.baidu.com/staticimage?"
+                url += "markers=" + str(one['lng']) + ',' + str(one['lat']) + '|'
+                url += str(two['lng']) + ',' + str(two['lat']) + "|"
+                url += str(three['lng']) + ',' + str(three['lat'])
+                url += "&markerStyles=A|m,B|l,C"
+                minLat = min(one['lat'], two['lat']); minLat = min(minLat, three['lat'])
+                minLng = min(one['lng'], two['lng']); minLng = min(minLng, three['lng'])
+                maxLat = max(one['lat'], two['lat']); maxLat = max(maxLat, three['lat'])
+                maxLng = max(one['lng'], two['lng']); maxLng = max(maxLng, three['lng'])
+                height = (maxLat - minLat) / (maxLng - minLng) * 480
+                url += "&bbox=" + str(minLat) + ',' + str(minLng) + ';' + str(maxLat) + ',' + str(maxLng)
+                url += "&width=480&height=" + str(height)
+                url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
+                url += str(two['lng']) + ',' + str(two['lat']) + ";"
+                url += str(three['lng']) + ',' + str(three['lat'])
+                url += "&center=" + str(centerLng) + ',' + str(centerLat)
+                pos = []
+                pos.append( (height / 2.0 - (one['lat'] - centerLat) * height / 2.0,
+                        240 + (one['lng'] - centerLng) * 240))
+                pos.append(( height / 2.0 - (two['lat'] - centerLat) * height / 2.0,
+                        240 + (two['lng'] - centerLng) * 240))
+                pos.append(( height / 2.0 - (three['lat'] - centerLat) * height / 2.0,
+                        240 + (three['lng'] - centerLng) * 240))
+                line = {
+                        "pos": pos,
+                        "loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
+                        "img":url,
+                        "name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
+                        }
+                ret.append(line)
 
-                for j, item_two in enumerate(play):
-                    if isSameFlag(item_one, item_two):
-                        continue
-
-                    if not self.item_two_condition(item_two):
-                        continue
-
-                    if item_one['time'] + item_two['time'] >= 130:
-                        print item_one['name'], '--', item_two['name']
-                        map_one = get_map(item_one, item_two)
-                        point_one = decodePoly(str(map_one['routes'][0]['overview_polyline']['points']))
-                        point_one = ",".join(point_one)
-
-                        lines.append(
-                                {
-                                    'line':item_one['name'] + ' -- ' + item_two['name'],
-                                    'times:':item_one['time'] + item_two['time'],
-                                    'point_one':point_one
-                                }
-                                )
-                        continue
-
-                    if dist_latlng(item_one, item_two) > 0.3:
-                        continue
-
-                    for k, item_three in enumerate(play):
-                        if not self.item_three_condition(item_three):
-                            continue
-                        if isSameFlag(item_one, item_three) or isSameFlag(item_two, item_three):
-                            continue
-                        flag = 1 if re.findall('咖啡厅|茶馆', item_one['flag'].encode('utf-8')) else 0
-                        flag += 1 if re.findall('咖啡厅|茶馆', item_two['flag'].encode('utf-8')) else 0
-                        flag += 1 if re.findall('咖啡厅|茶馆|酒吧', item_three['flag'].encode('utf-8')) else 0
-                        if (flag > 1):
-                            continue
-                        if item_one['time'] + item_two['time'] + item_three['time'] > 200:
-                            continue
-                        if dist_latlng(item_one, item_three) < dist_latlng(item_one, item_two) or dist_latlng(item_two, item_three) > 0.2:
-                            continue
-
-                        print item_one['name'], '--',item_two['name'], '--',\
-                                item_three['name']
-                        map_one = get_map(item_one, item_two)
-                        point_one = decodePoly(str(map_one['routes'][0]['overview_polyline']['points']))
-                        point_one = ",".join(point_one)
-                        lines.append(
-                                {
-                                    'line':item_one['name']+ ' -- ' + item_two['name'] + ' -- ' + item_three['name'],
-                                    'times:':item_one['time'] + item_two['time'] + item_three['time'],
-                                    'point_one':point_one
-                                }
-                                )
-            return json.dumps(lines)
+            return json.dumps(ret)
 
         #return getline_for_condition(lat, lng, flag, tag)
         #return get_time('30.531186', '114.36503', '30.584494', '114.299835')
-        return getline()
+        return getList(lat, lng, begin, end)
 
 
 if __name__ == '__main__':
     line = Line()
-    print line.main(0,0,0,0)
+    print line.main(0,0,0,3)

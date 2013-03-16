@@ -31,13 +31,14 @@ def count():
     oneday = con.oneday.play.find()
     oneday = [_ for _ in oneday]
     cnt = int(raw_input("cnt:"))
-    fi = open('./bus_7.dat', 'aw')
+    fi = open('./bus_9.dat', 'aw')
     tmp = 0
     for _i, i in enumerate(oneday):
         for _j, j in enumerate(oneday):
             if _i < _j:
                 tmp += 1
                 if tmp >= cnt:
+                    print tmp
                     url = 'http://openapi.aibang.com/bus/transfer?app_key=f41c8afccc586de03a99c86097e98ccb&city=%E6%AD%A6%E6%B1%89&start_lat='+str(i['lat'])+'&start_lng='+str(i['lng'])+'&end_lat='+str(j['lat'])+'&end_lng='+str(j['lng'])+'&alt=json'
                     req = urllib2.urlopen(url)
                     content = req.read()
