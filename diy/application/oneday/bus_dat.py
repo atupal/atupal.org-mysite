@@ -31,7 +31,7 @@ def count():
     oneday = con.oneday.play.find()
     oneday = [_ for _ in oneday]
     cnt = int(raw_input("cnt:"))
-    fi = open('./bus_9.dat', 'aw')
+    fi = open('./bus_4.dat', 'aw')
     tmp = 0
     for _i, i in enumerate(oneday):
         for _j, j in enumerate(oneday):
