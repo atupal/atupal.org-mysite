@@ -14,6 +14,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+#OPENSHIFT_ADR = '127.0.0.1'
 
 class Line:
     def __init__(self):
@@ -278,7 +279,7 @@ class Line:
         return []
 
     def getList(self, lat, lng, begin, end):
-        play = pymongo.Connection('mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/', 27017).oneday.play.find()
+        play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
         play = [_ for _ in play]
         length = len(play)
         ret = []
@@ -313,12 +314,14 @@ class Line:
             pos.append(( round(height / 2.0 - (three['lat'] - centerLat) * height / (maxLat - minLat)),
                     round(240 + (three['lng'] - centerLng) * 480 / (maxLng - minLng))))
             line = {
-                    "pos": pos,
-                    "loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
+                    #"pos": pos,
+                    #"loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
                     "img":url,
-                    "name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
+                    #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
+                    "items":[repr(one), repr(two), repr(three)]
                     }
             ret.append(line)
+            print repr(one)
 
         return json.dumps(ret)
 
