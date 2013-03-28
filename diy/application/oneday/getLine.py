@@ -13,8 +13,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-#OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
-OPENSHIFT_ADR = '127.0.0.1'
+OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+#OPENSHIFT_ADR = '127.0.0.1'
 
 class Line:
     def __init__(self):
