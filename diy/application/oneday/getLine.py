@@ -13,8 +13,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
-#OPENSHIFT_ADR = '127.0.0.1'
+#OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+OPENSHIFT_ADR = '127.0.0.1'
 
 class Line:
     def __init__(self):
@@ -313,12 +313,27 @@ class Line:
                     round(240 + (two['lng'] - centerLng) * 480 / (maxLng - minLng))) )
             pos.append(( round(height / 2.0 - (three['lat'] - centerLat) * height / (maxLat - minLat)),
                     round(240 + (three['lng'] - centerLng) * 480 / (maxLng - minLng))))
+            json_one = {}
+            json_two = {}
+            json_three = {}
+            for i in one.keys():
+                if i != '_id':
+                    json_one[i] = one[i]
+
+            for i in two.keys():
+                if i != '_id':
+                    json_two[i] = two[i]
+
+            for i in three.keys():
+                if i != '_id':
+                    json_three[i] = three[i]
+
             line = {
                     #"pos": pos,
                     #"loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
                     "img":url,
                     #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
-                    "items":[repr(one), repr(two), repr(three)]
+                    "items":[json_one, json_two, json_three]
                     }
             ret.append(line)
             print repr(one)
