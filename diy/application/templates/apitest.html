@@ -48,6 +48,13 @@
     <script src="../static/Metro-UI-CSS/javascript/dropdown.js"></script>
     <script type="text/javascript">
         function getList() {
+            alert('on');
+            req = new XMLHttpRequest();
+            req.open("POST", "../getList", true);
+            req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            prama = "lat=0&lng=0&begin=0&end=1";
+            req.send(prama);
+            alert(JSON.stringify(req.responseText))
         }
     </script>
 

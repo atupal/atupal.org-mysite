@@ -335,7 +335,7 @@ class Line:
                 pass
             if len(three_s) == 0:
                 continue
-            three = three_s[randint(0, len(three_s) +1)]
+            three = three_s[randint(0, len(three_s) - 1)]
             lines.append([one, two, three])
             cnt += 1
             #print cnt, lines[len(lines) - 1]
