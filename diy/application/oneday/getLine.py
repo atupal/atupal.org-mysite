@@ -16,7 +16,7 @@ sys.setdefaultencoding('utf-8')
 
 OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 #OPENSHIFT_ADR = '127.0.0.1'
-OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/'
+OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/diy/'
 #OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'
 
 class Line:
