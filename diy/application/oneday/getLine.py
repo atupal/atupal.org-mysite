@@ -1,4 +1,5 @@
 #coding=utf-8
+import os
 from random import randint
 import urllib
 import time
@@ -15,7 +16,7 @@ sys.setdefaultencoding('utf-8')
 
 OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 #OPENSHIFT_ADR = '127.0.0.1'
-OPENSHIFT_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/diy/'
+OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/'
 #OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'
 
 class Line:
