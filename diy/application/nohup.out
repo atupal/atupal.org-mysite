@@ -1,0 +1,9 @@
+[23589:23649:0330/182916:ERROR:object_proxy.cc(624)] Failed to get name owner. Got org.freedesktop.DBus.Error.NameHasNoOwner: Could not get owner of name 'org.chromium.Mtpd': no such name
+[23589:23649:0330/182916:ERROR:object_proxy.cc(624)] Failed to get name owner. Got org.freedesktop.DBus.Error.NameHasNoOwner: Could not get owner of name 'org.chromium.Mtpd': no such name
+[23589:23589:0330/182918:ERROR:object_proxy.cc(529)] Failed to call method: org.chromium.Mtpd.EnumerateStorages: object_path= /org/chromium/Mtpd: org.freedesktop.DBus.Error.ServiceUnknown: The name org.chromium.Mtpd was not provided by any .service files
+this = 139933202408608
+SetHotKey true!
+this = 139933202619584
+SetHotKey true!
+this = 140553085191200
+SetHotKey true!
