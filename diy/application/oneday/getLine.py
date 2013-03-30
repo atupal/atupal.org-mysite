@@ -15,6 +15,8 @@ sys.setdefaultencoding('utf-8')
 
 OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
 #OPENSHIFT_ADR = '127.0.0.1'
+OPENSHIFT_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/diy/'
+#OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'
 
 class Line:
     def __init__(self):
@@ -84,6 +86,7 @@ class Line:
                     fi.write(str(item['lat']) + ' '  + str(item['lng']) + ' ' + str(i) + '\r\n')
         fi.close()
 
+    @staticmethod
     def isSameFlag(a, b):
         if a['flag'] == b['flag']:
             return 1
@@ -120,16 +123,21 @@ class Line:
 
         return 0
 
+    @staticmethod
     def item_one_condition(item):
-        if re.findall('酒吧|洗浴|按摩', item['flag'].encode('utf-8')):
+        if re.findall('电影|酒吧|洗浴|按摩', item['flag'].encode('utf-8')):
+            return 0
+        if re.findall('剧院', item['name'].encode('utf-8')):
             return 0
         return 1
 
+    @staticmethod
     def item_two_condition(item):
         if re.findall('酒吧|洗浴|按摩', item['flag'].encode('utf-8')):
             return 0
         return 1
 
+    @staticmethod
     def item_three_condition(item):
         #return 1 if randint(0, 100) < 1 else 0
         return 1
@@ -141,6 +149,7 @@ class Line:
         C = 1.0 if C > 1.0 else C
         return R * math.acos(C) *math.pi / 180
 
+    @staticmethod
     def get_shortest_item(lat, lng):
         play = pymongo.Connection('localhost', 27017).oneday.play.find()
         play = [_ for _ in play]
@@ -249,97 +258,151 @@ class Line:
         #print res
         return res
 
-    def getline():
-        play = pymongo.Connection('localhost', 27017).oneday.play.find()
-        play = [_ for _ in play]
-        for i, one in enumerate(play):
-            if not item_one_condition(one):continue
-            for j, two in enumerate(play):
-                if isSameFlag(one, two):continue
-                if not item_two_condition(two):continue
-                if one['time'] + two['time'] >= 130:
-                    print one['name'], '--', two['name'];continue
-                if dist_latlng(one, two) > 5: continue
-                dist_one_two = get_time(str(one['lat']), str(one['lng']), str(two['lat']), str(two['lng']))
-                if int(dist_one_two['time'] > 30): continue
-                for k, three in enumerate(play):
-                    if not item_three_condition(three):continue
-                    if isSameFlag(one, three) or isSameFlag(two, three):continue
-                    flag = 1 if re.findall('咖啡厅|茶馆', one['flag'].encode('utf-8')) else 0
-                    flag += 1 if re.findall('咖啡厅|茶馆', two['flag'].encode('utf-8')) else 0
-                    flag += 1 if re.findall('咖啡厅|茶馆|酒吧', three['flag'].encode('utf-8')) else 0
-                    if (flag > 1):continue
-                    if one['time'] + two['time'] + three['time'] > 200:continue
-                    dist_one_three = get_time(str(one['lat']), str(one['lng']), str(three['lat']), str(three['lng']))
-                    dist_two_three = get_time(str(two['lat']), str(two['lng']), str(three['lat']), str(three['lng']))
-                    if dist_latlng(one, three) < dist_latlng(one, two) or dist_latlng(two, three) > 7:continue
-                    if int(dist_one_three['dist']) < int(dist_two_three['dist']) or int(dist_two_three['time']) > 50:continue
-                    print one['name'], '--',two['name'], '--',\
-                            three['name']
-        return []
-
-    def getList(self, lat, lng, begin, end):
+    def getline(self, lat, lng, begin, end):
         play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
+        dist_s = json.load(open(OPENSHIFT_DIR + 'application/oneday/time.dat', 'r'))
+        cnt = 0
         play = [_ for _ in play]
-        length = len(play)
-        ret = []
-        cnt = end - begin
-        for i in xrange(cnt):
-            one = play[randint(0, length - 1)]
-            two = play[randint(0, length - 1)]
-            three = play[randint(0, length - 1)]
-            url = "http://api.map.baidu.com/staticimage?"
-            url += "markers=" + str(one['lng']) + ',' + str(one['lat']) + '|'
-            url += str(two['lng']) + ',' + str(two['lat']) + "|"
-            url += str(three['lng']) + ',' + str(three['lat'])
-            url += "&markerStyles=A|m,B|l,C"
-            minLat = min(one['lat'], two['lat']); minLat = min(minLat, three['lat'])
-            minLng = min(one['lng'], two['lng']); minLng = min(minLng, three['lng'])
-            maxLat = max(one['lat'], two['lat']); maxLat = max(maxLat, three['lat'])
-            maxLng = max(one['lng'], two['lng']); maxLng = max(maxLng, three['lng'])
-            height = (maxLat - minLat) / (maxLng - minLng) * 480
-            centerLat = (maxLat + minLat) / 2.0
-            centerLng = (maxLng + minLng) / 2.0
-            url += "&bbox=" + str(minLng) + ',' + str(minLat) + ';' + str(maxLng) + ',' + str(maxLat)
-            url += "&width=480&height=" + str(height)
-            url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
-            url += str(two['lng']) + ',' + str(two['lat']) + ";"
-            url += str(three['lng']) + ',' + str(three['lat'])
-            url += "&center=" + str(centerLng) + ',' + str(centerLat)
-            pos = []
-            pos.append( (round(height / 2.0 - (one['lat'] - centerLat) * height / (maxLat - minLat)),
-                    round(240 + (one['lng'] - centerLng) * 480 / (maxLng - minLng))) )
-            pos.append(( round(height / 2.0 - (two['lat'] - centerLat) * height / (maxLat - minLat)),
-                    round(240 + (two['lng'] - centerLng) * 480 / (maxLng - minLng))) )
-            pos.append(( round(height / 2.0 - (three['lat'] - centerLat) * height / (maxLat - minLat)),
-                    round(240 + (three['lng'] - centerLng) * 480 / (maxLng - minLng))))
-            json_one = {}
-            json_two = {}
-            json_three = {}
-            for i in one.keys():
-                if i != '_id':
-                    json_one[i] = one[i]
+        lines = []
+        one_s = []
+        two_s = []
+        three_s = []
 
-            for i in two.keys():
-                if i != '_id':
-                    json_two[i] = two[i]
+        for i in play:
+            if Line.item_one_condition(i):
+                one_s.append(i)
 
-            for i in three.keys():
-                if i != '_id':
-                    json_three[i] = three[i]
+        while cnt < end - begin:
+            one = one_s[randint(0, len(one_s) - 1)]
 
-            line = {
-                    #"pos": pos,
-                    #"loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
-                    "img":url,
-                    #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
-                    "items":[json_one, json_two, json_three]
-                    }
-            ret.append(line)
-            print repr(one)
+            for i in play:
+                if not Line.isSameFlag(one, i) and Line.item_two_condition(i):
+                    try:
+                        dist = dist_s[i['name'] + ' ' + one['name']]
+                    except:
+                        try:
+                            dist = dist_s[one['name'] +' ' + i['name']]
+                        except:
+                            pass
 
+                    if dist and int(dist) < 30:
+                        two_s.append(i)
+            if len(two_s) == 0:
+                continue
+
+            two = two_s[randint(0, len(two_s) - 1)]
+
+            #if int(one['time']) + int(two['time']) >= 120:
+            #    cnt += 1
+            #    lines.append([one, two])
+            #    print cnt ,lines[len(lines) - 1]
+            #    continue
+
+            for i in play:
+                if not Line.item_three_condition(i):continue
+                if Line.isSameFlag(one, i) or Line.isSameFlag(two, i):continue
+                flag = 1 if re.findall('咖啡厅|茶馆', one['flag'].encode('utf-8')) else 0
+                flag += 1 if re.findall('咖啡厅|茶馆', two['flag'].encode('utf-8')) else 0
+                flag += 1 if re.findall('咖啡厅|茶馆|酒吧', i['flag'].encode('utf-8')) else 0
+                if (flag > 1):continue
+                if int(one['time']) + int(two['time']) + int(i['time']) > 200:continue
+                #dist_one_three = get_time(str(one['lat']), str(one['lng']), str(three['lat']), str(three['lng']))
+                #dist_two_three = get_time(str(two['lat']), str(two['lng']), str(three['lat']), str(three['lng']))
+
+                try:
+                    dist_one_three = dist_s[i['name'] + ' ' + one['name']]
+                except:
+                    try:
+                        dist_one_three = dist_s[one['name'] + ' ' + i['name']]
+                    except:
+                        pass
+
+                try:
+                    dist_two_three = dist_s[i['name'] + ' ' + two['name']]
+                except:
+                    try:
+                        dist_two_three = dist_s[two['name'] + ' ' + i['name']]
+                    except:
+                        pass
+
+                if not dist_one_three or not dist_two_three:
+                    continue
+                #if dist_latlng(one, three) < dist_latlng(one, two) or dist_latlng(two, three) > 7:continue
+
+                if int(dist_one_three) < int(dist_two_three) / 2 or int(dist_two_three) > 35:continue
+                three_s.append(i)
+                pass
+            if len(three_s) == 0:
+                continue
+            three = three_s[randint(0, len(three_s) +1)]
+            lines.append([one, two, three])
+            cnt += 1
+            #print cnt, lines[len(lines) - 1]
+
+        lines = [Line.getList(i[0], i[1], i[2]) for i in lines]
+        return json.dumps(lines)
+
+    @staticmethod
+    def getList(one, two, three):
+        #play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
+        #play = [_ for _ in play]
+        #length = len(play)
+        #ret = []
+        #cnt = end - begin
+        #one = play[randint(0, length - 1)]
+        #two = play[randint(0, length - 1)]
+        #three = play[randint(0, length - 1)]
+        url = "http://api.map.baidu.com/staticimage?"
+        url += "markers=" + str(one['lng']) + ',' + str(one['lat']) + '|'
+        url += str(two['lng']) + ',' + str(two['lat']) + "|"
+        url += str(three['lng']) + ',' + str(three['lat'])
+        url += "&markerStyles=A|m,B|l,C"
+        minLat = min(one['lat'], two['lat']); minLat = min(minLat, three['lat'])
+        minLng = min(one['lng'], two['lng']); minLng = min(minLng, three['lng'])
+        maxLat = max(one['lat'], two['lat']); maxLat = max(maxLat, three['lat'])
+        maxLng = max(one['lng'], two['lng']); maxLng = max(maxLng, three['lng'])
+        height = (maxLat - minLat) / (maxLng - minLng) * 480
+        centerLat = (maxLat + minLat) / 2.0
+        centerLng = (maxLng + minLng) / 2.0
+        url += "&bbox=" + str(minLng) + ',' + str(minLat) + ';' + str(maxLng) + ',' + str(maxLat)
+        url += "&width=480&height=" + str(height)
+        url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
+        url += str(two['lng']) + ',' + str(two['lat']) + ";"
+        url += str(three['lng']) + ',' + str(three['lat'])
+        url += "&center=" + str(centerLng) + ',' + str(centerLat)
+        pos = []
+        pos.append( (round(height / 2.0 - (one['lat'] - centerLat) * height / (maxLat - minLat)),
+                round(240 + (one['lng'] - centerLng) * 480 / (maxLng - minLng))) )
+        pos.append(( round(height / 2.0 - (two['lat'] - centerLat) * height / (maxLat - minLat)),
+                round(240 + (two['lng'] - centerLng) * 480 / (maxLng - minLng))) )
+        pos.append(( round(height / 2.0 - (three['lat'] - centerLat) * height / (maxLat - minLat)),
+                round(240 + (three['lng'] - centerLng) * 480 / (maxLng - minLng))))
+        json_one = {}
+        json_two = {}
+        json_three = {}
+        for i in one.keys():
+            if i != '_id':
+                json_one[i] = one[i]
+
+        for i in two.keys():
+            if i != '_id':
+                json_two[i] = two[i]
+
+        for i in three.keys():
+            if i != '_id':
+                json_three[i] = three[i]
+
+        line = {
+                #"pos": pos,
+                #"loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
+                "img":url,
+                #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
+                "items":[json_one, json_two, json_three]
+                }
+        #ret.append(line)
+        return line
         return json.dumps(ret)
 
 if __name__ == '__main__':
     line = Line()
-    print line.getList(0,0,0,1)
+    print line.getline(0,0,0,4)

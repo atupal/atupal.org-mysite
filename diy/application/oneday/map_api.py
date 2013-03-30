@@ -20,7 +20,7 @@ def getList():
     lng = float(request.form['lng'])
     begin = int(request.form['begin'])
     end = int(request.form['end'])
-    return getLine.Line().getList(lat, lng, begin, end)
+    return getLine.Line().getline(lat, lng, begin, end)
 
 @app.route('/getLine', methods = ['GET', 'POST'])
 def getLineInfo():
