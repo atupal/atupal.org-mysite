@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Oneday's api online test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="atupal's personal site">
+        <meta name="author" content="atupal">
+
+        <link href="../static/Metro-UI-CSS/css/modern.css" rel="stylesheet">
+        <style>
+            body {
+                padding-bottom: 40px;
+                color: #5a5a5a;
+            }
+
+            #result{
+                position: absolute;
+                top: 0;
+                left: 200px;
+                z-index: 10;
+                width: 1000px;
+                height: 600px;
+                border-top-style:inherit
+                border-right-style:inherit 
+                border-bottom-style:inherit 
+                border-left-style:inherit 
+            }
+        </style>
+    </head>
+    <body class="metrouicss">
+        <div class="input-control text span2">
+            <label> <strong>lat</strong></label><input type="text" class="with-helper" />
+            <label> <strong>lng</strong></label><input type="text" class="with-helper" />
+            <label> <strong>begin</strong></label><input type="text" class="with-helper" />
+            <label> <strong>end</strong></label><input type="text" class="with-helper" />
+        </div>
+        <input type="submit" value="getList" action="sdf" onclick="getList()"/>
+        <div class="metrouicss" id="result">
+            <label><strong>result:</strong></label>
+            <textarea style="width:400px; height:150px"></textarea>
+            <hr/>
+            <label><strong>mapimg:</strong></label>
+            <img src="#"></img>
+        </div>
+    </body>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/Metro-UI-CSS/javascript/dropdown.js"></script>
+    <script type="text/javascript">
+        function getList() {
+        }
+    </script>
+
+</body>
+    </html>

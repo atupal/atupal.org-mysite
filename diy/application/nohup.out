@@ -7,3 +7,15 @@ this = 139933202619584
 SetHotKey true!
 this = 140553085191200
 SetHotKey true!
+[23589:23745:0330/223508:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223509:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223511:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223513:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223518:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223523:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223535:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223605:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223650:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223710:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223712:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0330/223720:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates

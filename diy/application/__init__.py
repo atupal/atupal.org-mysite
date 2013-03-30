@@ -7,4 +7,5 @@ import application.base
 import application.oneday.map_api
 import application.oneday.getLine
 import application.views.index
+import application.views.foo
 

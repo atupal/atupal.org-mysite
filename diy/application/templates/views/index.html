@@ -12,6 +12,36 @@
         <link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen"-->
         <link href="static/Metro-UI-CSS/css/modern.css" rel="stylesheet">
         <style>
+            body {
+                padding-bottom: 40px;
+                color: #5a5a5a;
+            }
+
+            .nav-bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 10;
+                margin-bottom: -90px
+            }
+
+            .nav-bar{
+                -webkit-box-shadow: 0 2px 10px rgba(0,0,0.25);
+                -moz-box-shadow: 0 2px 10px rgba(0,0,0.25);
+                     box-shadow: 0 2px 10px rgba(0,0,0.25);
+            }
+
+            .nav-bar {
+                padding: 14px 20px 16px;
+                font-size: 16px;
+                font-weight: bold;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+            }
+            .nav-bar-inner {
+                padding: 16px 20px;
+            }
+
         </style>
     </head>
     <body class="metrouicss">
@@ -31,6 +61,7 @@
                     <a href="#">More</a>
                     <ul class="dropdown-menu">
                         <li><a href="https://github.com/atupal">github</a></li>
+                        <li><a href="/editCode">online compiler</a></li>
                         <li><a href="#">contact</a></li>
                     </ul>
                     </li>
