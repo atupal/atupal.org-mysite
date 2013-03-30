@@ -314,7 +314,7 @@ def ico():
     return fi.read()
 
 @app.route('/static/<path:name>')
-def javascript(name):
+def staticfile(name):
     fi = open(server_dir + "static/" + name)
     return fi.read()
 
