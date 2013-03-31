@@ -152,7 +152,7 @@ class Line:
 
     @staticmethod
     def get_shortest_item(lat, lng):
-        play = pymongo.Connection('localhost', 27017).oneday.play.find()
+        play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
         play = [_ for _ in play]
         Min = []
         for b in play:
