@@ -30,31 +30,35 @@
     </head>
     <body class="metrouicss">
         <div class="input-control text span2">
-            <label> <strong>lat</strong></label><input type="text" class="with-helper" />
-            <label> <strong>lng</strong></label><input type="text" class="with-helper" />
-            <label> <strong>begin</strong></label><input type="text" class="with-helper" />
-            <label> <strong>end</strong></label><input type="text" class="with-helper" />
+            <label> <strong>lat</strong></label><input type="text" class="with-helper" value="30.599133" id="lat"/>
+            <label> <strong>lng</strong></label><input type="text" class="with-helper" value="114.290742" id="lng"/>
+            <label> <strong>begin</strong></label><input type="text" class="with-helper" value="0"  id="begin"/>
+            <label> <strong>end</strong></label><input type="text" class="with-helper" value="1" id="end"/>
         </div>
         <input type="submit" value="getList" action="sdf" onclick="getList()"/>
         <div class="metrouicss" id="result">
             <label><strong>result:</strong></label>
-            <textarea style="width:400px; height:150px"></textarea>
+            <textarea style="width:1000px; height:150px" id="result_json"></textarea>
             <hr/>
             <label><strong>mapimg:</strong></label>
-            <img src="#"></img>
+            <img src="#" id="result_img"></img>
         </div>
     </body>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/Metro-UI-CSS/javascript/dropdown.js"></script>
     <script type="text/javascript">
         function getList() {
-            alert('on');
             req = new XMLHttpRequest();
-            req.open("POST", "../getList", true);
+            req.open("POST", "../getList", false);
             req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
             prama = "lat=0&lng=0&begin=0&end=1";
+            prama = "lat=" + document.getElementById("lat").value 
+            prama += "&lng="+ document.getElementById("lng").value;
+            prama += "&begin=" + document.getElementById("begin").value;
+            prama += "&end=" +document.getElementById("end").value;
             req.send(prama);
-            alert(JSON.stringify(req.responseText))
+            document.getElementById("result_json").innerHTML = JSON.stringify(JSON.parse(req.responseText));
+            document.getElementById("result_img").src=JSON.parse(req.responseText)[0].img
         }
     </script>
 

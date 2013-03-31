@@ -159,7 +159,7 @@ class Line:
             try:
                 R = 6371.004
                 C = math.sin(lat) * math.sin(b['lat']) * math.cos(lng - b['lng']) + math.cos(lat) * math.cos(b['lat'])
-                if R * math.acos(C) *math.pi / 180 < 0.3:
+                if R * math.acos(C) *math.pi / 180 < 10:
                     Min.append(b)
                 #else: print R * math.acos(C) * math.pi
             except:
@@ -273,8 +273,13 @@ class Line:
             if Line.item_one_condition(i):
                 one_s.append(i)
 
+        one_s = Line.get_shortest_item(float(lat), float(lng))
+
         while cnt < end - begin:
-            one = one_s[randint(0, len(one_s) - 1)]
+            try:
+                one = one_s[randint(0, len(one_s) - 1)]
+            except:
+                return json.dumps("{'result':'error lat or lng'}")
 
             for i in play:
                 if not Line.isSameFlag(one, i) and Line.item_two_condition(i):
@@ -366,7 +371,7 @@ class Line:
         centerLat = (maxLat + minLat) / 2.0
         centerLng = (maxLng + minLng) / 2.0
         url += "&bbox=" + str(minLng) + ',' + str(minLat) + ';' + str(maxLng) + ',' + str(maxLat)
-        url += "&width=480&height=" + str(height)
+        #url += "&width=480&height=" + str(height)
         url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
         url += str(two['lng']) + ',' + str(two['lat']) + ";"
         url += str(three['lng']) + ',' + str(three['lat'])
@@ -406,4 +411,4 @@ class Line:
 
 if __name__ == '__main__':
     line = Line()
-    print line.getline(0,0,0,4)
+    print line.getline('30.599133','114.290742',0,4)

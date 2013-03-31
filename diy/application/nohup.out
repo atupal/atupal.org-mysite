@@ -19,3 +19,24 @@ SetHotKey true!
 [23589:23745:0330/223710:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
 [23589:23745:0330/223712:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
 [23589:23745:0330/223720:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23589:0331/021333:ERROR:CONSOLE(4034)] "Uncaught TypeError: Cannot call method 'uri' of undefined", source: chrome-devtools://devtools/devtools.html?dockSide=bottom&toolbarColor=rgba(0,0,0,1)&textColor=rgba(255,255,255,1) (4034)
+[23589:23745:0331/082411:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082422:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082423:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082425:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082428:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082433:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082445:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082515:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082600:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082708:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/082850:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/083123:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/083513:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/084058:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/085520:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/091653:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/094913:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/102558:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/102559:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
+[23589:23745:0331/102605:ERROR:download_updates_command.cc(131)] PostClientToServerMessage() failed during GetUpdates
