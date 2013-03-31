@@ -14,9 +14,12 @@ do
         echo -e "\e[1;31m restart wscgi \e[0m" 
         #echo $sum
         echo -e "\e[1;35m $sum \e[0m"
-        #kill `pgrep uwsgi`
+        #kill `pgrep uwsgi` -9
         #kill -9 `pgrep gi.sh`
-        pkill python$
+        #pkill python$
+        pkill uwsgi -9
+        pkill uwsgi -9
+        pkill uwsgi -9
         sleep 0.3
         ./gi.sh &
         echo -e "\e[1;32m output:"
