@@ -35,7 +35,7 @@ import sys
 def editCode(name = None):
     return render_template('editCode.html', name = name)
 
-import subprocess
+import subprocess,re
 from flask import session,redirect,url_for,escape,request
 @app.route('/action', methods=['POST', 'GET'])
 def action():
@@ -55,6 +55,16 @@ def action():
     if not fi:
         return 'error'
     #cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
+    headfile = re.findall("#include<([a-z.]{1,10})>", request.form['codestr'])
+    valid_headfile = {'stdio.h','cstdio', 'stdlib.h', 'cstdlib', 'string.h','cstring', 'math.h', 'cmath','vector.h','vector', 'algorithm.h','algorithm' ,'queue.h', 'queue'}
+    for i in headfile:
+        print i
+        if not i in valid_headfile:
+            return "invalid headfile:" + i
+
+    if request.form['codestr'].find('system(') != -1:
+        return "invalid func system()"
+
     fi.write(request.form['codestr'])
     fi.close() #此处必须要close，不然会造成ast（抽象语法分析树，即源代码）仍停留在缓存当中，找成编译的时候找不到main函数入口等奇葩的错误
     fi = open(prefix + '/in.dat', 'w')
