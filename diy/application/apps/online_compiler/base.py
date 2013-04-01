@@ -55,7 +55,7 @@ def action():
     if not fi:
         return 'error'
     #cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
-    headfile = re.findall("#include<([a-z.]{1,10})>", request.form['codestr'])
+    headfile = re.findall("#include[ ]{0,3}<([a-z.]{1,10})>", request.form['codestr'])
     valid_headfile = {'stdio.h','cstdio', 'stdlib.h', 'cstdlib', 'string.h','cstring', 'math.h', 'cmath','vector.h','vector', 'algorithm.h','algorithm' ,'queue.h', 'queue'}
     for i in headfile:
         print i
