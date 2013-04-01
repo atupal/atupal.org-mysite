@@ -265,7 +265,7 @@ class Line:
 
     def getline(self, lat, lng, begin, end):
         play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
-        dist_s = json.load(open(OPENSHIFT_DIR + 'application/oneday/time.dat', 'r'))
+        dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time.dat', 'r'))
         cnt = 0
         play = [_ for _ in play]
         lines = []

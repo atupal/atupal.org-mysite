@@ -1,8 +1,8 @@
 
 from application import app
 from flask import request
-from application.oneday import getLine
-from application.oneday import getInfo
+from application.apps.oneday import getLine
+from application.apps.oneday import getInfo
 
 import urllib
 import json
