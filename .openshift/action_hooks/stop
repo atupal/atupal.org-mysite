@@ -7,6 +7,10 @@
 #exit 0
 pkill -9 uwsgi
 pkill -9 uwsgi
-pkill nginx -9
-pkill nginx -9
+pkill uwsgi
+pkill uwsgi
+pkill -9 nginx
+pkill -9 nginx
+pkill nginx
+pkill nginx
 exit 0
