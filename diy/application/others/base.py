@@ -29,10 +29,10 @@ if (os.environ['HOME'] == '/home/atupal'):
 #    fi = open(server_dir + "static/css/" + name)
 #    return fi.read()
 #
-#@app.route('/favicon.ico')
-#def ico():
-#    fi = open(server_dir + 'favicon.ico', "rb")
-#    return fi.read()
+@app.route('/favicon.ico')
+def ico():
+    fi = open(server_dir + 'favicon.ico', "rb")
+    return fi.read()
 #
 #@app.route('/static/<path:name>')
 #def staticfile(name):
