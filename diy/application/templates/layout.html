@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
         {% block head %}
-        <title>{% block title %}{% endblock %} - My Webpage</title>
+        <title>{% block title %}{% endblock %} - atupal's site</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="atupal's personal site; atupal's project; atupal's blog; atupal's detail, A site for learn and communicate; To lose to pursue;kangle yu">
@@ -13,8 +13,8 @@
         {% endblock %}
     </head>
 
-    {% block style %}
     <style>
+    {% block style %}
         body {
             padding-bottom: 40px;
             color: #5a5a5a;
@@ -45,9 +45,8 @@
 
         .metrouicss #index-page {
         }
-
-    </style>
     {% endblock %}
+    </style>
 
     <body class="metrouicss">
         <div class="nav-bar">
@@ -96,6 +95,10 @@
                 </ul>
             </div>
         </div>
+
+        {% block body %}
+
+        {% endblock %}
 
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
