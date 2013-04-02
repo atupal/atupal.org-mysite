@@ -30,6 +30,7 @@ if (os.environ['HOME'] == '/home/atupal'):
 #    return fi.read()
 #
 @app.route('/favicon.ico')
+@app.route('/favicon.png')
 def ico():
     fi = open(server_dir + 'favicon.ico', "rb")
     return fi.read()

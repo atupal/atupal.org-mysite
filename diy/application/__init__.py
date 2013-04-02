@@ -5,6 +5,7 @@ app.debug = True
 
 #import application.base
 import application.views.index
+import application.views.oneday
 import application.user.base
 import application.mongodb.base
 import application.others.base

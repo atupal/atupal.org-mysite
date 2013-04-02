@@ -8,6 +8,7 @@
         <meta name="description" content="atupal's personal site; atupal's project; atupal's blog; atupal's detail, A site for learn and communicate; To lose to pursue;kangle yu">
         <meta name="author" content="atupal">
         <meta name="intereste" content="Algorithm">
+        <meta property="wb:webmaster" content="0c66374f6f13f1d4" />
         <link rel="icon" type="image/png" href="/favicon.png">
         <link rel="stylesheet" href="{{ url_for('static', filename='Metro-UI-CSS/css/modern.css') }}">
         {% endblock %}
@@ -22,11 +23,11 @@
         }
 
         .metrouicss .nav-bar {
-            margin-top: 20px;
+            //margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
             padding: 16px 20px;
-            width:95%;
+            width:80%;
         }
 
         .metrouicss .nav-bar .nav-bar-inner > ul.menu > li a {
@@ -45,14 +46,23 @@
 
         .metrouicss #index-page {
         }
+
+        .metrouicss .page {
+            width: 80%;
+            margin: auto;
+        }
     {% endblock %}
     </style>
 
     <body class="metrouicss">
         <div class="nav-bar">
             <div class="nav-bar-inner">
-
-                <span class="element" id="site-name"><strong type="font-size:20px">atupal's site</strong></span>
+                <a href="/">
+                    <span class="element brand" id="site-name">
+                        <img class="place-left" src="/favicon.png">
+                        atupal's site
+                    </span>
+                </a>
 
                 <span class="divider"></span>
 
@@ -96,12 +106,21 @@
             </div>
         </div>
 
-        {% block body %}
+        <div class="page secondary">
+            <div class="page-header">
+                <div class="page-header-content">{% block header %}{% endblock %}</div>
+            </div>
 
-        {% endblock %}
+            <div class="page-region">
+                <div class="page-region-content">{% block body %}{% endblock %}</div>
+            </div>
 
+        </div>
+
+        {% block js %}
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
+        {% endblock %}
 
     </body>
 </html>
