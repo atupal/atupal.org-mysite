@@ -5,13 +5,8 @@
 
 #kill `cat $OPENSHIFT_TMP_DIR/uwsgi.pid`
 #exit 0
-
-pkill uwsgi
 pkill -9 uwsgi
 pkill -9 uwsgi
-kill `pgrep python`
-#exit 0
-
-#kill nginx
-pkill nginx
+pkill nginx -9
+pkill nginx -9
 exit 0
