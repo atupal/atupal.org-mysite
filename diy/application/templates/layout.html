@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="atupal's personal site; atupal's project; atupal's blog; atupal's detail, A site for learn and communicate; To lose to pursue;kangle yu">
+        <meta name="author" content="atupal">
+        <meta name="intereste" content="Algorithm">
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <link rel="stylesheet" href="{{ url_for('static', filename='Metro-UI-CSS/css/modern.css') }}">
+        {% endblock %}
+    </head>
+
+    {% block style %}
+    <style>
+        body {
+            padding-bottom: 40px;
+            color: #5a5a5a;
+            background: #5a5a5a;
+        }
+
+        .metrouicss .nav-bar {
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 16px 20px;
+            width:95%;
+        }
+
+        .metrouicss .nav-bar .nav-bar-inner > ul.menu > li a {
+            font-size: 13pt;
+        }
+
+        .metrouicss #site-name {
+            font-size: 20pt;
+            margin-right: 30px;
+        }
+
+        #sign-search {
+            position: absolute;
+            right: 0;
+        }
+
+        .metrouicss #index-page {
+        }
+
+    </style>
+    {% endblock %}
+
+    <body class="metrouicss">
+        <div class="nav-bar">
+            <div class="nav-bar-inner">
+
+                <span class="element" id="site-name"><strong type="font-size:20px">atupal's site</strong></span>
+
+                <span class="divider"></span>
+
+                <ul class="menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="http://blog.atupal.org">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+
+                    <li data-role="dropdown">
+                        <a href="#">project</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/editCode">online compiler</a></li>
+                                <li><a href="/project/oneday">oneday</a></li>
+                            </ul>
+                    </li>
+
+                    <li data-role="dropdown">
+                        <a href="#">More</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/atupal">see me on github</a></li>
+                            <li><a href="#">contact</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <ul class="menu" id="sign-search">
+                    <li data-role="dropdown">
+                        <a href="#">Sign in</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Sign in with weibo</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                    <div class="input-control text" id="search-input">
+                        <input type="text"/>
+                        <button class="btn-search"></button>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
+
+    </body>
+</html>
