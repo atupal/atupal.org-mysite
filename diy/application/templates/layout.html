@@ -18,7 +18,7 @@
     {% block style %}
         body {
             padding-bottom: 40px;
-            color: #5a5a5a;
+            //color: #5a5a5a;
             //background: #5a5a5a;
             background: #838B8B;
         }
@@ -60,6 +60,14 @@
             position: absolute;
         }
 
+        .metrouicss .page-sidebar {
+            background: #838B8B;
+        }
+
+        .metrouicss a {
+            color: red;
+        }
+
     {% endblock %}
     </style>
 
@@ -92,7 +100,7 @@
                         <a href="#">More</a>
                         <ul class="dropdown-menu">
                             <li><a href="https://github.com/atupal"><i class="icon-github-2"></i>see me on github</a></li>
-                            <li><a href="contact"><i class="icon-mail"></i>contact me</a></li>
+                            <li><a href="/contact"><i class="icon-mail"></i>contact me</a></li>
                         </ul>
                     </li>
 
@@ -115,13 +123,14 @@
             </div>
         </div>
 
-        <div class="page secondary">
+        <div class="page secondary with-sidebar">
             <div class="page-header">
                 <div class="page-header-content">{% block header %}{% endblock %}</div>
             </div>
 
+            <div class="page-sidebar">{% block sidebar %}{% endblock %}</div>
+
             <div class="page-region">
-                <div class="page snapped" id="left_bar">{% block left_bar %}{% endblock %}</div>
                 <div class="page-region-content">{% block body %}{% endblock %}</div>
             </div>
 
@@ -129,7 +138,7 @@
         {% block js %}
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
-        <script src="http://s15.cnzz.com/stat.php?id=5178522&web_id=5178522" language="JavaScript"></script>
+        <!--script src="http://s15.cnzz.com/stat.php?id=5178522&web_id=5178522" language="JavaScript"></script-->
         {% endblock %}
     </body>
 </html>
