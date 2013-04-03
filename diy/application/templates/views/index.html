@@ -105,4 +105,8 @@
 {% block js %}
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/pagecontrol.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jatom.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jfeed.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jfeeditem.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jrss.js') }}"></script>
 {% endblock %}
