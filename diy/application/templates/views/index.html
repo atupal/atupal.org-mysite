@@ -60,10 +60,11 @@
     <div class="frames">
         <div class="frame active" id="page1">
             <h2>rss read</h2>
-            <p>
-            this is page 1
-            <button onclick="getrss()">getrss</button>
-            </p>
+            <div id="rss_container">
+                <p>
+                this is page 1
+                </p>
+            </div>
         </div>
 
         <div class="frame" id="page2">
@@ -104,6 +105,7 @@
     </div>
 
 </div>
+
 {% endblock %}
 
 {% block js %}
