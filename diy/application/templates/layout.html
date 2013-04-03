@@ -28,7 +28,8 @@
             margin-left: auto;
             margin-right: auto;
             padding: 16px 20px;
-            width:80%;
+            //width:80%;
+            width:1140px;
         }
 
         .metrouicss .nav-bar .nav-bar-inner > ul.menu > li a {
@@ -49,13 +50,19 @@
         }
 
         .metrouicss .page {
-            width: 80%;
+            width: 1040px;
             margin: auto;
         }
+
+        .metrouicss #left_bar {
+            width: 111px;
+            position: absolute;
+        }
+
     {% endblock %}
     </style>
 
-    <body class="metrouicss">
+    <body class="metrouicss page">
         <div class="nav-bar">
             <div class="nav-bar-inner">
                 <a href="/">
@@ -113,6 +120,7 @@
             </div>
 
             <div class="page-region">
+                <div class="page snapped" id="left_bar">{% block left_bar %}{% endblock %}</div>
                 <div class="page-region-content">{% block body %}{% endblock %}</div>
             </div>
 

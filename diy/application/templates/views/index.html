@@ -5,6 +5,9 @@
 {% block header %}
 {% endblock %}
 
+{% block left_bar %}
+{% endblock %}
+
 {% block body %}
 <div class="page-control span10" data-role="page-control">
     <span class="menu-pyll"></span>
@@ -59,6 +62,7 @@
             <h2>rss read</h2>
             <p>
             this is page 1
+            <button onclick="getrss()">getrss</button>
             </p>
         </div>
 
@@ -109,4 +113,5 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jfeed.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jfeeditem.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/jFeed/jrss.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/project/rssRead.js') }}"></script>
 {% endblock %}
