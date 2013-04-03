@@ -8,4 +8,9 @@ def index(name = None):
 
 @app.route("/about")
 def about():
-    return "about me"
+    return render_template("views/about.html")
+
+@app.route("/contact")
+def contanct():
+    return render_template("views/contact.html")
+
