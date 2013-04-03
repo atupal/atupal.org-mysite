@@ -18,11 +18,17 @@ def getInfo(name):
     content = requests.get(url).content
     pattern = 'span class="J_full-cont">(.*)</span>\r'
     intra = re.findall(pattern, content)
-    intra = intra[0].encode('utf-8')
+    if len(intra) != 0:
+        intra = intra[0].encode('utf-8')
+    else:
+        intra = "no"
 
     pattern = 'span class="J_full-cont Hide">([0-9/]*)'
     bus = re.findall(pattern, content)
-    bus = bus[0]
+    if len(bus) != 0:
+        bus = bus[0]
+    else:
+        bus = "no bus"
 
     url = 'http://www.dianping.com/shop/'+ shopId[0] +'/photos'
     pattern = 'http://i[0-9].s[0-9].dpfile.com/pc/[0-9a-z()]*/thumb.jpg'
@@ -37,4 +43,4 @@ def getInfo(name):
     return ret
 
 if __name__ == "__main__":
-    getInfo("光谷美食")
+    print getInfo("光谷美食")

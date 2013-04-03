@@ -7,6 +7,9 @@ def oneday_index():
     return render_template("project/oneday.html")
 
 @app.route("/apitest/getList")
-def apitest():
-    return render_template("project/apitest.html")
+def apitest_getList():
+    return render_template("project/apitest_getList.html")
 
+@app.route("/apitest/getLine")
+def apitest_getLine():
+    return render_template("project/apitest_getLine.html")
