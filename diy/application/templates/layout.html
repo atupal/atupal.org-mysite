@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wb="http://open.weibo.com/wb" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
         {% block head %}
         <title>{% block title %}{% endblock %} - atupal's site</title>
@@ -12,7 +12,6 @@
         <link rel="icon" type="image/png" href="/favicon.ico">
         <link rel="stylesheet" href="{{ url_for('static', filename='Metro-UI-CSS/css/modern.css') }}">
         {% endblock %}
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1220535963" type="text/javascript" charset="utf-8"></script>
     </head>
 
     <style>
@@ -95,7 +94,6 @@
                         <a href="#">Sign in</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Sign in with weibo</a></li>
-                            <li><wb:login-button type="3,2" onlogin="login" onlogout="logout">登录按钮</wb:login-button></li>
                         </ul>
                     </li>
                     <li>
