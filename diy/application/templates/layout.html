@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock %} - atupal's site</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="atupal's personal site; atupal's project; atupal's blog; atupal's detail, A site for learn and communicate; To lose to pursue;kangle yu">
+        <meta name="author" content="atupal">
+        <meta name="intereste" content="Algorithm">
+        <meta property="wb:webmaster" content="0c66374f6f13f1d4" />
+        <link rel="icon" type="image/png" href="/favicon.ico">
+        <link rel="stylesheet" href="{{ url_for('static', filename='Metro-UI-CSS/css/modern.css') }}">
+        {% endblock %}
+    </head>
+
+    <style>
+    {% block style %}
+        body {
+            padding-bottom: 40px;
+            //color: #5a5a5a;
+            //background: #5a5a5a;
+            background: #838B8B;
+        }
+
+        .metrouicss .nav-bar {
+            //margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 16px 20px;
+            //width:80%;
+            width:1140px;
+            background: #696969;
+        }
+
+        .metrouicss .nav-bar .nav-bar-inner > ul.menu > li a {
+            font-size: 13pt;
+        }
+
+        .metrouicss #site-name {
+            font-size: 20pt;
+            margin-right: 30px;
+        }
+
+        #sign-search {
+            position: absolute;
+            right: 0;
+        }
+
+        .metrouicss #index-page {
+        }
+
+        .metrouicss .page {
+            width: 1040px;
+            margin: auto;
+        }
+
+        .metrouicss #left_bar {
+            width: 111px;
+            position: absolute;
+        }
+
+        .metrouicss .page-sidebar {
+            background: #838B8B;
+        }
+
+        .metrouicss a {
+            color: red;
+        }
+
+    {% endblock %}
+    </style>
+
+    <body class="metrouicss page">
+        <div class="nav-bar">
+            <div class="nav-bar-inner">
+                <a href="/">
+                    <span class="element brand" id="site-name">
+                        <img class="place-left" src="/favicon.png">
+                        atupal's site
+                    </span>
+                </a>
+
+                <span class="divider"></span>
+
+                <ul class="menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="http://blog.atupal.org">Blog</a></li>
+                    <li><a href="/about">About</a></li>
+
+                    <li data-role="dropdown">
+                        <a href="#">project</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/editCode">online compiler</a></li>
+                                <li><a href="/project/oneday">oneday</a></li>
+                            </ul>
+                    </li>
+
+                    <li data-role="dropdown">
+                        <a href="#">More</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/atupal"><i class="icon-github-2"></i>see me on github</a></li>
+                            <li><a href="/contact"><i class="icon-mail"></i>contact me</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <ul class="menu" id="sign-search">
+                    <li data-role="dropdown">
+                        <a href="#">Sign in</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Sign in with weibo</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                    <div class="input-control text" id="search-input">
+                        <input type="text"/>
+                        <button class="btn-search"></button>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page secondary with-sidebar">
+            <div class="page-header">
+                <div class="page-header-content">{% block header %}{% endblock %}</div>
+            </div>
+
+            <div class="page-sidebar">{% block sidebar %}{% endblock %}</div>
+
+            <div class="page-region">
+                <div class="page-region-content">{% block body %}{% endblock %}</div>
+            </div>
+
+        </div>
+        {% block js %}
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
+        <!--script src="http://s15.cnzz.com/stat.php?id=5178522&web_id=5178522" language="JavaScript"></script-->
+        {% endblock %}
+    </body>
+</html>
