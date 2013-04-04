@@ -32,12 +32,14 @@ function display_rss(data) {
     $("#rss")[0].appendChild(rss_container);
 }
 
-function parserss(url, callback) {
+function parserss(rssname, url, callback) {
+    $("#rssname")[0].innerHTML = rssname;
     if (callback == undefined) {
         callback = display_rss;
     }
     $.ajax({
-        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+        //url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+        url: 'https:' + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
         dataType: 'json',
         success: function(data) {
             callback(data.responseData.feed);
@@ -45,10 +47,5 @@ function parserss(url, callback) {
     });
 }
 
-var getrss = function() {
-    url=  'http://tech.163.com/special/000944OI/hulianwang.xml';
-    url = 'http://feed.feedsky.com/matrix67';
-    parserss(url, display_rss);
-}
-
-getrss()
+url = 'http://feed.feedsky.com/matrix67';
+parserss("Matrix67", url, display_rss);
