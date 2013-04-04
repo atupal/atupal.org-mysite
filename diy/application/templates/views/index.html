@@ -6,11 +6,14 @@
 {% endblock %}
 
 {% block sidebar %}
-<ul>
+<ul id="page1_left_bar" class="left_bar">
     <li>
     <a href="#">rss list</a>
     <ul class="sub-menu">
+        <li><a id="https://news.ycombinator.com/rss"  onclick="parserss(this.innerHTML, this.id)">hacker news</a></li>
         <li><a id="http://feeds.feedburner.com/nvie"  onclick="parserss(this.innerHTML, this.id)">nvie.com</a></li>
+        <li><a id="http://feeds.feedburner.com/linuxtoy"  onclick="parserss(this.innerHTML, this.id)">linuxtoy</a></li>
+        <li><a id="http://feedproxy.google.com/linuxtoday/linux"  onclick="parserss(this.innerHTML, this.id)">linuxtoday</a></li>
         <li><a id="http://feed.feedsky.com/vimer"  onclick="parserss(this.innerHTML, this.id)">Vimer</a></li>
         <li><a id="http://www.truevue.org/rss.xml"  onclick="parserss(this.innerHTML, this.id)">东华博客</a></li>
         <li><a id="http://www.amazon.cn/gp/rss/bestsellers/books/658414051/ref=zg_bs_658414051_rsslink"  onclick="parserss(this.innerHTML, this.id)">亚马逊</a></li>
@@ -42,6 +45,64 @@
     </li>
     <li><a onclick="addrss()">add rss</a></li>
 </ul>
+
+<ul id="page2_left_bar" style="display: none;" class="left_bar">
+    <li>
+    <a>page2</a>
+    <ul class="sub-menu">
+        <li><a>item1</a></li>
+        <li><a>item2</a></li>
+        <li><a>item3</a></li>
+    </ul>
+    </li>
+</ul>
+
+<ul id="page3_left_bar" style="display: none;" class="left_bar">
+    <li>
+    <a>page3</a>
+    <ul class="sub-menu">
+        <li><a>item1</a></li>
+        <li><a>item2</a></li>
+        <li><a>item3</a></li>
+    </ul>
+    </li>
+</ul>
+
+
+<ul id="page4_left_bar" style="display: none;" class="left_bar">
+    <li>
+    <a>page4</a>
+    <ul class="sub-menu">
+        <li><a>item1</a></li>
+        <li><a>item2</a></li>
+        <li><a>item3</a></li>
+    </ul>
+    </li>
+</ul>
+
+
+<ul id="page5_left_bar" style="display: none;" class="left_bar">
+    <li>
+    <a>page5</a>
+    <ul class="sub-menu">
+        <li><a>item1</a></li>
+        <li><a>item2</a></li>
+        <li><a>item3</a></li>
+    </ul>
+    </li>
+</ul>
+
+<ul id="pagez_left_bar" style="display: none;" class="left_bar">
+    <li>
+    <a>pagez</a>
+    <ul class="sub-menu">
+        <li><a>item1</a></li>
+        <li><a>item2</a></li>
+        <li><a>item3</a></li>
+    </ul>
+    </li>
+</ul>
+
 {% endblock %}
 
 {% block body %}
@@ -151,4 +212,5 @@
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/pagecontrol.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/project/rssRead.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/views/tog_left_bar.js') }}"></script>
 {% endblock %}
