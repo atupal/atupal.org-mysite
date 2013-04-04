@@ -2,9 +2,9 @@
     <title>Online Compiler</title>
     <head>
         <!--style type="text/css" media="screen">//</style-->
-        <script type='text/javascript' src='js/jquery.min.js'></script>
-        <script type='text/javascript' src="js/ace-src/ace.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/editCode.css" />
+        <script type='text/javascript' src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script type='text/javascript' src="{{ url_for('static', filename='js/ace-src/ace.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/editCode.css') }}" />
     </head>
     <body style="background:#000000">
         <div id="loginBack" class="loginBack" name="loginBack"></div>
@@ -215,7 +215,7 @@
 
         <div id="autoList" style="width:100px;height:300px;position:absolute;left:0;top:0;opacity:0;bachground:red;z-index:5;"></div>
 
-        <script src="js/autocomplete.js"></script>
+        <script src="{{ url_for('static', filename='js/autocomplete.js') }}"></script>
         <!--script src="https://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript"--><!--/script-->
         <script>
             var editor = ace.edit("editor");
@@ -224,7 +224,7 @@
             editor.setValue("#include<stdio.h>\n#include<stdlib.h>\n#include<string.h>\n\nint main()\n{\n\t\n\treturn 0;\n}");
         </script>
 
-        <script type="text/javascript" src='js/editCode.js'></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/editCode.js') }}"></script>
 
         <iframe id="bianyi" name="bianyi" style="left:0px;top:550px;position:absolute;z-index:9;"width='0%' height='0%' scrolling='auto'></iframe>
 
