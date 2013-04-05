@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from flask import Flask
+from flask import Flask, session
 app = Flask(__name__)
 
 if __name__ != "__main__":
@@ -33,17 +33,24 @@ cache = SimpleCache()
 #从远程mysql数据库获取用户rss列表，默认是atupal的
 from peewee import MySQLDatabase
 #import MySQLdb
+def setcache(username):
+    db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
+    cur = db.get_cursor()
+    #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
+    #rsslist = rsslist.fetchall()
+    cur.execute('select name, xmlurl from rsslist where user="' + str(username) + '"')
+    rsslist = cur.fetchall()
+    rsslist = formatrss(rsslist)
+    cache.set('rsslist', rsslist, timeout = 60 * 60 * 24)
+    return rsslist
+
 def getrsslist():
     rsslist = cache.get('rsslist')
+    username = 'atupal'
+    if session.has_key('username'):
+        username = session['username']
     if rsslist is None:
-        db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-        cur = db.get_cursor()
-        #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
-        #rsslist = rsslist.fetchall()
-        cur.execute('select name, xmlurl from rsslist where user="atupal"')
-        rsslist = cur.fetchall()
-        rsslist = formatrss(rsslist)
-        cache.set('rsslist', rsslist, timeout = 60 * 60 * 24)
+        return setcache(username)
 
     #db = MySQLdb.connect( host = 'db4free.net',
     #                      user = 'atupal',

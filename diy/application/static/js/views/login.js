@@ -1,8 +1,23 @@
 
+login = function(){
+    var username = $('#login_username')[0].value;
+    var passwd = $('#login_passwd')[0].value;
+    $.ajax({
+        type: 'POST',
+        url: '/user/login',
+        data: {username :username, password : passwd},
+        success: function(data, statustext, jqXHR){
+        },
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+        alert(errorThrown);
+    });
+}
+
 loginDialog = function(){
     $.Dialog({
         'title': 'Login',
-        'content': '<button>Login</button>',
+        'content': '<input id="login_username" type="text"><input id="login_passwd" type="password">',
         'draggable': true,
         'overlay': true,
         'closeButton': true,
@@ -11,11 +26,11 @@ loginDialog = function(){
             'zone': 'center'
         },
         'buttons': {
-            'button1': {
+            'register': {
                 'action': function(){}
             },
-            'button2': {
-                'action': function(){}
+            'login': {
+                'action': login
             }
         }
     });

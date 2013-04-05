@@ -2,20 +2,17 @@
 import os
 from random import randint
 import urllib
-import time
 import urllib2
 import pymongo
 import re
 import math
 import json
 from xml.etree import ElementTree as ET
-from random import randint
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-import os
 if os.environ['HOME'] == "/home/atupal":
     OPENSHIFT_ADR = '127.0.0.1'
     OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'

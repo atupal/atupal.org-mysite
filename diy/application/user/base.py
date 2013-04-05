@@ -1,11 +1,11 @@
 #coding=utf-8
 
 #from flask import Flask
-from flask import render_template
-import platform
-import time
-import signal
+#import platform
+#import time
+#import signal
 from application import app
+import application.views.index as index_mod
 #全局变量
 #OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
 #MONDO_ADR = '127.0.0.1'
@@ -29,10 +29,11 @@ else:
 
 #记录pid到文件:profile.pid
 ##如果存在就kill掉当前进程
-import sys
+#import sys
 import pymongo
 
-from flask import session,redirect,url_for,escape,request
+#from flask import session,redirect,url_for,escape,request, redirect
+from flask import session, request, render_template,redirect, url_for, flash,abort
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 '''
@@ -51,6 +52,7 @@ post 数据如下：
     password:'**'
 }
 '''
+import subprocess
 @app.route('/user/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'GET':
@@ -115,11 +117,13 @@ def login():
     error = None
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
+            index_mod.setcache(request.form['username'])
             return log_the_user_in(request.form['username'])
         else :
             error = 'Invalid username/password'
     else:
         return 'your method is get'
+    return abort(401)
     return error
 
 #登录验证
@@ -136,9 +140,13 @@ def valid_login(username, password):
 
 def log_the_user_in(username):
     session['username'] = username
+    return redirect(url_for('index'))
     return 'welcome' + username
 
+@app.route('/user/logout')
 def logout():
     #如果会话中有用户名就删除他
     session.pop('username', None)
+    flash('You were logged out')
+    return redirect(url_for('index'))
 
