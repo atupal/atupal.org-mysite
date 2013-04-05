@@ -28,7 +28,7 @@ def blog():
 from peewee import *
 def getrsslist():
     db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-    rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
+    rsslist = db.cursor().execute('select name, xmlurl from rsslist where user="atupal"')
     rsslist = rsslist.fetchall()
 
     #db = MySQLdb.connect( host = 'db4free.net',
