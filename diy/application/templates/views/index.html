@@ -18,8 +18,14 @@
 <ul id="page1_left_bar" class="left_bar">
     <li>
     <a href="#">rss list</a>
+    {#getrsslist from remote mySql Database#}
     <ul class="sub-menu">
+    {% for rss in rsslist %}
+    <li><a id={{rss[1]}} onclick="parserss(this.innerHTML, this.id)">{{ rss[0] }}</a></li>
+    {% endfor %}
+    {#
         <li><a id="https://news.ycombinator.com/rss"  onclick="parserss(this.innerHTML, this.id)">hacker news</a></li>
+        <li><a id="http://feed.feedsky.com/heikezhi"  onclick="parserss(this.innerHTML, this.id)">黑客志</a></li>
         <li><a id="http://feeds.feedburner.com/nvie"  onclick="parserss(this.innerHTML, this.id)">nvie.com</a></li>
         <li><a id="http://feeds.feedburner.com/linuxtoy"  onclick="parserss(this.innerHTML, this.id)">linuxtoy</a></li>
         <li><a id="http://feedproxy.google.com/linuxtoday/linux"  onclick="parserss(this.innerHTML, this.id)">linuxtoday</a></li>
@@ -50,6 +56,7 @@
         <li><a id="http://www.guokr.com/rss/"  onclick="parserss(this.innerHTML, this.id)">果壳网 guokr.com - 果壳网</a></li>
         <li><a id="http://www.ifanr.com/feed"  onclick="parserss(this.innerHTML, this.id)">爱范儿 · Beats of Bits</a></li>
         <li><a id="http://feed.feedsky.com/xianguoblog"  onclick="parserss(this.innerHTML, this.id)">鲜果日志</a></li>
+    #}
     </ul>
     </li>
     <li><a onclick="addrss()">add rss</a></li>

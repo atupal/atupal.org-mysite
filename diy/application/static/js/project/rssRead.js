@@ -32,10 +32,6 @@ function display_rss(data) {
     $("#rss")[0].appendChild(rss_container);
 }
 
-function erro() {
-    alert("error");
-}
-
 function parserss(rssname, url, callback) {
     $("#rssname")[0].innerHTML = rssname;
     if (callback == undefined) {
@@ -48,12 +44,8 @@ function parserss(rssname, url, callback) {
         success: function(data) {
             callback(data.responseData.feed);
         },
-        error: function() {
-            alert('error');
-            rsserror();
-        }
     });
 }
 
-url = 'http://feed.feedsky.com/matrix6767';
+url = 'http://feed.feedsky.com/matrix67';
 parserss("Matrix67", url, display_rss);
