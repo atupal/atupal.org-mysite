@@ -12,7 +12,7 @@ if __name__ != "__main__":
 
 @app.route("/")
 def index(name = None):
-    return render_template('views/index.html', rsslist = formatrss(getrsslist()) )
+    return render_template('views/index.html', rsslist = getrsslist() )
 
 @app.route("/about")
 def about():
@@ -26,17 +26,24 @@ def contanct():
 def blog():
     return render_template("views/blog.html")
 
+#rsslist缓存对象
+from werkzeug.contrib.cache import SimpleCache
+cache = SimpleCache()
 
 #从远程mysql数据库获取用户rss列表，默认是atupal的
-from peewee import *
+from peewee import MySQLDatabase
 #import MySQLdb
 def getrsslist():
-    db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-    cur = db.get_cursor()
-    #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
-    #rsslist = rsslist.fetchall()
-    cur.execute('select name, xmlurl from rsslist where user="atupal"')
-    rsslist = cur.fetchall()
+    rsslist = cache.get('rsslist')
+    if rsslist is None:
+        db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
+        cur = db.get_cursor()
+        #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
+        #rsslist = rsslist.fetchall()
+        cur.execute('select name, xmlurl from rsslist where user="atupal"')
+        rsslist = cur.fetchall()
+        rsslist = formatrss(rsslist)
+        cache.set('rsslist', rsslist, timeout = 60 * 60 * 24)
 
     #db = MySQLdb.connect( host = 'db4free.net',
     #                      user = 'atupal',
@@ -59,6 +66,8 @@ def formatrss(rsslist):
         rsslist[i][0] = rsslist[i][0].decode('utf-8')
         rsslist[i][1] = rsslist[i][1].decode('utf-8')
     return rsslist
+
+
 
 #if __name__ == "__main__":
 #    print getrsslist()
