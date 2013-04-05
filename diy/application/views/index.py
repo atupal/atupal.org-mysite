@@ -25,11 +25,15 @@ def blog():
 
 
 #从远程mysql数据库获取用户rss列表，默认是atupal的
-from peewee import *
+#from peewee import *
+import MySQLdb
 def getrsslist():
-    db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-    rsslist = db.cursor().execute('select name, xmlurl from rsslist where user="atupal"')
-    rsslist = rsslist.fetchall()
+    #db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
+    conn = MySQLdb.connect(host = 'db4free.net', user = 'atupal', passwd = 'LKYs4690102', db = 'atupalsite')
+    cur = conn.cursor()
+    cur.execute('select name, xmlurl from rsslist where user="atupal"')
+    #rsslist = rsslist.fetchall()
+    rsslist = cur.fetchall()
 
     #db = MySQLdb.connect( host = 'db4free.net',
     #                      user = 'atupal',
