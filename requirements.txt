@@ -4,5 +4,5 @@ pymongo
 gevent
 gevent-websocket
 peewee
-python-mysqldb
+MySQL-python
 
