@@ -8,6 +8,7 @@ login = function(){
         async: false,
         data: {username :username, password : passwd},
         success: function(data, statustext, jqXHR){
+            location.replace(location.href);
         },
     })
     .fail(function(jqXHR, textStatus, errorThrown){
