@@ -5,6 +5,7 @@ login = function(){
     $.ajax({
         type: 'POST',
         url: '/user/login',
+        async: false,
         data: {username :username, password : passwd},
         success: function(data, statustext, jqXHR){
         },
