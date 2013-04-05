@@ -3,8 +3,8 @@ Flask==0.8
 pymongo
 gevent
 gevent-websocket
-peewee==1.0.0-1
+peewee
 mysql-python
-flask-peewee==0.5.4-1
-wtf-peewee==0.1.3-2
+flask-peewee
+wtf-peewee
 wtforms
