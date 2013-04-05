@@ -5,4 +5,6 @@ gevent
 gevent-websocket
 peewee
 mysql-python
-
+flask-peewee
+wtf-peewee
+wtforms
