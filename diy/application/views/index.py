@@ -12,7 +12,7 @@ if __name__ != "__main__":
 
 @app.route("/")
 def index(name = None):
-    return render_template('views/index.html', rsslist = getrsslist())
+    return render_template('views/index.html', rsslist = formatrss(getrsslist()) )
 
 @app.route("/about")
 def about():
@@ -28,15 +28,15 @@ def blog():
 
 
 #从远程mysql数据库获取用户rss列表，默认是atupal的
-#from peewee import *
-import MySQLdb
+from peewee import *
+#import MySQLdb
 def getrsslist():
-    #db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-    conn = MySQLdb.connect(host = 'db4free.net', user = 'atupal', passwd = 'LKYs4690102', db = 'atupalsite')
-    cur = conn.cursor()
-    cur.execute('select name, xmlurl from rsslist where user="atupal"')
-    #rsslist = rsslist.fetchall()
-    rsslist = cur.fetchall()
+    db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
+    #conn = MySQLdb.connect(host = 'db4free.net', user = 'atupal', passwd = 'LKYs4690102', db = 'atupalsite')
+    #cur = conn.cursor()
+    rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
+    rsslist = rsslist.fetchall()
+    #rsslist = cur.fetchall()
 
     #db = MySQLdb.connect( host = 'db4free.net',
     #                      user = 'atupal',
@@ -51,6 +51,14 @@ def getrsslist():
     #for row in cur.fetchall():
     #    print row[0]
     return  rsslist
+
+def formatrss(rsslist):
+    rsslist = list(rsslist)
+    for i, rss in enumerate(rsslist):
+        rsslist[i] = list(rss)
+        rsslist[i][0] = rsslist[i][0].decode('utf-8')
+        rsslist[i][1] = rsslist[i][1].decode('utf-8')
+    return rsslist
 
 #if __name__ == "__main__":
 #    print getrsslist()
