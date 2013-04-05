@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en_US.UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
         {% block head %}
         <title>{% block title %}{% endblock %} - atupal's site</title>
@@ -12,6 +12,7 @@
         <link rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="{{ url_for('static', filename='Metro-UI-CSS/css/modern.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/gh-fork-ribbon.css') }}">
         {% endblock %}
     </head>
 
@@ -73,9 +74,9 @@
             width:200px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
         }
 
-        .metrouicss .page-region-content * {
-            width: auto;
-            //width:200px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
+        .metrouicss .page-region-content a {
+            width: 200px;
+            white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
         }
 
 
@@ -83,6 +84,12 @@
     </style>
 
     <body class="metrouicss page">
+        <div class="github-fork-ribbon-wrapper right">
+             <div class="github-fork-ribbon">
+                 <a href="https://github.com/atupal/atupal.org-mysite">Fork me on GitHub</a>
+             </div>
+        </div>
+
         <div class="nav-bar">
             <div class="nav-bar-inner">
                 <a href="/">
@@ -125,12 +132,19 @@
                 </ul>
 
                 <ul class="menu" id="sign-search">
+                    {% if not session.user %}
                     <li data-role="dropdown">
                         <a>Sign in</a>
                         <ul class="dropdown-menu">
+                            <li><input type="text"></input><input type="text"></input><input type="submit"></input></li>
                             <li><a>Sign in with weibo</a></li>
                         </ul>
                     </li>
+                    {% else %}
+                    <li><a>{{ session.user }}</a></li>
+                    <li><a>{{ url_for('logout') }}</a></li>
+                    {% endif %}
+
                     <li>
                     <div class="input-control text" id="search-input">
                         <input type="text"/>

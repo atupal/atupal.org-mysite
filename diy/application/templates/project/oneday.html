@@ -1,11 +1,18 @@
 
 {% extends "layout.html" %}
+
 {% block header %}
 <h2>api online test:</h2>
 <a href="/" class="back-button big page-back"></a>
 {% endblock %}
+
+{% block sidebar %}
+<ul>
+<li><a href="/apitest/getList">test api getList</a></li>
+<li><a href="/apitest/getLine">test api getLine</a></li>
+</ul>
+{% endblock %}
+
 {% block body %}
 <hr/>
-<button><a href="../apitest/getList">test api getList</a></button>
-<button><a href="../apitest/getLine">test api getLine</a></button>
 {% endblock %}

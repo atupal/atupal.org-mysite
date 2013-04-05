@@ -4,7 +4,9 @@
 
 {% block head %}
 {{ super() }}
+{#见下一个注释
 <link rel="stylesheet" href="{{ url_for('static', filename='css/gh-fork-ribbon.css') }}">
+#}
 {% endblock %}
 
 {% block style %}
@@ -12,11 +14,13 @@
 {% endblock %}
 
 {% block header %}
+{#放在这不美观，移到右上角了
    <div class="github-fork-ribbon-wrapper right">
         <div class="github-fork-ribbon">
             <a href="https://github.com/atupal/atupal.org-mysite">Fork me on GitHub</a>
         </div>
     </div>
+#}
 {% endblock %}
 
 {% block sidebar %}
