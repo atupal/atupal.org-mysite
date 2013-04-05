@@ -32,11 +32,11 @@ from peewee import *
 #import MySQLdb
 def getrsslist():
     db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
-    #conn = MySQLdb.connect(host = 'db4free.net', user = 'atupal', passwd = 'LKYs4690102', db = 'atupalsite')
-    #cur = conn.cursor()
-    rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
-    rsslist = rsslist.fetchall()
-    #rsslist = cur.fetchall()
+    cur = db.get_cursor()
+    #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
+    #rsslist = rsslist.fetchall()
+    cur.execute('select name, xmlurl from rsslist where user="atupal"')
+    rsslist = cur.fetchall()
 
     #db = MySQLdb.connect( host = 'db4free.net',
     #                      user = 'atupal',
