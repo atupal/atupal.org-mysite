@@ -23,6 +23,11 @@
             //color: #5a5a5a;
             //background: #5a5a5a;
             background: #838B8B;
+            z-index: 0;
+        }
+
+        body * {
+            z-index: 0;
         }
 
         .metrouicss .nav-bar {
@@ -130,7 +135,10 @@
                     <li data-role="dropdown">
                         <a>Sign in</a>
                         <ul class="dropdown-menu">
+                            {#
                             <li><input type="text"></input><input type="text"></input><input type="submit"></input></li>
+                            #}
+                            <button id="loginButton" onclick="loginDialog()">Login</button>
                             <li><a>Sign in with weibo</a></li>
                         </ul>
                     </li>
@@ -164,6 +172,8 @@
         {% block js %}
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dropdown.js') }}"></script>
+        <script src="{{ url_for('static', filename='Metro-UI-CSS/javascript/dialog.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/views/login.js') }}"></script>
         <!--script src="http://s15.cnzz.com/stat.php?id=5178522&web_id=5178522" language="JavaScript"></script-->
         {% endblock %}
     </body>
