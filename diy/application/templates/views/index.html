@@ -11,6 +11,9 @@
 
 {% block style %}
 {{ super() }}
+        .metrouicss .page-region-content * {
+            width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
+        }
 {% endblock %}
 
 {% block header %}
