@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}Index{% endblock %}
+
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/gh-fork-ribbon.css') }}">
+{% endblock %}
+
+{% block style %}
+{{ super() }}
 {% endblock %}
 
 {% block header %}

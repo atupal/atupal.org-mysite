@@ -48,4 +48,5 @@ function parserss(rssname, url, callback) {
 }
 
 url = 'http://feed.feedsky.com/matrix67';
-parserss("Matrix67", url, display_rss);
+url = 'https://news.ycombinator.com/rss'
+parserss("Hacker News", url, display_rss);
