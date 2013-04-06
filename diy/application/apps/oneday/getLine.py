@@ -267,7 +267,7 @@ class Line:
             ret = dist_s[name_2.decode('utf-8') + ' ' + name_1.decode('utf-8')]
         return ret
 
-    def getline(self, lat, lng, begin, end, item_all_condition = lambda x, y, z: 1):
+    def getline(self, lat, lng, begin, end, item_all_condition = lambda x: 1):
         play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
         dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
         cnt = 0
@@ -383,6 +383,7 @@ class Line:
         centerLng = (maxLng + minLng) / 2.0
         url += "&bbox=" + str(minLng) + ',' + str(minLat) + ';' + str(maxLng) + ',' + str(maxLat)
         #url += "&width=480&height=" + str(height)
+        url += "&width=480&height=300"
         url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
         url += str(two['lng']) + ',' + str(two['lat']) + ";"
         url += str(three['lng']) + ',' + str(three['lat'])
