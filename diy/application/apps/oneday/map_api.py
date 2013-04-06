@@ -48,7 +48,7 @@ def getLineInfo():
             }
     return json.dumps(ret)
 
-@app.route('/shakeList', methods = ['GET', 'POST'])
+@app.route('/shakeLine', methods = ['GET', 'POST'])
 def oneday_api_shakeList():
     ret = shakeList.ShakeList().shakelist(request.form['lat'], request.form['lng'], request.form['place'], request.form['people'], request.form['transportation'], request.form['money'])
     ret = json.loads(ret)
