@@ -383,7 +383,7 @@ class Line:
         centerLng = (maxLng + minLng) / 2.0
         url += "&bbox=" + str(minLng) + ',' + str(minLat) + ';' + str(maxLng) + ',' + str(maxLat)
         #url += "&width=480&height=" + str(height)
-        url += "&width=480&height=300"
+        url += "&width=300&height=300"
         url += "&paths=" + str(one['lng']) + ',' + str(one['lat']) + ';'
         url += str(two['lng']) + ',' + str(two['lat']) + ";"
         url += str(three['lng']) + ',' + str(three['lat'])
