@@ -144,7 +144,7 @@
                         </ul>
                     </li>
                     {% else %}
-                    <li><a>{{ session.username }}</a></li>
+                    <li><a style="color: blue;" href="{{ url_for('user_profile') }}">{{ session.username }}</a></li>
                     <li><a href="{{ url_for('logout') }}">logout</a></li>
                     {% endif %}
 

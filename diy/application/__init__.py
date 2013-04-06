@@ -10,6 +10,7 @@ import application.user.base
 import application.mongodb.base
 import application.others.base
 import application.site_manager.base
+import application.user.user_profile
 
 import application.apps.online_compiler.base
 import application.apps.oneday.base
