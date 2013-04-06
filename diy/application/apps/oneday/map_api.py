@@ -3,6 +3,7 @@ from application import app
 from flask import request
 from application.apps.oneday import getLine
 from application.apps.oneday import getInfo
+from application.apps.oneday import shakeList
 
 import urllib
 import json
@@ -46,3 +47,9 @@ def getLineInfo():
             'bus':bus
             }
     return json.dumps(ret)
+
+@app.route('/shakeList', methods = ['GET', 'POST'])
+def oneday_api_shakeList():
+    ret = shakeList.ShakeList().shakelist(request.form['lat'], request.form['lng'], request.form['place'], request.form['people'], request.form['transportation'], request.form['money'])
+    ret = json.loads(ret)
+    return json.dumps(ret[0])

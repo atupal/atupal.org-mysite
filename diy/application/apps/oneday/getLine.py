@@ -144,7 +144,6 @@ class Line:
         #return 1 if randint(0, 100) < 1 else 0
         return 1
 
-
     def dist_latlng(a, b):
         R = 6371.004
         C = math.sin(a['lat']) * math.sin(b['lat']) * math.cos(a['lng'] - b['lng']) + math.cos(a['lat']) * math.cos(b['lat'])
@@ -260,9 +259,17 @@ class Line:
         #print res
         return res
 
-    def getline(self, lat, lng, begin, end):
-        play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
+    def get_bus_time(self, name_1, name_2):
         dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time.dat', 'r'))
+        try:
+            ret = dist_s[name_1.decode('utf-8') + ' ' + name_2.decode('utf-8')]
+        except:
+            ret = dist_s[name_2.decode('utf-8') + ' ' + name_1.decode('utf-8')]
+        return ret
+
+    def getline(self, lat, lng, begin, end, item_all_condition = lambda x, y, z: 1):
+        play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
+        dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
         cnt = 0
         play = [_ for _ in play]
         lines = []
@@ -336,16 +343,19 @@ class Line:
                     continue
                 #if dist_latlng(one, three) < dist_latlng(one, two) or dist_latlng(two, three) > 7:continue
 
-                if int(dist_one_three) < int(dist_two_three) / 2 or int(dist_two_three) > 35:continue
+                if int(dist_one_three) < int(dist_two_three) or int(dist_two_three) > 35:continue
+                if not item_all_condition([one, two, i]): continue;
                 three_s.append(i)
                 pass
             if len(three_s) == 0:
                 continue
             three = three_s[randint(0, len(three_s) - 1)]
             lines.append([one, two, three])
+            #print dist_one_three, dist_two_three
             cnt += 1
             #print cnt, lines[len(lines) - 1]
 
+        print self.get_bus_time(lines[0][0]['name'], lines[0][2]['name']) , self.get_bus_time(lines[0][1]['name'], lines[0][2]['name'])
         lines = [Line.getList(i[0], i[1], i[2]) for i in lines]
         return json.dumps(lines)
 
@@ -408,8 +418,8 @@ class Line:
                 }
         #ret.append(line)
         return line
-        return json.dumps(ret)
+        #return json.dumps(ret)
 
 if __name__ == '__main__':
     line = Line()
-    print line.getline('30.599133','114.290742',0,4)
+    print line.getline('30.599133','114.290742',0,1)
