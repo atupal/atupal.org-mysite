@@ -13,3 +13,7 @@ def apitest_getList():
 @app.route("/apitest/getLine")
 def apitest_getLine():
     return render_template("project/apitest_getLine.html")
+
+@app.route("/apitest/shakeLine")
+def apitest_getLine():
+    return render_template("project/apitest_shakeLine.html")
