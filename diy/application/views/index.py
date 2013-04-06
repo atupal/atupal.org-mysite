@@ -74,6 +74,9 @@ def formatrss(rsslist):
         rsslist[i][1] = rsslist[i][1].decode('utf-8')
     return rsslist
 
+@app.route('/user/addrss')
+def addrss():
+    return True
 
 
 #if __name__ == "__main__":
