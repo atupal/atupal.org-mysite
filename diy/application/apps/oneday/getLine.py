@@ -144,6 +144,7 @@ class Line:
         #return 1 if randint(0, 100) < 1 else 0
         return 1
 
+    @staticmethod
     def dist_latlng(a, b):
         R = 6371.004
         C = math.sin(a['lat']) * math.sin(b['lat']) * math.cos(a['lng'] - b['lng']) + math.cos(a['lat']) * math.cos(b['lat'])
@@ -260,7 +261,7 @@ class Line:
         return res
 
     def get_bus_time(self, name_1, name_2):
-        dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time.dat', 'r'))
+        dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
         try:
             ret = dist_s[name_1.decode('utf-8') + ' ' + name_2.decode('utf-8')]
         except:
@@ -298,6 +299,8 @@ class Line:
                             dist = dist_s[one['name'] +' ' + i['name']]
                         except:
                             pass
+                    if int(dist) == -1 and Line.dist_latlng(i, one) > 15:
+                        dist = 1000
 
                     if dist and int(dist) < 30:
                         two_s.append(i)
@@ -330,6 +333,8 @@ class Line:
                         dist_one_three = dist_s[one['name'] + ' ' + i['name']]
                     except:
                         pass
+                if int(dist_one_three) == -1 and Line.dist_latlng(i, one) > 15:
+                    dist_one_three = 1000
 
                 try:
                     dist_two_three = dist_s[i['name'] + ' ' + two['name']]
@@ -338,12 +343,14 @@ class Line:
                         dist_two_three = dist_s[two['name'] + ' ' + i['name']]
                     except:
                         pass
+                if int(dist_two_three) == -1 and Line.dist_latlng(i, two) > 15:
+                    dist_two_three = 1000
 
                 if not dist_one_three or not dist_two_three:
                     continue
                 #if dist_latlng(one, three) < dist_latlng(one, two) or dist_latlng(two, three) > 7:continue
 
-                if int(dist_one_three) < int(dist_two_three) or int(dist_two_three) > 35:continue
+                if int(dist_one_three) < int(dist_two_three) * 2 or int(dist_two_three) > 35:continue
                 if not item_all_condition([one, two, i]): continue;
                 three_s.append(i)
                 pass
@@ -355,7 +362,7 @@ class Line:
             cnt += 1
             #print cnt, lines[len(lines) - 1]
 
-        print self.get_bus_time(lines[0][0]['name'], lines[0][2]['name']) , self.get_bus_time(lines[0][1]['name'], lines[0][2]['name'])
+        #print self.get_bus_time(lines[0][0]['name'], lines[0][2]['name']) , self.get_bus_time(lines[0][1]['name'], lines[0][2]['name'])
         lines = [Line.getList(i[0], i[1], i[2]) for i in lines]
         return json.dumps(lines)
 

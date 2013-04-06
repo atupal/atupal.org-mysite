@@ -9,7 +9,8 @@ import time
 
 def imp(i):
     cnt = 0
-    inf = 10000000000
+    #inf = 10000000000
+    inf = -1
     #buses = pymongo.Connection("127.0.0.1", 27017).bus
     with open("/home/atupal/res/code/bus_"+str(i)+".dat", 'r') as fi:
         global time
