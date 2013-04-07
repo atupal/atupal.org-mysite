@@ -14,6 +14,18 @@
         .metrouicss .page-region-content * {
             width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
         }
+        .metrouicss #editor {
+            position: absolute;
+            //top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 500px;
+        }
+        .metrouicss #page2 {
+            height: 500px;
+            text-overflow: 0;
+        }
 {% endblock %}
 
 {% block header %}
@@ -78,7 +90,7 @@
     <li>
     <a>tools</a>
     <ul class="sub-menu">
-        <li><a onclick="online_clip">online clip</a></li>
+        <li><a onclick="clip()">online clip</a></li>
         <li><a href="https://gist.github.com/atupal">code snippet</a></li>
     </ul>
     </li>
@@ -194,10 +206,12 @@
         </div>
 
         <div class="frame" id="page2">
+            {#
             <h2>program</h2>
-            <p>
-            this is page2
-            </p>
+            #}
+            <div id="online_clip">
+                <div id="editor">//cpp</div>
+            </div>
         </div>
 
         <div class="frame" id="page3">
@@ -240,4 +254,5 @@
 <script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/pagecontrol.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/project/rssRead.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/views/tog_left_bar.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/views/clip.js') }}"></script>
 {% endblock %}
