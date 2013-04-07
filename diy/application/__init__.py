@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 app.debug = True
 
-#import application.base
+import application.base
 import application.views.index
 import application.views.oneday
 import application.user.base
