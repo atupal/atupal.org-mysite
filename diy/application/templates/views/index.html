@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block sidebar %}
-<ul id="page1_left_bar" class="left_bar">
+<ul id="page1_left_bar" class="left_bar rss_read">
     <li>
     <a href="#">rss list</a>
     {#getrsslist from remote mySql Database#}
@@ -74,13 +74,12 @@
     <li><a onclick="addrss()">add rss</a></li>
 </ul>
 
-<ul id="page2_left_bar" style="display: none;" class="left_bar">
+<ul id="page2_left_bar" style="display: none;" class="left_bar program">
     <li>
-    <a>page2</a>
+    <a>tools</a>
     <ul class="sub-menu">
-        <li><a>item1</a></li>
-        <li><a>item2</a></li>
-        <li><a>item3</a></li>
+        <li><a onclick="online_clip">online clip</a></li>
+        <li><a href="https://gist.github.com/atupal">code snippet</a></li>
     </ul>
     </li>
 </ul>
