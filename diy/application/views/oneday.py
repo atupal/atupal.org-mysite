@@ -15,5 +15,5 @@ def apitest_getLine():
     return render_template("project/apitest_getLine.html")
 
 @app.route("/apitest/shakeLine")
-def apitest_getLine():
+def apitest_shakeLine():
     return render_template("project/apitest_shakeLine.html")

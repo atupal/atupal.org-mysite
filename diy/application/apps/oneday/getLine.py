@@ -20,6 +20,8 @@ else:
     OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
     OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/diy/'
 
+dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
+
 class Line:
     def __init__(self):
         connection = pymongo.Connection(OPENSHIFT_ADR, 27017)
@@ -270,7 +272,8 @@ class Line:
 
     def getline(self, lat, lng, begin, end, item_all_condition = lambda x: 1):
         play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
-        dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
+        #dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
+        global dist_s
         cnt = 0
         play = [_ for _ in play]
         lines = []
