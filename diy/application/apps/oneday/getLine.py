@@ -304,6 +304,8 @@ class Line:
                             pass
                     if int(dist) == -1 and Line.dist_latlng(i, one) > 15:
                         dist = 1000
+                    elif int(dist) > 1000:
+                        dist = -1
 
                     if dist and int(dist) < 30:
                         two_s.append(i)
@@ -338,6 +340,8 @@ class Line:
                         pass
                 if int(dist_one_three) == -1 and Line.dist_latlng(i, one) > 15:
                     dist_one_three = 1000
+                elif int(dist) > 1000:
+                    dist = -1
 
                 try:
                     dist_two_three = dist_s[i['name'] + ' ' + two['name']]
@@ -348,6 +352,8 @@ class Line:
                         pass
                 if int(dist_two_three) == -1 and Line.dist_latlng(i, two) > 15:
                     dist_two_three = 1000
+                elif int(dist) > 1000:
+                    dist = -1
 
                 if not dist_one_three or not dist_two_three:
                     continue
