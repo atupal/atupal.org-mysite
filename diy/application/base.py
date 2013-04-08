@@ -12,4 +12,4 @@ def  google():
 
 @app.route('/robots.txt')
 def robots_txt():
-    return open('./application/robots.txt', 'r').read()
+    return open('./application/robots.txt', 'r').read().replace('\n', '<br>')
