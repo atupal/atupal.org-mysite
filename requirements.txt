@@ -9,3 +9,4 @@ flask-peewee
 wtf-peewee
 wtforms
 markdown
+flask-markdown
