@@ -1,7 +1,10 @@
 #coding=utf-8
 from application import app
 import os
-from flask import render_template, send_from_directory, request, session
+from flask import render_template
+#from flask import send_from_directory,
+from flask import request
+from flask import session
 
 @app.route('/psb')
 def psb():
@@ -12,9 +15,6 @@ def psb():
         #return redirect(url_for('lo'))
     return render_template('pintrest/test.html')
 
-server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/application/'
-if (os.environ['HOME'] == '/home/atupal'):
-    server_dir = './application/'
 #@app.route('/js/<path:name>')
 #def javascript(name):
 #    fi = open(server_dir + "static/js/" + name)
@@ -37,7 +37,6 @@ def ico():
     #return fi.read()
     #return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
     return app.send_static_file("favicon.ico")
-    return send_from_directory(server_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 #
 #@app.route('/static/<path:name>')
 #def staticfile(name):

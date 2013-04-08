@@ -1,7 +1,7 @@
 
 from flask import Flask
 app = Flask(__name__)
-app.debug = True
+app.debug = app.config['DEBUG']
 
 import application.base
 import application.views.index
