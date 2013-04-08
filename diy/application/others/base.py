@@ -1,6 +1,7 @@
 #coding=utf-8
 from application import app
 import os
+from flask import render_template, send_from_directory, request, session
 
 @app.route('/psb')
 def psb():
@@ -32,8 +33,10 @@ if (os.environ['HOME'] == '/home/atupal'):
 @app.route('/favicon.ico')
 @app.route('/favicon.png')
 def ico():
-    fi = open(server_dir + 'favicon.ico', "rb")
-    return fi.read()
+    #fi = open(server_dir + 'favicon.ico', "rb")
+    #return fi.read()
+    #return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(server_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 #
 #@app.route('/static/<path:name>')
 #def staticfile(name):
