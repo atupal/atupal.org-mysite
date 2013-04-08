@@ -23,6 +23,9 @@
             //color: #5a5a5a;
             //background: #5a5a5a;
             background: #838B8B;
+            /*
+            此处是为了适应dialog的弹出
+            */
             z-index: 0;
         }
 
@@ -79,10 +82,39 @@
             width:200px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
         }
 
+        .metrouicss #loading_back {
+            display:none;
+            background:#ffffff;
+            position:absolute;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            opacity: 0.15;
+            height: 100%;
+            width: 100%;
+        }
+        .metrouicss #loading_dlg {
+            display:none;
+            position: absolute;
+            left:45%;
+            top:45%;
+            width: 10%;
+            height: 10%;
+            z-index: 1002;
+        }
+
     {% endblock %}
     </style>
 
     <body class="metrouicss page">
+        <div id="loading_back"></div>
+
+        <div class="padding20" id="loading_dlg">
+            <!--img src="/images/preloader-w8-cycle-black.gif"-->
+            <img src="{{ url_for('static', filename='Metro-UI-CSS/images/preloader-w8-cycle-black.gif') }}">
+            <!--img src="/images/preloader-w8-line-black.gif"-->
+        </div>
+
         <div class="github-fork-ribbon-wrapper right">
              <div class="github-fork-ribbon">
                  <a href="https://github.com/atupal/atupal.org-mysite">Fork me on GitHub</a>

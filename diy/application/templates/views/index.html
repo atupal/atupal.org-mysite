@@ -98,11 +98,25 @@
 
 <ul id="page2_left_bar" style="display: none;" class="left_bar program">
     <li>
-    <a>tools</a>
-    <ul class="sub-menu">
-        <li><a onclick="clip()">online clip</a></li>
-        <li><a href="https://gist.github.com/atupal">code snippet</a></li>
-    </ul>
+        <ul class="accordion dark" data-role="accordion">
+            <li>
+                <a onclick="clip()">online clip</a>
+                <div>
+                    <ul class="sub-menu">
+                        <li><a>ts</a></li>
+                        <li><a>ts</a></li>
+                        <li><a>ts</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <a>tools</a>
+        <ul class="sub-menu">
+            <li><a href="https://gist.github.com/atupal">code snippet</a></li>
+        </ul>
     </li>
 </ul>
 
@@ -265,4 +279,6 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/project/rssRead.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/views/tog_left_bar.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/views/clip.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/accordion.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/views/loading.js') }}"></script>
 {% endblock %}
