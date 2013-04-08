@@ -34,7 +34,7 @@ cache = SimpleCache()
 from peewee import MySQLDatabase
 #import MySQLdb
 def setcache(username):
-    db = MySQLDatabase('atupalsite', user='atupal', host='db4free.net', passwd='LKYs4690102')
+    db = MySQLDatabase(app.config['DATABASE'], host = app.config['DATABASEHOST'], user = app.config['USERNAME'], passwd = app.config['PASSWORD'])
     cur = db.get_cursor()
     #rsslist = db.execute('select name, xmlurl from rsslist where user="atupal"')
     #rsslist = rsslist.fetchall()
