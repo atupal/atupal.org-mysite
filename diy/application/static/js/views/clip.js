@@ -1,5 +1,9 @@
+var global = (function() { return this || (1,eval)('(this)'); }());
+global.ace_load_flag = false;
 
 clip = function() {
+    if (global.ace_load_flag == true)
+        return;
     ace_url = 'http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js';
     //ace_url = '/static/js/ace-src/ace.js';
     //worker = new Worker('/static/js/views/loading.js');
@@ -11,6 +15,7 @@ clip = function() {
         editor.setTheme('ace/theme/monokai');
         editor.getSession().setMode('ace/mode/c_cpp');
         end_loading_dlg();
+        global.ace_load_flag = true;
         //worker.postMessage('end+loading')
     })
     .fail(function(jqxhr, settings, exception){
