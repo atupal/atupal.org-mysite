@@ -9,19 +9,19 @@ import signal
 #application = Flask(__name__)
 from application import app
 #app.debug = True
-import os
 
 #全局变量
 #OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
 #MONDO_ADR = '127.0.0.1'
-server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/application/'
-OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
-MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
-CONN_MONGO = None
-if (os.environ['HOME'] == '/home/atupal'):
-    server_dir = './application/'
-    OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
-    MONDO_ADR = '127.0.0.1'
+
+#server_dir = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/runtime/repo/diy/application/'
+#OPENSHITF_DATA_DIR = '/var/lib/openshift/d06c01f430bd4b308790e4e01b409d6a/app-root/data/'
+#MONDO_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+#CONN_MONGO = None
+#if (os.environ['HOME'] == '/home/atupal'):
+#    server_dir = './application/'
+#    OPENSHITF_DATA_DIR = '/home/atupal/tmp/'
+#    MONDO_ADR = '127.0.0.1'
 
 #记录pid到文件:profile.pid
 ##如果存在就kill掉当前进程
@@ -41,9 +41,9 @@ from flask import session,redirect,url_for,escape,request
 def action():
     prefix = None
     if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+        prefix = app.config['APPLICATION_DATA_DIR'] + '/code/' + session['username'] + '/'
     else :
-        return redirect(url_for('lo'))
+        return redirect('/user/login')
     #conn = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_URL'])
     #db = conn[os.environ['OPENSHIFT_APP_NAME']]
     #db.editCode.insert({"tmp": request.form['codestr']})
@@ -55,6 +55,7 @@ def action():
     if not fi:
         return 'error'
     #cmd = 'echo ' + '"' + request.form['codestr'] + '"' + '>'+ '
+    #检查头文件
     headfile = re.findall("#include[ ]{0,3}<([a-z.]{1,10})>", request.form['codestr'])
     valid_headfile = {'stdio.h','cstdio', 'stdlib.h', 'cstdlib', 'string.h','cstring', 'math.h', 'cmath','vector.h','vector', 'algorithm.h','algorithm' ,'queue.h', 'queue'}
     for i in headfile:
@@ -138,9 +139,9 @@ import re
 @app.route('/editCode/saveCode', methods = ['GET', 'POST'])
 def saveCode():
     if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+        prefix = app.config['APPLICATION_DATA_DIR'] + '/code/' + session['username'] + '/'
     else :
-        return redirect(url_for('lo'))
+        return redirect('/user/login')
     filename = request.form['filename']
     if not re.match('[a-zA-Z_1-9]*.(cpp|py|html|js|css)', filenmae):
         return 'no'
@@ -155,9 +156,9 @@ def saveCode():
 @app.route('/editCode/getCode', methods = ['GET', 'POST'])
 def getCode():
     if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+        prefix = app.config['APPLICATION_DATA_DIR'] + '/code/' + session['username'] + '/'
     else:
-        return redirect(url_for('lo'))
+        return redirect('/user/login')
     p = subprocess.Popen(['ls', prefix], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     p.wait()
     stdout, stderr = p.communicate()
@@ -167,11 +168,11 @@ def getCode():
 @app.route('/editCode/getFile', methods = ['GET', 'POST'])
 def getFile():
     if 'username' in session:
-        prefix = OPENSHITF_DATA_DIR + '/code/' + session['username'] + '/'
+        prefix = app.config['APPLICATION_DATA_DIR'] + '/code/' + session['username'] + '/'
         fi = open(prefix + request.form['file_name'], 'r')
         return fi.read()
     else:
-        return redirect(url_for('lo'))
+        return redirect('/user/login')
 
 
 from geventwebsocket.handler import WebSocketHandler
