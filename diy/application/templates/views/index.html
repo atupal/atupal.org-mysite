@@ -275,10 +275,10 @@
 
 {% block js %}
 {{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/views/loading.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/pagecontrol.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/project/rssRead.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/views/tog_left_bar.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/views/clip.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='Metro-UI-CSS/javascript/accordion.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/views/loading.js') }}"></script>
 {% endblock %}

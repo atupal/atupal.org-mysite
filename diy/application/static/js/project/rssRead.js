@@ -33,6 +33,7 @@ function display_rss(data) {
 }
 
 function parserss(rssname, url, callback) {
+    loading_dlg();
     $("#rssname")[0].innerHTML = rssname;
     if (callback == undefined) {
         callback = display_rss;
@@ -43,7 +44,12 @@ function parserss(rssname, url, callback) {
         dataType: 'json',
         success: function(data) {
             callback(data.responseData.feed);
+            end_loading_dlg();
         },
+    })
+    .fail(function(jqxhr, setting, except){
+        console.log(except);
+        end_loading_dlg();
     });
 }
 
