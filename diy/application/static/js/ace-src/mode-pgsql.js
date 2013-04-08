@@ -30,59 +30,32 @@
 
 define('ace/mode/pgsql', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text', 'ace/tokenizer', 'ace/mode/pgsql_highlight_rules', 'ace/range'], function(require, exports, module) {
 
-    var oop = require("../lib/oop");
-    var TextMode = require("../mode/text").Mode;
-    var Tokenizer = require("../tokenizer").Tokenizer;
-    var PgsqlHighlightRules = require("./pgsql_highlight_rules").PgsqlHighlightRules;
-    var Range = require("../range").Range;
+var oop = require("../lib/oop");
+var TextMode = require("../mode/text").Mode;
+var Tokenizer = require("../tokenizer").Tokenizer;
+var PgsqlHighlightRules = require("./pgsql_highlight_rules").PgsqlHighlightRules;
+var Range = require("../range").Range;
 
-    var Mode = function() {
-        this.$tokenizer = new Tokenizer(new PgsqlHighlightRules().getRules());
-    };
-    oop.inherits(Mode, TextMode);
+var Mode = function() {
+    this.$tokenizer = new Tokenizer(new PgsqlHighlightRules().getRules());
+};
+oop.inherits(Mode, TextMode);
 
-    (function() {
+(function() {       
+    this.lineCommentStart = "--";
+    this.blockComment = {start: "/*", end: "*/"};
 
-        this.toggleCommentLines = function(state, doc, startRow, endRow) {
-            var outdent = true;
-            var re = /^(\s*)--/;
-
-            for (var i=startRow; i<= endRow; i++) {
-                if (!re.test(doc.getLine(i))) {
-                    outdent = false;
-                    break;
-                }
-            }
-
-            if (outdent) {
-                var deleteRange = new Range(0, 0, 0, 0);
-                for (var i=startRow; i<= endRow; i++)
-                {
-                    var line = doc.getLine(i);
-                    var m = line.match(re);
-                    deleteRange.start.row = i;
-                    deleteRange.end.row = i;
-                    deleteRange.end.column = m[0].length;
-                    doc.replace(deleteRange, m[1]);
-                }
-            }
-            else {
-                doc.indentRows(startRow, endRow, "--");
-            }
-        };
-
-
-        this.getNextLineIndent = function(state, line, tab) { 
-            if (state == "start" || state == "keyword.statementEnd") {
-                return "";
-            } else {
-                return this.$getIndent(line); // Keep whatever indent the previous line has
-            }
+    this.getNextLineIndent = function(state, line, tab) { 
+        if (state == "start" || state == "keyword.statementEnd") {
+            return "";
+        } else {
+            return this.$getIndent(line); // Keep whatever indent the previous line has
         }
+    }
 
-    }).call(Mode.prototype);
+}).call(Mode.prototype);
 
-    exports.Mode = Mode;
+exports.Mode = Mode;
 });
 
 define('ace/mode/pgsql_highlight_rules', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/lib/lang', 'ace/mode/doc_comment_highlight_rules', 'ace/mode/text_highlight_rules', 'ace/mode/perl_highlight_rules', 'ace/mode/python_highlight_rules'], function(require, exports, module) {
@@ -503,7 +476,6 @@ var PgsqlHighlightRules = function() {
             DocCommentHighlightRules.getStartRule("doc-start"),
             {
                 token : "comment", // multi-line comment
-                merge : true,
                 regex : "\\/\\*",
                 next : "comment"
             },{
@@ -522,7 +494,6 @@ var PgsqlHighlightRules = function() {
                 regex : "--.*$"
             }, {
                 token : "comment", // multi-line comment
-                merge : true,
                 regex : "\\/\\*",
                 next : "commentStatement"
             }, {
@@ -554,7 +525,6 @@ var PgsqlHighlightRules = function() {
                 regex : "--.*$"
             }, {
                 token : "comment", // multi-line comment
-                merge : true,
                 regex : "\\/\\*",
                 next : "commentDollarSql"
             }, {
@@ -575,7 +545,6 @@ var PgsqlHighlightRules = function() {
                 next : "start"
             }, {
                 token : "comment", // comment spanning whole line
-                merge : true,
                 regex : ".+"
             }
         ],
@@ -587,7 +556,6 @@ var PgsqlHighlightRules = function() {
                 next : "statement"
             }, {
                 token : "comment", // comment spanning whole line
-                merge : true,
                 regex : ".+"
             }
         ],
@@ -599,7 +567,6 @@ var PgsqlHighlightRules = function() {
                 next : "dollarSql"
             }, {
                 token : "comment", // comment spanning whole line
-                merge : true,
                 regex : ".+"
             }
         ],
@@ -611,7 +578,6 @@ var PgsqlHighlightRules = function() {
                 next : "statement"
             }, {
                 token : "string", // dollarstring spanning whole line
-                merge : true,
                 regex : ".+"
             }
         ],
@@ -623,7 +589,6 @@ var PgsqlHighlightRules = function() {
                 next : "dollarSql"
             }, {
                 token : "string", // dollarstring spanning whole line
-                merge : true,
                 regex : ".+"
             }
         ]
@@ -652,21 +617,10 @@ var DocCommentHighlightRules = function() {
             token : "comment.doc.tag",
             regex : "@[\\w\\d_]+" // TODO: fix email addresses
         }, {
-            token : "comment.doc",
-            merge : true,
-            regex : "\\s+"
+            token : "comment.doc.tag",
+            regex : "\\bTODO\\b"
         }, {
-            token : "comment.doc",
-            merge : true,
-            regex : "TODO"
-        }, {
-            token : "comment.doc",
-            merge : true,
-            regex : "[^@\\*]+"
-        }, {
-            token : "comment.doc",
-            merge : true,
-            regex : "."
+            defaultToken : "comment.doc"
         }]
     };
 };
@@ -676,7 +630,6 @@ oop.inherits(DocCommentHighlightRules, TextHighlightRules);
 DocCommentHighlightRules.getStartRule = function(start) {
     return {
         token : "comment.doc", // doc comment
-        merge : true,
         regex : "\\/\\*(?=\\*)",
         next  : start
     };
@@ -685,7 +638,6 @@ DocCommentHighlightRules.getStartRule = function(start) {
 DocCommentHighlightRules.getEndRule = function (start) {
     return {
         token : "comment.doc", // closing comment
-        merge : true,
         regex : "\\*\\/",
         next  : start
     };
@@ -748,6 +700,10 @@ var PerlHighlightRules = function() {
                 token : "comment",
                 regex : "#.*$"
             }, {
+                token : "comment.doc",
+                regex : "^=(?:begin|item)\\b",
+                next : "block_comment"
+            }, {
                 token : "string.regexp",
                 regex : "[/](?:(?:\\[(?:\\\\]|[^\\]])+\\])|(?:\\\\/|[^\\]/]))*[/]\\w*\\s*(?=[).,;]|$)"
             }, {
@@ -755,7 +711,6 @@ var PerlHighlightRules = function() {
                 regex : '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
             }, {
                 token : "string", // multi line string start
-                merge : true,
                 regex : '["].*\\\\$',
                 next : "qqstring"
             }, {
@@ -763,7 +718,6 @@ var PerlHighlightRules = function() {
                 regex : "['](?:(?:\\\\.)|(?:[^'\\\\]))*?[']"
             }, {
                 token : "string", // multi line string start
-                merge : true,
                 regex : "['].*\\\\$",
                 next : "qstring"
             }, {
@@ -796,7 +750,6 @@ var PerlHighlightRules = function() {
                 next : "start"
             }, {
                 token : "string",
-                merge : true,
                 regex : '.+'
             }
         ],
@@ -807,8 +760,17 @@ var PerlHighlightRules = function() {
                 next : "start"
             }, {
                 token : "string",
-                merge : true,
                 regex : '.+'
+            }
+        ],
+        "block_comment": [
+            {
+                token: "comment.doc", 
+                regex: "^=cut\\b",
+                next: "start"
+            },
+            {
+                defaultToken: "comment.doc"
             }
         ]
     };
@@ -878,7 +840,6 @@ var PythonHighlightRules = function() {
             regex : strPre + '"{3}(?:[^\\\\]|\\\\.)*?"{3}'
         }, {
             token : "string",           // multi line """ string start
-            merge : true,
             regex : strPre + '"{3}.*$',
             next : "qqstring"
         }, {
@@ -889,7 +850,6 @@ var PythonHighlightRules = function() {
             regex : strPre + "'{3}(?:[^\\\\]|\\\\.)*?'{3}"
         }, {
             token : "string",           // multi line ''' string start
-            merge : true,
             regex : strPre + "'{3}.*$",
             next : "qstring"
         }, {
@@ -929,7 +889,6 @@ var PythonHighlightRules = function() {
             next : "start"
         }, {
             token : "string",
-            merge : true,
             regex : '.+'
         } ],
         "qstring" : [ {
@@ -938,7 +897,6 @@ var PythonHighlightRules = function() {
             next : "start"
         }, {
             token : "string",
-            merge : true,
             regex : '.+'
         } ]
     };

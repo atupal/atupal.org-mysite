@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,14 +33,14 @@ define('ace/keyboard/emacs', ['require', 'exports', 'module' , 'ace/lib/dom', 'a
 
 var dom = require("../lib/dom");
 
-var screenToTextBlockCoordinates = function(pageX, pageY) {
+var screenToTextBlockCoordinates = function(x, y) {
     var canvasPos = this.scroller.getBoundingClientRect();
 
     var col = Math.floor(
-        (pageX + this.scrollLeft - canvasPos.left - this.$padding - dom.getPageScrollLeft()) / this.characterWidth
+        (x + this.scrollLeft - canvasPos.left - this.$padding) / this.characterWidth
     );
     var row = Math.floor(
-        (pageY + this.scrollTop - canvasPos.top - dom.getPageScrollTop()) / this.lineHeight
+        (y + this.scrollTop - canvasPos.top) / this.lineHeight
     );
 
     return this.session.screenToDocumentPosition(row, col);
@@ -50,6 +50,9 @@ var HashHandler = require("./hash_handler").HashHandler;
 exports.handler = new HashHandler();
 
 var initialized = false;
+var $formerLongWords;
+var $formerLineStart;
+
 exports.handler.attach = function(editor) {
     if (!initialized) {
         initialized = true;
@@ -79,24 +82,67 @@ exports.handler.attach = function(editor) {
             }', 'emacsMode'
         );
     }
+    $formerLongWords = editor.session.$selectLongWords;
+    editor.session.$selectLongWords = true;
+    $formerLineStart = editor.session.$useEmacsStyleLineStart;
+    editor.session.$useEmacsStyleLineStart = true;
 
+    editor.session.$emacsMark = null;
+
+    exports.markMode = function() {
+        return editor.session.$emacsMark;
+    }
+
+    exports.setMarkMode = function(p) {
+        editor.session.$emacsMark = p;
+    }
+
+    editor.on("click",$resetMarkMode);
+    editor.on("changeSession",$kbSessionChange);
     editor.renderer.screenToTextCoordinates = screenToTextBlockCoordinates;
     editor.setStyle("emacs-mode");
+    editor.commands.addCommands(commands);
+    exports.handler.platform = editor.commands.platform;
 };
 
 exports.handler.detach = function(editor) {
     delete editor.renderer.screenToTextCoordinates;
+    editor.session.$selectLongWords = $formerLongWords;
+    editor.session.$useEmacsStyleLineStart = $formerLineStart;
+    editor.removeEventListener("click",$resetMarkMode);
+    editor.removeEventListener("changeSession",$kbSessionChange);
     editor.unsetStyle("emacs-mode");
+    editor.commands.removeCommands(commands);
 };
 
+var $kbSessionChange = function(e) {
+    if (e.oldSession) {
+        e.oldSession.$selectLongWords = $formerLongWords;
+        e.oldSession.$useEmacsStyleLineStart = $formerLineStart;
+    }
 
-var keys = require("../lib/keys").KEY_MODS;
-var eMods = {
-    C: "ctrl", S: "shift", M: "alt"
-};
-["S-C-M", "S-C", "S-M", "C-M", "S", "C", "M"].forEach(function(c) {
+    $formerLongWords = e.session.$selectLongWords;
+    e.session.$selectLongWords = true;
+    $formerLineStart = e.session.$useEmacsStyleLineStart;
+    e.session.$useEmacsStyleLineStart = true;
+
+    if (!e.session.hasOwnProperty('$emacsMark'))
+        e.session.$emacsMark = null;
+}
+
+var $resetMarkMode = function(e) {
+    e.editor.session.$emacsMark = null;
+}
+
+var keys = require("../lib/keys").KEY_MODS,
+    eMods = {C: "ctrl", S: "shift", M: "alt", CMD: "command"},
+    combinations = ["C-S-M-CMD",
+                    "S-M-CMD", "C-M-CMD", "C-S-CMD", "C-S-M",
+                    "M-CMD", "S-CMD", "S-M", "C-CMD", "C-M", "C-S",
+                    "CMD", "M", "S", "C"];
+combinations.forEach(function(c) {
     var hashId = 0;
-    c.split("-").forEach(function(c){
+    c.split("-").forEach(function(c) {
         hashId = hashId | keys[eMods[c]];
     });
     eMods[hashId] = c.toLowerCase() + "-";
@@ -119,6 +165,7 @@ exports.handler.bindKey = function(key, command) {
 
 exports.handler.handleKeyboard = function(data, hashId, key, keyCode) {
     if (hashId == -1) {
+        exports.setMarkMode(null);
         if (data.count) {
             var str = Array(data.count + 1).join(key);
             data.count = null;
@@ -138,33 +185,33 @@ exports.handler.handleKeyboard = function(data, hashId, key, keyCode) {
         }
     }
     data.universalArgument = false;
-
-    if (modifier)
-        key = modifier + key;
-
-    if (data.keyChain)
-        key = data.keyChain += " " + key;
-
+    if (modifier) key = modifier + key;
+    if (data.keyChain) key = data.keyChain += " " + key;
     var command = this.commmandKeyBinding[key];
     data.keyChain = command == "null" ? key : "";
+    if (!command) return;
+    if (command === "null") return {command: "null"};
 
-    if (!command)
-        return;
-
-    if (command == "null")
-        return {command: "null"};
-
-    if (command == "universalArgument") {
+    if (command === "universalArgument") {
         data.universalArgument = true;
         return {command: "null"};
     }
-
-    if (typeof command != "string") {
-        var args = command.args;
-        command = command.command;
+    var args;
+    if (typeof command !== "string") {
+        args = command.args;
+        if (command.command) command = command.command;
+        if (command === "goorselect") {
+            command = exports.markMode() ? args[1] : args[0];
+            args = null;
+        }
     }
 
-    if (typeof command == "string") {
+    if (typeof command === "string") {
+        if (command === "insertstring" ||
+            command === "splitline" ||
+            command === "togglecomment") {
+            exports.setMarkMode(null);
+        }
         command = this.commands[command] || data.editor.commands.commands[command];
     }
 
@@ -189,16 +236,16 @@ exports.handler.handleKeyboard = function(data, hashId, key, keyCode) {
 };
 
 exports.emacsKeys = {
-    "Up|C-p"      : "golineup",
-    "Down|C-n"    : "golinedown",
-    "Left|C-b"    : "gotoleft",
-    "Right|C-f"   : "gotoright",
-    "C-Left|M-b"  : "gotowordleft",
-    "C-Right|M-f" : "gotowordright",
-    "Home|C-a"    : "gotolinestart",
-    "End|C-e"     : "gotolineend",
-    "C-Home|S-M-,": "gotostart",
-    "C-End|S-M-." : "gotoend",
+    "Up|C-p"      : {command: "goorselect", args: ["golineup","selectup"]},
+    "Down|C-n"    : {command: "goorselect", args: ["golinedown","selectdown"]},
+    "Left|C-b"    : {command: "goorselect", args: ["gotoleft","selectleft"]},
+    "Right|C-f"   : {command: "goorselect", args: ["gotoright","selectright"]},
+    "C-Left|M-b"  : {command: "goorselect", args: ["gotowordleft","selectwordleft"]},
+    "C-Right|M-f" : {command: "goorselect", args: ["gotowordright","selectwordright"]},
+    "Home|C-a"    : {command: "goorselect", args: ["gotolinestart","selecttolinestart"]},
+    "End|C-e"     : {command: "goorselect", args: ["gotolineend","selecttolineend"]},
+    "C-Home|S-M-,": {command: "goorselect", args: ["gotostart","selecttostart"]},
+    "C-End|S-M-." : {command: "goorselect", args: ["gotoend","selecttoend"]},
     "S-Up|S-C-p"      : "selectup",
     "S-Down|S-C-n"    : "selectdown",
     "S-Left|S-C-b"    : "selectleft",
@@ -214,10 +261,10 @@ exports.emacsKeys = {
     "M-s" : "centerselection",
     "M-g": "gotoline",
     "C-x C-p": "selectall",
-    "C-Down": "gotopagedown",
-    "C-Up": "gotopageup",
-    "PageDown|C-v": "gotopagedown",
-    "PageUp|M-v": "gotopageup",
+    "C-Down": {command: "goorselect", args: ["gotopagedown","selectpagedown"]},
+    "C-Up": {command: "goorselect", args: ["gotopageup","selectpageup"]},
+    "PageDown|C-v": {command: "goorselect", args: ["gotopagedown","selectpagedown"]},
+    "PageUp|M-v": {command: "goorselect", args: ["gotopageup","selectpageup"]},
     "S-C-Down": "selectpagedown",
     "S-C-Up": "selectpageup",
     "C-s": "findnext",
@@ -240,16 +287,15 @@ exports.emacsKeys = {
 
     "C-w": "killRegion",
     "M-w": "killRingSave",
-
     "C-Space": "setMark",
     "C-x C-x": "exchangePointAndMark",
 
     "C-t": "transposeletters",
-
-    "M-u": "touppercase",
+    "M-u": "touppercase",    // Doesn't work
     "M-l": "tolowercase",
-    "M-/": "autocomplete",
+    "M-/": "autocomplete",   // Doesn't work
     "C-u": "universalArgument",
+
     "M-;": "togglecomment",
 
     "C-/|C-x u|S-C--|C-z": "undo",
@@ -264,7 +310,7 @@ exports.handler.addCommands({
     recenterTopBottom: function(editor) {
         var renderer = editor.renderer;
         var pos = renderer.$cursorLayer.getPixelPosition();
-        var h = renderer.$size.scrollerHeight - renderer.lineHeight;       
+        var h = renderer.$size.scrollerHeight - renderer.lineHeight;
         var scrollTop = renderer.scrollTop;
         if (Math.abs(pos.top - scrollTop) < 2) {
             scrollTop = pos.top - h;
@@ -278,7 +324,20 @@ exports.handler.addCommands({
     selectRectangularRegion:  function(editor) {
         editor.multiSelect.toggleBlockSelection();
     },
-    setMark:  function() {
+    setMark:  function(editor) {
+        var markMode = exports.markMode();
+        if (markMode) {
+            var cp = editor.getCursorPosition();
+            if (editor.selection.isEmpty() &&
+               markMode.row == cp.row && markMode.column == cp.column) {
+                exports.setMarkMode(null);
+                return;
+            }
+        }
+        markMode = editor.getCursorPosition();
+        exports.setMarkMode(markMode);
+        editor.selection.setSelectionAnchor(markMode.row, markMode.column);
+
     },
     exchangePointAndMark: {
         exec: function(editor) {
@@ -306,7 +365,15 @@ exports.handler.addCommands({
         multiselectAction: "forEach"
     },
     killLine: function(editor) {
-        editor.selection.selectLine();
+        exports.setMarkMode(null);
+        var pos = editor.getCursorPosition();
+        if (pos.column == 0 &&
+            editor.session.doc.getLine(pos.row).length == 0) {
+            editor.selection.selectLine();
+        } else {
+            editor.clearSelection();
+            editor.selection.selectLineEnd();
+        }
         var range = editor.getSelectionRange();
         var text = editor.session.getTextRange(range);
         exports.killRing.add(text);
@@ -321,7 +388,6 @@ exports.handler.addCommands({
     yankRotate: function(editor) {
         if (editor.keyBinding.$data.lastCommand != "yank")
             return;
-
         editor.undo();
         editor.onPaste(exports.killRing.rotate());
         editor.keyBinding.$data.lastCommand = "yank";
@@ -332,6 +398,10 @@ exports.handler.addCommands({
     },
     killRingSave: function(editor) {
         exports.killRing.add(editor.getCopyText());
+    },
+    keyboardQuit: function(editor) {
+        editor.selection.clearSelection();
+        exports.setMarkMode(null);
     }
 });
 
