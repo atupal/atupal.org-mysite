@@ -22,10 +22,6 @@ def about():
 def contanct():
     return render_template("views/contact.html")
 
-@app.route("/blog")
-def blog():
-    return render_template("views/blog.html")
-
 #rsslist缓存对象
 from werkzeug.contrib.cache import SimpleCache
 cache = SimpleCache()

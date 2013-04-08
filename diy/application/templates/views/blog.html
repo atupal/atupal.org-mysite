@@ -5,12 +5,46 @@
 {% endblock %}
 
 {% block header %}
-<h1>blog</h1>
 {% endblock %}
 
 {% block sidebar %}
+<ul class="left_bar">
+    <li>
+        <a>categories</a>
+            <ul class="sub-menu">
+                <li><a>algorithm</a></li>
+                <li><a>python</a></li>
+                <li><a>oj</a></li>
+                <li><a>cf</a></li>
+                <li><a>tc</a></li>
+                <li><a>learn</a></li>
+                <li><a>life</a><li>
+                <li><a>others</a></li>
+            </ul>
+    </li>
+
+    <li>
+        <a>times</a>
+            <ul class="sub-menu">
+                <li><a>2013.4</a></li>
+                <li><a>2013.3</a></li>
+                <li><a>2013.2</a></li>
+                <li><a>early</a></li>
+            </ul>
+    </li>
+
+</ul>
 {% endblock %}
 
 {% block body %}
+<div class="blog_post" id="post_1">
+    <div class="blog_content_pre" id="b_c_pre_1"></div>
+    <hr/>
+    <div class="blog_content" id="b_content_1">
+        {{ content }}
+    </div>
+    <hr/>
+    <div class="blog_comment" id="b_conment_1"></div>
+</div>
 {% endblock %}
 
