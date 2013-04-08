@@ -8,3 +8,4 @@ mysql-python
 flask-peewee
 wtf-peewee
 wtforms
+markdown

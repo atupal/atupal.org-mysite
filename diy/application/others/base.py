@@ -36,6 +36,7 @@ def ico():
     #fi = open(server_dir + 'favicon.ico', "rb")
     #return fi.read()
     #return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return app.send_static_file("favicon.ico")
     return send_from_directory(server_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 #
 #@app.route('/static/<path:name>')
