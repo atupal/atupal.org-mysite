@@ -9,3 +9,7 @@ def connect_db():
 @app.route('/googlef6a9c359439ec2c6.html')
 def  google():
     return "google-site-verification: googlef6a9c359439ec2c6.html"
+
+@app.route('/robots.txt')
+def robots_txt():
+    return open('./application/robots.txt', 'r').read()

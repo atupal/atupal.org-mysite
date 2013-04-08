@@ -1,0 +1,7 @@
+# Please do not crawl us faster than 1 hit/second.
+#
+#
+User-agent: *
+Crawl-Delay: 1
+Disallow: /static/
+Disallow: /templates/
