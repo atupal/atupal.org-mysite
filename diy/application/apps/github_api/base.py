@@ -17,7 +17,8 @@ def github_oauth():
             'client_secret' : 'f8eee7877f5102c240f4ed9779186a1aa6ff628b',
             'code'          : code
             }
-    #header = {'Accept': 'application/json'}
-    r = requests.post('https://github.com/login/oauth/access_token', data = data)
-    #r['username'] = 'atupal'
-    return r.text
+    headers = {'Accept': 'application/json'}
+    r = requests.post('https://github.com/login/oauth/access_token', data = data, headers = headers)
+    import json
+    r = json.loads(r)
+    return r['access_token']
