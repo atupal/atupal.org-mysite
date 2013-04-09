@@ -3,7 +3,6 @@ from application import app
 from flask import request
 from flask import redirect
 import requests
-import json
 
 @app.route('/github/oauth_pre')
 def github_oauth_pre():
@@ -21,6 +20,7 @@ def github_oauth():
     #header = {'Accept': 'application/json'}
     r = requests.post('https://github.com/login/oauth/access_token', data = data)
     #r['username'] = 'atupal'
-    with (open(app.config['APPLICATION_ROOT_DIR'] + 'apps/github_api/token.dat'), 'wa').close() as fi:
+    with open(app.config['APPLICATION_ROOT_DIR'] + 'apps/github_api/token.dat' , 'wa') as fi:
         fi.write(r.text)
+        fi.close()
         pass
