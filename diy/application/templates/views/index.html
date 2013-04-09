@@ -15,8 +15,19 @@
         //    width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
         //}
 
-        .metrouicss #page1 *{
+        .metrouicss #page1 a{
             width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
+            clear: both; /* 清除左右浮动 */
+            width: 100px; /* 必须定义宽度 */
+            word-break: break-word; /* 文本行的任意字内断开 */
+            word-wrap: break-word; /* IE */
+            white-space: -moz-pre-wrap; /* Mozilla */
+            white-space: -hp-pre-wrap; /* HP printers */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            white-space: -pre-wrap; /* Opera 4-6 */
+            white-space: pre; /* CSS2 */
+            white-space: pre-wrap; /* CSS 2.1 */
+            white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
         }
 
         .metrouicss #editor {
