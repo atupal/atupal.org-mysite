@@ -17,3 +17,5 @@ import application.apps.online_compiler.base
 import application.apps.oneday.base
 import application.apps.oneday.map_api
 import application.apps.oneday.getLine
+
+import application.apps.github_api.base
