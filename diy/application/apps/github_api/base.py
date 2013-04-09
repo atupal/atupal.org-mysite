@@ -20,5 +20,5 @@ def github_oauth():
     headers = {'Accept': 'application/json'}
     r = requests.post('https://github.com/login/oauth/access_token', data = data, headers = headers)
     import json
-    r = json.loads(r)
+    r = json.loads(r.text)
     return r['access_token']
