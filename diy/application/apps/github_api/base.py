@@ -20,7 +20,7 @@ def github_oauth():
             }
     #header = {'Accept': 'application/json'}
     r = requests.post('https://github.com/login/oauth/access_token', data = data)
-    r['username'] = 'atupal'
+    #r['username'] = 'atupal'
     with (open(app.config['APPLICATION_ROOT_DIR'] + 'apps/github_api/token.dat'), 'wa').close() as fi:
         fi.write(r.text)
         pass
