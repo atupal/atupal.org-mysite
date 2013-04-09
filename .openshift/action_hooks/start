@@ -14,6 +14,8 @@
 export PY27_ATUPAL_ORG_CONFIG=$OPENSHIFT_DATA_DIR/.config/myapp/py27_config.ini
 
 #启动nginx
-sed -e "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_INTERNAL_IP:$OPENSHIFT_INTERNAL_PORT`/" $OPENSHIFT_DATA_DIR/conf/nginx.conf.template > $OPENSHIFT_DATA_DIR/conf/nginx.conf
+#sed -e "s/`echo '$OPENSHIFT_IP:$OPENSHIFT_PORT'`/`echo $OPENSHIFT_INTERNAL_IP:$OPENSHIFT_INTERNAL_PORT`/" $OPENSHIFT_DATA_DIR/conf/nginx.conf.template > $OPENSHIFT_DATA_DIR/conf/nginx.conf
+
+#nohup $OPENSHIFT_DATA_DIR/sbin/nginx > $OPENSHIFT_DIY_LOG_DIR/server.log 2>&1 &
+
 $OPENSHIFT_DATA_DIR/bin/uwsgi -s $OPENSHIFT_TMP_DIR/uwsgi.sock --chmod-socket 666 --pp $OPENSHIFT_REPO_DIR/diy -w runserver:app -d $OPENSHIFT_DIY_LOG_DIR/app.log
-nohup $OPENSHIFT_DATA_DIR/sbin/nginx > $OPENSHIFT_DIY_LOG_DIR/server.log 2>&1 &
