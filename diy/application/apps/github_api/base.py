@@ -18,10 +18,9 @@ def github_oauth():
             'client_secret' : 'f8eee7877f5102c240f4ed9779186a1aa6ff628b',
             'code'          : code
             }
-    header = {'Accept': 'application/json'}
-    r = requests.post('https://github.com/login/oauth/access_token', data = data, header = header)
-    r = json.loads(r.text)
+    #header = {'Accept': 'application/json'}
+    r = requests.post('https://github.com/login/oauth/access_token', data = data)
     r['username'] = 'atupal'
     with (open(app.config['APPLICATION_ROOT_DIR'] + 'apps/github_api/token.dat'), 'wa').close() as fi:
-        fi.write(json.dumps(r))
+        fi.write(r.text)
         pass
