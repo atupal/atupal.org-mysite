@@ -285,9 +285,11 @@ class Line:
             if Line.item_one_condition(i):
                 one_s.append(i)
 
+        import time as Time
         one_s = Line.get_shortest_item(float(lat), float(lng))
+        start_time = Time.time()
 
-        while cnt < end - begin:
+        while cnt < end - begin and Time.time() - start_time < 5:
             try:
                 one = one_s[randint(0, len(one_s) - 1)]
             except:
@@ -372,6 +374,8 @@ class Line:
             #print cnt, lines[len(lines) - 1]
 
         #print self.get_bus_time(lines[0][0]['name'], lines[0][2]['name']) , self.get_bus_time(lines[0][1]['name'], lines[0][2]['name'])
+        if cnt < end - begin:
+            return 'No line found!'
         lines = [Line.getList(i[0], i[1], i[2]) for i in lines]
         return json.dumps(lines)
 
