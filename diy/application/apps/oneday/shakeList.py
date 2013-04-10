@@ -2,30 +2,20 @@
 
 from  application.apps.oneday import getLine
 
-place=''
-transportation=''
-money=''
-people=''
-
 class ShakeList:
     def __init__(self):
         pass
 
-    def shakelist(self, lat, lng, _place, _people, _transportation, _money):
-        global place
-        global transportation
-        global money
-        global people
-        place = _place
-        transportation = _transportation
-        money = _money
-        people = _people
+    def shakelist(self, lat, lng, place, people, transportation, money):
+        _place = set(place.split('-'))
+        index = 0
+        while  index < len(_place) - 3:
+            _place.pop()
+
+        _people = set(people.split('-'))
+        _money = money.split('-')
 
         def condition(items):
-            global place
-            global transportation
-            global money
-            global people
             s = {
                     'movie': u'电影'.encode('utf-8'),
                     'ktv': 'KTV'.encode('utf-8'),
@@ -37,7 +27,7 @@ class ShakeList:
                     'book shop': u'书'.encode('utf-8')
                     }
 
-            _place = place.split('-')
+
             for p in _place:
                 flag = 0
                 for item in items:
@@ -55,7 +45,6 @@ class ShakeList:
                     'class party':'class'.encode('utf-8')
                     }
 
-            _people = people.split('-')
             for p in _people:
                 flag = 0
                 for item in items:
@@ -66,7 +55,6 @@ class ShakeList:
                     return 0
 
             _sum = 0
-            _money = money.split('-')
             for i in items:
                 _sum += int(i['money'])
 
@@ -75,4 +63,16 @@ class ShakeList:
 
             return 1
 
-        return getLine.Line().getline(lat, lng, 0, 1, condition)
+        ret = getLine.Line().getline(lat, lng, 0, 1, condition)
+        cnt = 0
+        while not ret and cnt < 10:
+            cnt += 1
+            if len(_place) > 0:
+                _place.pop
+            elif len(_people) > 0:
+                _people.pop()
+            else:
+                _money[0] = '0'
+                _money[1] = '10000'
+            ret = getLine.Line().getline(lat, lng, 0, 1, condition)
+        return ret
