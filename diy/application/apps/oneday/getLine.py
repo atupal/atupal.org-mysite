@@ -436,7 +436,7 @@ class Line:
                 "img":url,
                 #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
                 "items":[json_one, json_two, json_three],
-                "linename": json_one['name'] + '(-)' +  json_two['name'] + '(-)' + json_three['name']
+                "linename": json_one['name'] + '__' +  json_two['name'] + '__' + json_three['name']
                 }
         #ret.append(line)
         return line

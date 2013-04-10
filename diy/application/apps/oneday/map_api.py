@@ -25,7 +25,7 @@ def getList():
 
 @app.route('/getLine', methods = ['GET', 'POST'])
 def getLineInfo():
-    line = str(request.form['line']).split('(-)')
+    line = str(request.form['line']).split('__')
     #lat = float(request.form['lat'])
     #lng = float(request.form['lng'])
     #img = []
