@@ -33,11 +33,13 @@ def getInfo(name):
     pattern = 'http://i[0-9].s[0-9].dpfile.com/pc/[0-9a-z()]*/thumb.jpg'
     content = requests.get(url).content
     img = re.findall(pattern ,content)
+    Map = "http://api.map.baidu.com/staticimage?markers=" + urllib.quote(name) + "&center=" + urllib.quote(name)
 
     ret = {
             'img':img,
             'intra':intra,
-            'bus':bus
+            'bus':bus,
+            'map': Map
             }
     return ret
 

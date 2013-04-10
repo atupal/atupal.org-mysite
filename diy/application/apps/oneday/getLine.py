@@ -435,7 +435,8 @@ class Line:
                 #"loc":[(one['lat'], one['lng']), (two['lat'], two['lng']), (three['lat'], three['lng'])],
                 "img":url,
                 #"name": str(one['name']) + '-' + str(two['name']) + '-' + str(three['name']),
-                "items":[json_one, json_two, json_three]
+                "items":[json_one, json_two, json_three],
+                "linename": json_one['name'] + '(-)' +  json_two['name'] + '(-)' + json_three['name']
                 }
         #ret.append(line)
         return line
