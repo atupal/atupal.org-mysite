@@ -56,3 +56,41 @@ function parserss(rssname, url, callback) {
 url = 'http://feed.feedsky.com/matrix67';
 url = 'https://news.ycombinator.com/rss'
 parserss("Hacker News", url, display_rss);
+
+addrss = function(){
+    rssxml = $('#addrss_xml')[0].value;
+    rsshtml = $('#addrss_html')[0].value;
+    name = $('#addrss_name')[0].value;
+    $.ajax({
+        url: '/user/addrss',
+        type: 'POST',
+        data: {name: name, rssxml: rssxml, rsshtml: rsshtml},
+        success: function(data, statusText, jqxhr){
+            alert(jqxhr.responseText);
+        }
+    })
+    .fail(function(jqxhr, setting, except){
+            alert(jqxhr.responseText);
+    });
+}
+
+addrssDialog = function(){
+    $.Dialog({
+        'title': 'addrss',
+        'content': '<label>name</label><input id="addrss_name" type="text"><hr><label>rssxml</label><input id="addrss_xml" type="text"><hr><label>rsshtml</label><input id="addrss_html" type="text">',
+        'draggable': true,
+        'overlay': true,
+        'buttonAlign': 'right',
+        'position': {
+            'zone': 'center'
+        },
+        'buttons': {
+            'cancel': {
+                'action': function(){}
+            },
+            'add': {
+                'action': addrss
+            }
+        }
+    });
+}

@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from flask import Flask, session
+from flask import Flask, session, request
 app = Flask(__name__)
 
 if __name__ != "__main__":
@@ -70,9 +70,24 @@ def formatrss(rsslist):
         rsslist[i][1] = rsslist[i][1].decode('utf-8')
     return rsslist
 
-@app.route('/user/addrss')
+@app.route('/user/addrss', methods = ['POST', 'GET'])
 def addrss():
-    return True
+    if session.has_key('username'):
+        username = session['username']
+    else:
+        return 'no login'
+
+    db = MySQLDatabase(app.config['DATABASE'], host = app.config['DATABASEHOST'], user = app.config['USERNAME'], passwd = app.config['PASSWORD'])
+    cur = db.get_cursor()
+    cur.execute('select count(id) from rsslist')
+    count = cur.fetchall()
+    count = int(count[0][0])
+    cmd = 'insert into rsslist (id, name, xmlurl, htmlurl, user) values(' + str(count) + ',' + request.form['name'] + ',' + request.form['rssxml'] + ',' + request.form['rsshtml'] + ',' + username + ')'
+    cur.execute(cmd)
+    cur.commmit()
+    setcache()
+    return 'add finish'
+
 
 
 #if __name__ == "__main__":
