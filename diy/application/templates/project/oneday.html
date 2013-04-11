@@ -17,3 +17,8 @@
 {% block body %}
 <hr/>
 {% endblock %}
+
+{% block js %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/project/json_parse_s.js') }}"></script>
+{% endblock %}

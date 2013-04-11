@@ -61,6 +61,7 @@
 
 {% block sidebar %}
 <ul id="page1_left_bar" class="left_bar rss_read">
+    <li><a onclick="addrssDialog()">add rss</a></li>
     <li>
     <a href="#">rss list</a>
     {#getrsslist from remote mySql Database#}
@@ -104,7 +105,6 @@
     #}
     </ul>
     </li>
-    <li><a onclick="addrss()">add rss</a></li>
 </ul>
 
 <ul id="page2_left_bar" style="display: none;" class="left_bar program">
@@ -114,7 +114,17 @@
                 <a onclick="clip()">online clip</a>
                 <div>
                     <ul class="sub-menu">
-                        <li><a>ts</a></li>
+                            <optgroup label="Huge documents">
+                                <option value="c_cpp">c_cpp</option>
+                                <option value="python">python</option>
+                            </optgroup>
+                            <li data-role="dropdown">
+                                <a>lang</a>
+                                <ul style="z-index:10;" class="dropdown-menu">
+                                    <li style="z-index:10;"><a>c_cpp</a></li>
+                                    <li style="z-index:10;"><a>python</a></li>
+                                </ul>
+                            </li>
                         <li><a>ts</a></li>
                         <li><a>ts</a></li>
                     </ul>

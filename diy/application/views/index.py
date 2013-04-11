@@ -82,10 +82,11 @@ def addrss():
     cur.execute('select count(id) from rsslist')
     count = cur.fetchall()
     count = int(count[0][0])
-    cmd = 'insert into rsslist (id, name, xmlurl, htmlurl, user) values(' + str(count) + ',' + request.form['name'] + ',' + request.form['rssxml'] + ',' + request.form['rsshtml'] + ',' + username + ')'
+    cmd = 'insert into rsslist (id, name, xmlurl, htmlurl, user) values(' + str(count) + ',' + '"' + request.form['name'] + '"' + ',' + '"'+request.form['rssxml'] +'"'+ ',' + '"'+request.form['rsshtml'] +'"'+ ',' + '"'+username +'"'+ ')'
     cur.execute(cmd)
-    cur.commmit()
-    setcache()
+    #cur.commit()
+    db.commit()
+    setcache(username)
     return 'add finish'
 
 
