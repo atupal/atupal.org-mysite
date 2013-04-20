@@ -17,15 +17,23 @@ class ShakeList:
 
         def condition(items):
             s = {
-                    'movie': u'电影'.encode('utf-8'),
-                    'ktv': 'KTV'.encode('utf-8'),
-                    'table game': u'台球'.encode('utf-8'),
-                    'coffee shop': u'咖啡'.encode('utf-8'),
-                    'bar': u'酒吧'.encode('utf-8'),
-                    'tea house': u'茶'.encode('utf-8'),
-                    'attractions': '',
-                    'book shop': u'书'.encode('utf-8')
-                    }
+                    'hang out'        : u'逛街'.encode('utf-8'),
+                    'art'             : u'文化'.encode('utf-8'),
+                    'book'            : u'书'.encode('utf-8'),
+                    'nature'          : u'自然'.encode('utf-8'),
+                    'humanism'        : u'人文'.encode('utf-8'),
+                    'tea'             : u'茶馆'.encode('utf-8'),
+                    'park'            : u'公园'.encode('utf-8'),
+                    'shower'          : u'按摩/洗浴'.encode('utf-8'),
+                    'ktv'             : 'KTV'.encode('utf-8'),
+                    'table game'      : u'桌面游戏'.encode('utf-8'),
+                    'coffee'          : u'咖啡'.encode('utf-8'),
+                    'electrical play' : u'电玩'.encode('utf-8'),
+                    'amusement'       : u'游乐游艺'.encode('utf-8'),
+                    'billiard'        : u'台球室'.encode('utf-8'),
+                    'bar'             : u'酒吧'.encode('utf-8'),
+                    'cinema'          : u'电影'.encode('utf-8'),
+                }
 
 
             for p in _place:
