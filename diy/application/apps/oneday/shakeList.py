@@ -1,10 +1,24 @@
 #coding=utf-8
 
-from  application.apps.oneday import getLine
+try:
+    from  application.apps.oneday import getLine
+except:
+    pass
 
 class ShakeList:
     def __init__(self):
         pass
+
+    def comm(self, items, n = None):
+        if n is None:
+            n = len(items)
+        for i in xrange(len(items)):
+            v = items[i:i+1]
+            if n == 1:
+                yield v
+            else:
+                for c in self.comm(items[i+1:], n - 1):
+                    yield v + c
 
     def shakelist(self, lat, lng, place, people, transportation, money):
         _place = set(place.split('-'))
@@ -25,7 +39,7 @@ class ShakeList:
                     'tea'             : u'茶馆'.encode('utf-8'),
                     'park'            : u'公园'.encode('utf-8'),
                     'shower'          : u'按摩/洗浴'.encode('utf-8'),
-                    'ktv'             : 'KTV'.encode('utf-8'),
+                    'ktv'             : u'KTV'.encode('utf-8'),
                     'table game'      : u'桌面游戏'.encode('utf-8'),
                     'coffee'          : u'咖啡'.encode('utf-8'),
                     'electrical play' : u'电玩'.encode('utf-8'),
@@ -36,6 +50,7 @@ class ShakeList:
                 }
 
 
+            cnt = 0
             for p in _place:
                 flag = 0
                 for item in items:
@@ -43,16 +58,19 @@ class ShakeList:
                         flag = 1
                         break
                 if not flag:
-                    return 0
+                    cnt += 1
+            if cnt < 3:
+                return 0
 
             s = {
-                    'myself':'single'.encode('utf-8'),
-                    'couple':'couple'.encode('utf-8'),
-                    'girls':'women'.encode('utf-8'),
-                    'boys':'men'.encode('utf-8'),
-                    'class party':'class'.encode('utf-8')
-                    }
+                    'myself'      : 'single'.encode('utf-8'),
+                    'couple'      : 'couple'.encode('utf-8'),
+                    'girls'       : 'women'.encode('utf-8'),
+                    'boys'        : 'men'.encode('utf-8'),
+                    'class party' : 'class'.encode('utf-8')
+                }
 
+            cnt = 0
             for p in _people:
                 flag = 0
                 for item in items:
@@ -60,7 +78,9 @@ class ShakeList:
                         flag = 1
                         break
                 if not flag:
-                    return 0
+                    cnt += 1
+            if cnt < 3:
+                return 0
 
             _sum = 0
             for i in items:
@@ -84,3 +104,11 @@ class ShakeList:
                 _money[1] = '10000'
             ret = getLine.Line().getline(lat, lng, 0, 1, condition)
         return ret
+
+    def test(self):
+        for i in self.comm([i + 1 for i in xrange(5)], 4):
+            print i
+            pass
+
+if __name__ == "__main__":
+    ShakeList().test()
