@@ -52,13 +52,9 @@ class ShakeList:
 
             cnt = 0
             for p in _place:
-                flag = 0
                 for item in items:
                     if item['flag'].encode('utf-8').find(s[p]) != -1:
-                        flag = 1
-                        break
-                if not flag:
-                    cnt += 1
+                        cnt += 1
             if cnt < 3:
                 return 0
 
@@ -72,13 +68,9 @@ class ShakeList:
 
             cnt = 0
             for p in _people:
-                flag = 0
                 for item in items:
                     if item['tags'].encode('utf-8').find(s[p]) != -1:
-                        flag = 1
-                        break
-                if not flag:
-                    cnt += 1
+                        cnt += 1
             if cnt < 3:
                 return 0
 

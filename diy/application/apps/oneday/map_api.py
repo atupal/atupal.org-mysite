@@ -63,6 +63,5 @@ def getPlaceInfo():
 @app.route('/shakeLine', methods = ['GET', 'POST'])
 def oneday_api_shakeList():
     ret = shakeList.ShakeList().shakelist(request.form['lat'], request.form['lng'], request.form['place'], request.form['people'], request.form['transportation'], request.form['money'])
-    print '*****************' ,ret
     ret = json.loads(ret)
     return json.dumps(ret[0])
