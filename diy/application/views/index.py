@@ -13,6 +13,7 @@ if __name__ != "__main__":
 @app.route("/")
 def index(name = None):
     return "datebase in maintian..."
+    return render_template('views/index.html')
     return render_template('views/index.html', rsslist = getrsslist() )
 
 @app.route("/about")

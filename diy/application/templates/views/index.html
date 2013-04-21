@@ -11,51 +11,51 @@
 
 {% block style %}
 {{ super() }}
-        //.metrouicss .page-region-content * {
-        //    width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
-        //}
+//.metrouicss .page-region-content * {
+//    width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
+//}
 
-        .metrouicss #page1 a{
-            width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
-            clear: both; /* 清除左右浮动 */
-            width: 100px; /* 必须定义宽度 */
-            word-break: break-word; /* 文本行的任意字内断开 */
-            word-wrap: break-word; /* IE */
-            white-space: -moz-pre-wrap; /* Mozilla */
-            white-space: -hp-pre-wrap; /* HP printers */
-            white-space: -o-pre-wrap; /* Opera 7 */
-            white-space: -pre-wrap; /* Opera 4-6 */
-            white-space: pre; /* CSS2 */
-            white-space: pre-wrap; /* CSS 2.1 */
-            white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-        }
+.metrouicss #page1 a{
+width: auto; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;
+clear: both; /* 清除左右浮动 */
+width: 100px; /* 必须定义宽度 */
+word-break: break-word; /* 文本行的任意字内断开 */
+word-wrap: break-word; /* IE */
+white-space: -moz-pre-wrap; /* Mozilla */
+white-space: -hp-pre-wrap; /* HP printers */
+white-space: -o-pre-wrap; /* Opera 7 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: pre; /* CSS2 */
+white-space: pre-wrap; /* CSS 2.1 */
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+}
 
-        .metrouicss #editor {
-            position: absolute;
-            //top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 500px;
-        }
+.metrouicss #editor {
+position: absolute;
+//top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+height: 500px;
+}
 
-        .metrouicss #editor *{
-            font-family: Monospace
-        }
+.metrouicss #editor *{
+font-family: Monospace
+}
 
-        .metrouicss #page2 {
-            height: 500px;
-            text-overflow: 0;
-        }
+.metrouicss #page2 {
+height: 500px;
+text-overflow: 0;
+}
 {% endblock %}
 
 {% block header %}
 {#放在这不美观，移到右上角了
-   <div class="github-fork-ribbon-wrapper right">
-        <div class="github-fork-ribbon">
-            <a href="https://github.com/atupal/atupal.org-mysite">Fork me on GitHub</a>
-        </div>
+<div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/atupal/atupal.org-mysite">Fork me on GitHub</a>
     </div>
+</div>
 #}
 {% endblock %}
 
@@ -66,79 +66,82 @@
     <a href="#">rss list</a>
     {#getrsslist from remote mySql Database#}
     <ul class="sub-menu">
-    {% for rss in rsslist %}
-    <li><a id={{rss[1]}} onclick="parserss(this.innerHTML, this.id)">{{ rss[0] }}</a></li>
-    {% endfor %}
-    {#
-        <li><a id="https://news.ycombinator.com/rss"  onclick="parserss(this.innerHTML, this.id)">hacker news</a></li>
-        <li><a id="http://feed.feedsky.com/heikezhi"  onclick="parserss(this.innerHTML, this.id)">黑客志</a></li>
-        <li><a id="http://feeds.feedburner.com/nvie"  onclick="parserss(this.innerHTML, this.id)">nvie.com</a></li>
-        <li><a id="http://feeds.feedburner.com/linuxtoy"  onclick="parserss(this.innerHTML, this.id)">linuxtoy</a></li>
-        <li><a id="http://feedproxy.google.com/linuxtoday/linux"  onclick="parserss(this.innerHTML, this.id)">linuxtoday</a></li>
-        <li><a id="http://feed.feedsky.com/vimer"  onclick="parserss(this.innerHTML, this.id)">Vimer</a></li>
-        <li><a id="http://www.truevue.org/rss.xml"  onclick="parserss(this.innerHTML, this.id)">东华博客</a></li>
-        <li><a id="http://www.amazon.cn/gp/rss/bestsellers/books/658414051/ref=zg_bs_658414051_rsslink"  onclick="parserss(this.innerHTML, this.id)">亚马逊</a></li>
-        <li><a id="http://www.yulefox.com/?feed=rss2"  onclick="parserss(this.innerHTML, this.id)">游戏人生</a></li>
-        <li><a id="http://bgr.com/feed/"  onclick="parserss(this.innerHTML, this.id)">BGR</a></li>
-        <li><a id="http://mindhacks.cn/feed/"  onclick="parserss(this.innerHTML, this.id)">刘未鹏 | Mind Hacks</a></li>
-        <li><a id="http://feed.feedsky.com/clzzxf"  onclick="parserss(this.innerHTML, this.id)">左岸读书_blog</a></li>
-        <li><a id="http://easwy.com/blog/feed/"  onclick="parserss(this.innerHTML, this.id)">易水博客</a></li>
-        <li><a id="http://feed.williamlong.info/"  onclick="parserss(this.innerHTML, this.id)">月光博客</a></li>
-        <li><a id="http://blog.douban.com/feed/"  onclick="parserss(this.innerHTML, this.id)">豆瓣blog</a></li>
-        <li><a id="http://www.matrix67.com/blog/feed.asp"  onclick="parserss(this.innerHTML, this.id)">Matrix67</a></li>
-        <li><a id="http://coolshell.cn/feed"  onclick="parserss(this.innerHTML, this.id)">酷壳 - CoolShell.cn</a></li>
-        <li><a id="http://feeds.feedburner.com/ruanyifeng"  onclick="parserss(this.innerHTML, this.id)">阮一峰的网络日志</a></li>
-        <li><a id="http://feeds.wisegeek.com/learn-something-new-every-day-rss"  onclick="parserss(this.innerHTML, this.id)">What is a Hacker?</a></li>
-        <li><a id="http://feeds.wired.com/wired/index"  onclick="parserss(this.innerHTML, this.id)">Wired</a></li>
-        <li><a id="http://www.36kr.com/feed"  onclick="parserss(this.innerHTML, this.id)">36氪</a></li>
-        <li><a id="http://www.engadget.com/rss.xml"  onclick="parserss(this.innerHTML, this.id)">Engadget</a></li>
-        <li><a id="http://cn.engadget.com/rss.xml"  onclick="parserss(this.innerHTML, this.id)">Engadget 中国版</a></li>
-        <li><a id="http://www.google.com.hk/ggblog/googlechinablog/feeds/posts/default"  onclick="parserss(this.innerHTML, this.id)">Google 黑板报</a></li>
-        <li><a id="http://feeds.feedburner.com/solidot"  onclick="parserss(this.innerHTML, this.id)">Solidot</a></li>
-        <li><a id="http://www.technologyreview.com/web/rss/"  onclick="parserss(this.innerHTML, this.id)">MIT Technology Review</a></li>
-        <li><a id="http://www.alibuybuy.com/feed"  onclick="parserss(this.innerHTML, this.id)">互联网的那点事</a></li>
-        <li><a id="http://feed.web20share.com/"  onclick="parserss(this.innerHTML, this.id)">天涯海阁-Web2.0Share</a></li>
-        <li><a id="http://rss.donews.com/channel/e696b0e997bb/e4ba92e88194e7bd91e696b0e997bb.xml"  onclick="parserss(this.innerHTML, this.id)">所有来源 tag: 互联网新闻</a></li>
-        <li><a id="http://www.guokr.com/rss/"  onclick="parserss(this.innerHTML, this.id)">果壳网 guokr.com - 果壳网</a></li>
-        <li><a id="http://www.ifanr.com/feed"  onclick="parserss(this.innerHTML, this.id)">爱范儿 · Beats of Bits</a></li>
-        <li><a id="http://feed.feedsky.com/xianguoblog"  onclick="parserss(this.innerHTML, this.id)">鲜果日志</a></li>
-    #}
+        {#
+        {% for rss in rsslist %}
+        <li><a id={{rss[1]}} onclick="parserss(this.innerHTML, this.id)">{{ rss[0] }}</a></li>
+        {% endfor %}
+        #}
+        <li><a id=http://feeds.feedburner.com/nvie onclick="parserss(this.innerHTML, this.id)">nvie.com</a></li>
+        <li><a id=http://feed.feedsky.com/vimer onclick="parserss(this.innerHTML, this.id)">Vimer</a></li>
+        <li><a id=http://www.truevue.org/rss.xml onclick="parserss(this.innerHTML, this.id)">东华博客</a></li>
+        <li><a id=http://www.amazon.cn/gp/rss/bestsellers/books/658414051/ref=zg_bs_658414051_rsslink onclick="parserss(this.innerHTML, this.id)">亚马逊: 图书 &gt; 计算机与互联网销售排行榜</a></li>
+        <li><a id=http://www.yulefox.com/?feed=rss2 onclick="parserss(this.innerHTML, this.id)">游戏人生</a></li>
+        <li><a id=http://bgr.com/feed/ onclick="parserss(this.innerHTML, this.id)">BGR</a></li>
+        <li><a id=http://mindhacks.cn/feed/ onclick="parserss(this.innerHTML, this.id)">刘未鹏 | Mind Hacks</a></li>
+        <li><a id=http://feed.feedsky.com/clzzxf onclick="parserss(this.innerHTML, this.id)">左岸读书_blog</a></li>
+        <li><a id=http://easwy.com/blog/feed/ onclick="parserss(this.innerHTML, this.id)">易水博客</a></li>
+        <li><a id=http://feed.williamlong.info/ onclick="parserss(this.innerHTML, this.id)">月光博客</a></li>
+        <li><a id=http://blog.douban.com/feed/ onclick="parserss(this.innerHTML, this.id)">豆瓣blog</a></li>
+        <li><a id=http://www.matrix67.com/blog/feed.asp onclick="parserss(this.innerHTML, this.id)">返回Matrix67: My Blog - Matrix67.com</a></li>
+        <li><a id=http://coolshell.cn/feed onclick="parserss(this.innerHTML, this.id)">酷壳 - CoolShell.cn</a></li>
+        <li><a id=http://feeds.feedburner.com/ruanyifeng onclick="parserss(this.innerHTML, this.id)">阮一峰的网络日志</a></li>
+        <li><a id=http://feeds.wisegeek.com/learn-something-new-every-day-rss onclick="parserss(this.innerHTML, this.id)">What is a Hacker?</a></li>
+        <li><a id=http://feeds.wired.com/wired/index onclick="parserss(this.innerHTML, this.id)">Wired</a></li>
+        <li><a id=http://www.36kr.com/feed onclick="parserss(this.innerHTML, this.id)">36氪</a></li>
+        <li><a id=http://www.engadget.com/rss.xml onclick="parserss(this.innerHTML, this.id)">Engadget</a></li>
+        <li><a id=http://cn.engadget.com/rss.xml onclick="parserss(this.innerHTML, this.id)">Engadget 中国版</a></li>
+        <li><a id=http://www.google.com.hk/ggblog/googlechinablog/feeds/posts/default onclick="parserss(this.innerHTML, this.id)">Google 黑板报 - Google （谷歌）中国的博客网志，走近我们的产品、技术和文化</a></li>
+        <li><a id=http://feeds.feedburner.com/solidot onclick="parserss(this.innerHTML, this.id)">Solidot</a></li>
+        <li><a id=http://www.technologyreview.com/web/rss/ onclick="parserss(this.innerHTML, this.id)">Web - MIT Technology Review</a></li>
+        <li><a id=http://www.alibuybuy.com/feed onclick="parserss(this.innerHTML, this.id)">互联网的那点事</a></li>
+        <li><a id=http://feed.web20share.com/ onclick="parserss(this.innerHTML, this.id)">天涯海阁-Web2.0Share</a></li>
+        <li><a id=http://rss.donews.com/channel/e696b0e997bb/e4ba92e88194e7bd91e696b0e997bb.xml onclick="parserss(this.innerHTML, this.id)">所有来源 tag: 互联网新闻</a></li>
+        <li><a id=http://www.guokr.com/rss/ onclick="parserss(this.innerHTML, this.id)">果壳网 guokr.com - 果壳网</a></li>
+        <li><a id=http://www.ifanr.com/feed onclick="parserss(this.innerHTML, this.id)">爱范儿 · Beats of Bits</a></li>
+        <li><a id=http://feed.feedsky.com/xianguoblog onclick="parserss(this.innerHTML, this.id)">鲜果日志</a></li>
+        <li><a id=http://feed.feedsky.com/heikezhi onclick="parserss(this.innerHTML, this.id)">黑客志</a></li>
+        <li><a id=http://feeds.feedburner.com/linuxtoy onclick="parserss(this.innerHTML, this.id)">linuxtoy</a></li>
+        <li><a id=http://feedproxy.google.com/linuxtoday/linux onclick="parserss(this.innerHTML, this.id)">linuxtoday</a></li>
+        <li><a id=https://news.ycombinator.com/rss onclick="parserss(this.innerHTML, this.id)">Hacker News</a></li>
+        <li><a id=http://feeds.feedburner.com/webarch onclick="parserss(this.innerHTML, this.id)">Fenng</a></li>
+        <li><a id=http://contests.acmicpc.info/contests.rss onclick="parserss(this.innerHTML, this.id)">acmicpc近期比赛</a></li>
+        <li><a id=http://www.mostlymaths.net/p/subscribe.html onclick="parserss(this.innerHTML, this.id)">mostlymath</a></li>
     </ul>
     </li>
 </ul>
 
 <ul id="page2_left_bar" style="display: none;" class="left_bar program">
     <li>
-        <ul class="accordion dark" data-role="accordion">
-            <li>
-                <a onclick="clip()">online clip</a>
-                <div>
-                    <ul class="sub-menu">
-                            <optgroup label="Huge documents">
-                                <option value="c_cpp">c_cpp</option>
-                                <option value="python">python</option>
-                            </optgroup>
-                            <li data-role="dropdown">
-                                <a>lang</a>
-                                <ul style="z-index:10;" class="dropdown-menu">
-                                    <li style="z-index:10;"><a>c_cpp</a></li>
-                                    <li style="z-index:10;"><a>python</a></li>
-                                </ul>
-                            </li>
-                        <li><a>ts</a></li>
-                        <li><a>ts</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+    <ul class="accordion dark" data-role="accordion">
+        <li>
+        <a onclick="clip()">online clip</a>
+        <div>
+            <ul class="sub-menu">
+                <optgroup label="Huge documents">
+                    <option value="c_cpp">c_cpp</option>
+                    <option value="python">python</option>
+                </optgroup>
+                <li data-role="dropdown">
+                <a>lang</a>
+                <ul style="z-index:10;" class="dropdown-menu">
+                    <li style="z-index:10;"><a>c_cpp</a></li>
+                    <li style="z-index:10;"><a>python</a></li>
+                </ul>
+                </li>
+                <li><a>ts</a></li>
+                <li><a>ts</a></li>
+            </ul>
+        </div>
+        </li>
+    </ul>
     </li>
 
     <li>
-        <a>tools</a>
-        <ul class="sub-menu">
-            <li><a href="https://gist.github.com/atupal">code snippet</a></li>
-            <li><a href="{{ url_for('github_oauth_pre') }}">gist</a></li>
-        </ul>
+    <a>tools</a>
+    <ul class="sub-menu">
+        <li><a href="https://gist.github.com/atupal">code snippet</a></li>
+        <li><a href="{{ url_for('github_oauth_pre') }}">gist</a></li>
+    </ul>
     </li>
 </ul>
 
