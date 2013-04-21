@@ -28,6 +28,8 @@ class ShakeList:
 
         _people = set(people.split('-'))
         _money = money.split('-')
+        min_flag_people = 3
+        min_flag_place = 3
 
         def condition(items):
             s = {
@@ -55,7 +57,7 @@ class ShakeList:
                 for item in items:
                     if item['flag'].encode('utf-8').find(s[p]) != -1:
                         cnt += 1
-            if cnt < 3:
+            if cnt < min(min_flag_place, len(_place)):
                 return 0
 
             s = {
@@ -71,7 +73,7 @@ class ShakeList:
                 for item in items:
                     if item['tags'].encode('utf-8').find(s[p]) != -1:
                         cnt += 1
-            if cnt < 3:
+            if cnt < min(min_flag_people, len(_people)):
                 return 0
 
             _sum = 0
@@ -87,10 +89,10 @@ class ShakeList:
         cnt = 0
         while not ret and cnt < 10:
             cnt += 1
-            if len(_place) > 0:
-                _place.pop
-            elif len(_people) > 0:
-                _people.pop()
+            if min_flag_place > 0:
+                min_flag_place -= 1
+            elif min_flag_people > 0:
+                min_flag_people -= 1
             else:
                 _money[0] = '0'
                 _money[1] = '10000'

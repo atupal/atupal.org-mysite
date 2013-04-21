@@ -375,7 +375,7 @@ class Line:
 
         #print self.get_bus_time(lines[0][0]['name'], lines[0][2]['name']) , self.get_bus_time(lines[0][1]['name'], lines[0][2]['name'])
         if cnt < end - begin:
-            return json.dumps({'error':'no result'})
+            return None
         lines = [Line.getList(i[0], i[1], i[2]) for i in lines]
         return json.dumps(lines)
 
