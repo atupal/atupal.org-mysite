@@ -53,12 +53,22 @@ class ShakeList:
 
 
             cnt = 0
+            cnt_s = [0 for i in xrange(len(_place))]
+            index = 0
             for p in _place:
+                tmp = 0
                 for item in items:
                     if item['flag'].encode('utf-8').find(s[p]) != -1:
                         cnt += 1
+                        tmp += 1
+                cnt_s[index] = tmp
+                index += 1
             if cnt < min(min_flag_place, len(_place)):
                 return 0
+
+            for i in cnt_s:
+                if i > 1:
+                    return 0
 
             s = {
                     'myself'      : 'single'.encode('utf-8'),
