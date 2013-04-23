@@ -381,6 +381,7 @@ class Line:
 
     @staticmethod
     def getList(one, two, three):
+        bus = pymongo.Connection(OPENSHIFT_ADR, 27017).bus.buses
         #play = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play.find()
         #play = [_ for _ in play]
         #length = len(play)
@@ -429,6 +430,19 @@ class Line:
         for i in three.keys():
             if i != '_id':
                 json_three[i] = three[i]
+
+        bus_1_2 = bus.find_one({'line':json_one['name'] + ' ' + json_two['name']})
+        if not bus_1_2:
+            bus_1_2 = bus.find_one({'line':json_two['name'] + ' ' + json_one['name']})
+
+        bus_2_3 = bus.find_one({'line':json_two['name'] + ' ' + json_three['name']})
+        if not bus_2_3:
+            bus_2_3 = bus.find_one({'line':json_three['name'] + ' ' + json_two['name']})
+
+        print bus_1_2
+        print ''
+        print bus_2_3
+        print ''
 
         line = {
                 #"pos": pos,
