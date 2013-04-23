@@ -363,6 +363,7 @@ class Line:
 
                 if int(dist_one_three) < int(dist_two_three) * 2 or int(dist_two_three) > 35:continue
                 if not item_all_condition([one, two, i]): continue;
+                if i['flag'].encode('utf-8').find('书'.encode('utf-8')) != -1: continue
                 three_s.append(i)
                 pass
             if len(three_s) == 0:
@@ -438,11 +439,6 @@ class Line:
         bus_2_3 = bus.find_one({'line':json_two['name'] + ' ' + json_three['name']})
         if not bus_2_3:
             bus_2_3 = bus.find_one({'line':json_three['name'] + ' ' + json_two['name']})
-
-        print bus_1_2
-        print ''
-        print bus_2_3
-        print ''
 
         line = {
                 #"pos": pos,
