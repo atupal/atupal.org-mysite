@@ -133,6 +133,8 @@ class Line:
             return 0
         if re.findall('剧院', item['name'].encode('utf-8')):
             return 0
+        if re.findall('KTV'.encode('utf-8'), item['flag'].encode('utf-8')):
+            return 0
         return 1
 
     @staticmethod
