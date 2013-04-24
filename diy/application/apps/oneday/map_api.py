@@ -110,7 +110,7 @@ def getLineInfo():
         ret['name_' + str(len(line))]['bus'] = s
     except Exception as e:
         print e
-        ret['name_' + str(len(line))]['bus'] = "没有公交或者距离很近步行可达"
+        ret['name_' + str(len(line))]['bus'] += "__" + "没有公交或者距离很近步行可达"
 
 
     map_3 = "http://api.map.baidu.com/staticimage?center=116.403874,39.914889&width=400&height=300&zoom=11&markers=116.288891,40.004261|116.487812,40.017524|116.525756,39.967111|116.536105,39.872374|116.442968,39.797022|116.270494,39.851993|116.275093,39.935251|116.383177,39.923743&markerStyles=l,A|m,B|l,C|l,D|m,E|,|l,G|m,H"
