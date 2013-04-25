@@ -17,7 +17,7 @@ if os.environ['HOME'] == "/home/atupal":
     OPENSHIFT_ADR = '127.0.0.1'
     OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'
 else:
-    OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+    OPENSHIFT_ADR = os.environ['OPENSHIFT_MONGODB_DB_URL']
     OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/diy/'
 
 dist_s = json.load(open(OPENSHIFT_DIR + 'application/apps/oneday/time_bak.dat', 'r'))
