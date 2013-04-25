@@ -53,6 +53,26 @@ def getLineInfo():
         #bus.append(tmp['bus'])
         #map_1.append("http://api.map.baidu.com/staticimage?markers=" + urllib.quote(line[i]) + "&center=" + urllib.quote(line[i]))
         if i > 0:
+            oneday = pymongo.Connection(OPENSHIFT_ADR, 27017).oneday.play
+            p = oneday.find_one({'name': line[i - 1]})
+            n = oneday.find_one({'name': line[i]})
+            url = ('http://openapi.aibang.com/bus/transfer?app_key=f41c8afccc586de03a99c86097e98ccb&city=%E6%AD%A6%E6%B1%89&start_lat='
+                    +str(p['lat'])+'&start_lng='+str(p['lng'])+'&end_lat='+str(n['lat'])+'&end_lng='+str(n['lng'])+'&alt=json')
+            _bus = json.load(urllib2.urlopen(url))
+
+            try:
+                s = ''
+                for index in xrange(len(_bus['buses']['bus'][0]['segments']['segment'])):
+                    t = _bus['buses']['bus'][0]['segments']['segment'][index]
+                    s += '步行' + t['foot_dist'] + '米至'  + t['start_stat'] + '\n'
+                    s += '搭乘' + t['start_stat'] + '  经过' + t['stats'] + ' 到达' + t['end_stat']
+                    s += '\n'
+                tmp['bus'] = s
+            except:
+                tmp['bus'] = "没有公交或者距离很近步行可达"
+
+            #数据库挂了，直接向api请求
+            '''
             _bus = bus.find({'line': line[i - 1] + ' '  + line[i]})
             _bus = [b for b in _bus]
             if not _bus:
@@ -70,7 +90,7 @@ def getLineInfo():
             except:
                 tmp['bus'] = "没有公交或者距离很近步行可达"
 
-
+            '''
 
         ret['name_' + str(i + 1)] = tmp
 
