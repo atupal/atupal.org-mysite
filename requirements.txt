@@ -10,3 +10,4 @@ wtf-peewee
 wtforms
 markdown
 flask-markdown
+requests
