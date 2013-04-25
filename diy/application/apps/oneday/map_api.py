@@ -15,7 +15,7 @@ if os.environ['HOME'] == "/home/atupal":
     OPENSHIFT_ADR = '127.0.0.1'
     OPENSHIFT_DIR = '/home/atupal/src/rhc/py27/diy/'
 else:
-    OPENSHIFT_ADR = 'mongodb://admin:JryxhKULsAQc@127.9.114.1:27017/'
+    OPENSHIFT_ADR = app.config['MONGODB_HOST']
     OPENSHIFT_DIR = os.environ['OPENSHIFT_REPO_DIR'] +'/diy/'
 
 @app.route('/getmap', methods = ['GET', 'POST'])
